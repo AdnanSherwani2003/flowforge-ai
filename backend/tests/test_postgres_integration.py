@@ -1,0 +1,138 @@
+import os
+import concurrent.futures
+import pytest
+from sqlalchemy import create_engine, text
+from sqlalchemy.orm import sessionmaker
+from app.core.config import settings
+from app.models.base import Base
+from app.schemas.ticket import TicketCreate
+from app.schemas.lead import LeadCreate
+from app.services.ticket_service import create_or_get_ticket, get_ticket_by_id
+from app.services.lead_service import create_or_get_lead, get_lead_by_id
+from app.models.ticket import Ticket
+from app.models.audit_event import AuditEvent
+
+
+@pytest.fixture(scope="module")
+def pg_isolated_engine():
+    db_url = settings.sync_database_url
+    if "sqlite" in db_url:
+        pytest.skip("PostgreSQL is not configured in current test environment")
+
+    admin_engine = create_engine(db_url, isolation_level="AUTOCOMMIT")
+    schema_name = "test_isolated_integration"
+
+    try:
+        with admin_engine.connect() as conn:
+            conn.execute(text(f"CREATE SCHEMA IF NOT EXISTS {schema_name}"))
+    except Exception as exc:
+        pytest.skip(f"Could not connect to PostgreSQL: {exc}")
+
+    isolated_engine = create_engine(
+        db_url,
+        connect_args={"options": f"-csearch_path={schema_name}"},
+        pool_size=10,
+        max_overflow=5,
+    )
+
+    Base.metadata.create_all(bind=isolated_engine)
+
+    yield isolated_engine
+
+    Base.metadata.drop_all(bind=isolated_engine)
+    with admin_engine.connect() as conn:
+        conn.execute(text(f"DROP SCHEMA IF EXISTS {schema_name} CASCADE"))
+
+
+@pytest.fixture(scope="function")
+def pg_session(pg_isolated_engine):
+    Session = sessionmaker(autocommit=False, autoflush=False, bind=pg_isolated_engine)
+    session = Session()
+    try:
+        yield session
+    finally:
+        session.rollback()
+        session.close()
+
+
+def test_real_postgres_ticket_persistence(pg_session):
+    ticket_in = TicketCreate(
+        source_event_id="pg-int-evt-001",
+        subject="PostgreSQL Integration Ticket",
+        body="Testing real PostgreSQL persistence in dedicated test schema.",
+    )
+    ticket, is_dup = create_or_get_ticket(pg_session, ticket_in, actor="pg_test_runner")
+    assert is_dup is False
+    assert ticket.id is not None
+
+    fetched = get_ticket_by_id(pg_session, ticket.id)
+    assert fetched is not None
+    assert fetched.source_event_id == "pg-int-evt-001"
+    assert fetched.status == "received"
+
+
+def test_real_postgres_uniqueness_and_idempotency(pg_session):
+    ticket_in = TicketCreate(
+        source_event_id="pg-int-evt-idem-01",
+        subject="PostgreSQL Idempotency Check",
+        body="Verifying duplicate event handling on real PostgreSQL database.",
+    )
+    t1, dup1 = create_or_get_ticket(pg_session, ticket_in, actor="pg_test_runner")
+    assert dup1 is False
+
+    t2, dup2 = create_or_get_ticket(pg_session, ticket_in, actor="pg_test_runner")
+    assert dup2 is True
+    assert t2.id == t1.id
+
+    audit_events = pg_session.query(AuditEvent).filter(AuditEvent.entity_id == t1.id).all()
+    assert len(audit_events) >= 2
+    types = [a.event_type for a in audit_events]
+    assert "ticket_created" in types
+    assert "ticket_duplicate_received" in types
+
+
+def test_real_postgres_multithreaded_concurrency(pg_isolated_engine):
+    WorkerSession = sessionmaker(autocommit=False, autoflush=False, bind=pg_isolated_engine)
+    payload = TicketCreate(
+        source_event_id="pg-concurrent-race-01",
+        subject="Concurrent PostgreSQL Test",
+        body="High concurrency test across separate database connections.",
+    )
+
+    results = []
+
+    def submit():
+        session = WorkerSession()
+        try:
+            ticket, is_dup = create_or_get_ticket(session, payload, actor="pg_thread_test")
+            return (ticket.id, is_dup)
+        finally:
+            session.close()
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
+        futures = [executor.submit(submit) for _ in range(5)]
+        for f in concurrent.futures.as_completed(futures):
+            results.append(f.result())
+
+    assert len(results) == 5
+    ticket_ids = {r[0] for r in results}
+    assert len(ticket_ids) == 1
+
+    duplicates = [r[1] for r in results]
+    assert duplicates.count(False) == 1
+    assert duplicates.count(True) == 4
+
+
+def test_real_postgres_lead_persistence(pg_session):
+    lead_in = LeadCreate(
+        source_event_id="pg-lead-evt-001",
+        name="Real PostgreSQL Lead",
+        email="  Real.PG.Lead@Example.COM  ",
+    )
+    lead, dup = create_or_get_lead(pg_session, lead_in, actor="pg_test_runner")
+    assert dup is False
+    assert lead.normalized_email == "real.pg.lead@example.com"
+
+    fetched = get_lead_by_id(pg_session, lead.id)
+    assert fetched is not None
+    assert fetched.normalized_email == "real.pg.lead@example.com"

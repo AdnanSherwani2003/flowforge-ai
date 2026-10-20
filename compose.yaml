@@ -32,6 +32,13 @@ services:
     restart: unless-stopped
     ports:
       - "127.0.0.1:8001:8001"
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: "5432"
+      POSTGRES_DB: flowforge
+      POSTGRES_USER: flowforge_app
+      POSTGRES_PASSWORD: ${FLOWFORGE_DB_PASSWORD:?required}
+      DATABASE_URL: postgresql+psycopg://flowforge_app:${FLOWFORGE_DB_PASSWORD:?required}@postgres:5432/flowforge
     depends_on:
       postgres:
         condition: service_healthy

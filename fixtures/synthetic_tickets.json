@@ -1,0 +1,26 @@
+[
+  {
+    "source_event_id": "synth-evt-ticket-101",
+    "subject": "Unable to access billing dashboard",
+    "body": "User received 403 Forbidden when attempting to download annual invoices.",
+    "description": "Standard incoming support ticket payload"
+  },
+  {
+    "source_event_id": "synth-evt-ticket-102",
+    "subject": "Database latency spike in eu-west region",
+    "body": "Monitoring reported 95th percentile query times exceeding 1200ms for 15 consecutive minutes.",
+    "description": "System monitoring alert ticket"
+  },
+  {
+    "source_event_id": "synth-evt-ticket-101",
+    "subject": "Unable to access billing dashboard",
+    "body": "User received 403 Forbidden when attempting to download annual invoices.",
+    "description": "Exact duplicate of ticket-101 for idempotency replay testing"
+  },
+  {
+    "source_event_id": "synth-evt-ticket-101",
+    "subject": "Conflicting payload with same event ID",
+    "body": "Attempted replay with altered body should trigger 409 Conflict.",
+    "description": "Conflicting payload test for ticket-101"
+  }
+]

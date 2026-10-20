@@ -1,0 +1,20 @@
+[
+  {
+    "source_event_id": "synth-evt-lead-201",
+    "name": "Marcus Vance",
+    "email": "   MARCUS.VANCE@AcmeGlobal.com   ",
+    "description": "Valid lead intake event with unnormalized casing and padding"
+  },
+  {
+    "source_event_id": "synth-evt-lead-202",
+    "name": "Elena Rostova",
+    "email": "elena.rostova@techcorp.io",
+    "description": "Enterprise software prospect inquiry"
+  },
+  {
+    "source_event_id": "synth-evt-lead-201",
+    "name": "Marcus Vance",
+    "email": "marcus.vance@acmeglobal.com",
+    "description": "Duplicate lead event replay"
+  }
+]
