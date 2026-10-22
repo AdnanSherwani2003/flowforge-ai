@@ -11,7 +11,7 @@ FlowForge AI is a **local-first AI workflow automation platform** designed to au
 Core Architectural Principles:
 1. **Local-First & Zero Paid Cloud Dependencies**: Runs entirely on Docker Desktop using open-source, local technologies.
 2. **FastAPI & PostgreSQL as the Source of Truth**: n8n serves exclusively as an orchestrator and integration router. All schema validation, idempotency checks, conflict resolution, and data persistence reside firmly in FastAPI and PostgreSQL.
-3. **Data Minimization & Privacy**: Customer bodies, subjects, and PII are never echoed back in validation errors, never stored in raw audit detail, and never printed to container logs.
+3. **Data Minimization & Privacy**: Ticket content is intentionally stored in business tables and passes through n8n memory. Validation errors omit raw inputs; audit/telemetry use bounded identifiers and allowlisted metadata. New completed workflow payloads are not retained under the configured no-save policy, but historical/crashed executions and backups can contain raw content. Periodic pruning is disabled to preserve historical records.
 4. **Resilient Failure Recovery**: Webhook routes cleanly handle upstream outages (503), bounded timeouts (5s), connection drops, and retries distinguishing pre-persistence failures from post-persistence client timeouts.
 
 ---
@@ -50,10 +50,12 @@ Core Architectural Principles:
 
 ## 4. Current Implementation Status & Roadmap
 
+**2026-10-22 final status:** Implementation 03 engineering and authorized maintenance are verified. n8n_app was rotated and its previous password is rejected; only the stale approved workflow was unpublished; all historical records were retained. See [the final maintenance report](implementation-03-review.md). The intended workflow remains published at version `32f4ea75-e33b-4941-b368-d89303e349d1`. Failure simulation remains false.
+
 ### Official Implementation Roadmap
 1. [x] **Implementation 01**: Local infrastructure setup (Docker Compose, networking, multi-role PostgreSQL).
 2. [x] **Implementation 02**: Data contracts, idempotent ticket ingestion, safe audit logging, and mock CRM APIs.
-3. [x] **Implementation 03**: Deterministic n8n support-ticket workflow orchestration (WIP finalized with security hardening).
+3. [x] **Implementation 03**: Deterministic n8n support-ticket workflow orchestration (Complete for the documented local scope).
 4. [ ] **Implementation 04**: **Bounded local AI enrichment using Ollama** *(NEXT STEP)*.
 5. [ ] **Implementation 05**: Human approval and minimal operational dashboard.
 6. [ ] **Implementation 06**: Lead intake and deduplication.
@@ -79,16 +81,23 @@ docker compose ps
 docker compose exec -T backend alembic upgrade head
 ```
 
-### Run Backend Unit and Integration Test Suite (30 Tests)
+### Run Backend Unit and Integration Test Suite (82 Tests)
 ```bash
 docker compose exec -T backend pytest -v
 ```
 
-### Run Live End-to-End n8n Webhook Acceptance Suite (35 Assertions)
-Exercises 10 synthetic fixtures, data minimization, duplicate detection, conflicting payloads, sanitized 422 errors, bounded 503 timeouts, and retry recovery:
+### Run Live End-to-End n8n Webhook Acceptance Suite (192 Assertions)
+Exercises normal-operation fixtures, type and top-level shape parity, correlation boundaries, sanitized validation, idempotency, tracing and telemetry. Fault testing is separate and never enables regular backend simulation:
 ```bash
 python3 scripts/test_support_workflow.py
 ```
+
+### Run Isolated Transport Faults and Runtime Verification
+```bash
+python3 scripts/test_workflow_faults.py
+python3 scripts/verify_workflow_runtime.py
+```
+The isolated suite has 36 assertions and uses disposable test containers without production volumes/credentials. Run suites sequentially; synthetic application records remain.
 
 ### Run API Smoke Test
 ```bash
@@ -104,7 +113,7 @@ The version-controlled workflow definition is stored at:
 
 ### Reconciled 11-Node Canvas
 1. `Webhook Trigger` (`node-webhook-01`): `POST /webhook/support-ticket-intake`
-2. `Extract & Prepare` (`node-extract-02`): Sanitizes fields, extracts correlation ID and execution ID.
+2. `Extract & Prepare` (`node-extract-02`): Preserves original JSON types, derives bounded safe tracing and optional event metadata.
 3. `Call FastAPI Backend` (`node-backend-03`): Synchronous HTTP call with 5s bounded timeout and `neverError: true`.
 4. `Route Outcome` (`node-switch-04`): Evaluates HTTP status code (`201`, `200`, `409`, `422`, fallback/503).
 5. `Format Created Outcome` (`node-fmt-created-05`): Normalized 201 JSON payload.
@@ -113,29 +122,33 @@ The version-controlled workflow definition is stored at:
 8. `Format Validation Outcome` (`node-fmt-val-08`): Clean field error messages without user text reflection.
 9. `Format Unavailable Outcome` (`node-fmt-err-09`): Safe generic 503 fallback suppressing internal network topology.
 10. `Respond to Webhook` (`node-respond-10`): Returns HTTP response and correlation headers immediately to client.
-11. `Record Workflow Run` (`node-telemetry-11`): Asynchronous, non-blocking telemetry logging to `POST /api/workflow-runs`.
+11. `Record Workflow Run` (`node-telemetry-11`): Post-response, best-effort telemetry logging to `POST /api/workflow-runs`.
 
 ---
 
 ## 7. Remaining Tasks & Handover Notes for Codex
 
-### A. Pending Safe Credential Rotation (Awaiting User Supervision)
-During earlier development, a database password for role `n8n_app` was logged. All project files have been audited and verified secret-free. A safe rotation procedure has been formulated:
-1. `ALTER ROLE n8n_app WITH PASSWORD '<new_password>';`
-2. Update `N8N_DB_PASSWORD=<new_password>` in `.env`.
-3. `docker compose restart n8n`
-*(Do not execute without user confirmation).*
+### A. Completed Credential Rotation
 
-### B. Inactive Draft Workflows in n8n
-Four empty/draft workflows exist in n8n from initial experiments:
-- `wWjX3Bi5uRDyLzGu`, `4i5roR0oitA1bfbc`, `DKrWyiNmb2ph8c6w`, `MWeQoRSWGXVBxbBP`
-To clean them up when approved:
-```bash
-docker compose exec n8n n8n delete:workflow --id=<workflow_id>
-```
+Explicitly authorized maintenance on 2026-10-22 rotated only n8n_app through hidden psql password prompts. Fresh TCP authentication verified acceptance of the new password and rejection of the previous password. Only N8N_DB_PASSWORD changed in the ignored, mode-0600 .env; the existing encryption key is preserved.
+
+FlowForge n8n was stopped, its sessions quiesced, and it was recreated with the existing image using `docker compose -p flowforge-ai up -d --no-deps --force-recreate --no-build --pull never n8n`. Restart alone does not reload environment variables. PostgreSQL and backend were not recreated. The old initialization-only password in PostgreSQL container environment is inactive and was not refreshed because recreation was prohibited.
+
+Protected database, volume and environment backups are outside Git; both database dumps were actually restore-tested without production mounts/network. See [maintenance evidence and recovery limits](implementation-03-review.md).
+
+### B. Preserved Historical Workflows
+
+Only wWjX3Bi5uRDyLzGu was unpublished with the installed supported CLI, followed by the authorized n8n recreation. Its definition and all three historical executions remain. It and the three other historical drafts are inactive:
+
+- wWjX3Bi5uRDyLzGu — 11 nodes
+- 4i5roR0oitA1bfbc — 11 nodes
+- DKrWyiNmb2ph8c6w — 11 nodes
+- MWeQoRSWGXVBxbBP — 2 nodes
+
+FlowForgeSupportIntake01 remains published with 11 nodes and sole ownership of the intended webhook. No other publication state changed. Do not delete or archive these records.
 
 ### C. Recommended Next Engineering Step: Implementation 04
-Proceed with **Implementation 04: Bounded Local AI Enrichment using Ollama**.
+Begin **Implementation 04: Bounded Local AI Enrichment using Ollama** only after the authorized local checkpoint and the user provides the next implementation instructions. The maintenance and regression prerequisites are now complete.
 - Container: Add local Ollama container or connect to host Ollama (`qwen2.5:7b-instruct` / `llama3.2`).
 - Goal: Categorize incoming tickets, score sentiment/priority, and output structured JSON strictly matching Pydantic schemas.
 - Ingress Guardrail: Fallback to `unknown` category if Ollama is unreachable or response schema violates bounds.\n

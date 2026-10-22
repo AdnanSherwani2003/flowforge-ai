@@ -10,7 +10,7 @@ Automate repetitive business operations while retaining human approval, auditabi
 
 1. **Implementation 01**: Local infrastructure setup (Verified).
 2. **Implementation 02**: Data contracts, idempotent ticket ingestion, safe audit logging, and mock CRM APIs (Verified).
-3. **Implementation 03**: Deterministic n8n support-ticket workflow orchestration (Verified).
+3. **Implementation 03**: Deterministic n8n support-ticket workflow orchestration (Complete and verified).
 4. **Implementation 04**: Bounded local AI enrichment using Ollama.
 5. **Implementation 05**: Human approval and minimal operational dashboard.
 6. **Implementation 06**: Lead intake and deduplication.
@@ -29,7 +29,9 @@ Automate repetitive business operations while retaining human approval, auditabi
 
 ## Current Status
 
-**Implementation 03 is complete and verified.**
+**Implementation 03 is complete and verified for the local portfolio scope.** The exposed database password was rotated, the approved stale workflow was unpublished with its history preserved, and all required suites passed again.
+
+See [the final engineering review](docs/implementation-03-review.md) for maintenance evidence, preservation checks, and remaining scope limitations.
 The support ticket intake workflow (`FlowForge AI - Support Ticket Intake`) is actively orchestrating via n8n on port 5679, delegating schema validation, business logic, and idempotency to FastAPI on port 8001, and recording execution telemetry in PostgreSQL.
 
 ## Workflow Location
@@ -57,39 +59,36 @@ The reproducible workflow definition is version-controlled at:
 docker compose run --rm backend alembic upgrade head
 ```
 
-### 2. Backend Unit and Integration Tests (30 tests)
+### 2. Backend Unit and Integration Tests (82 tests)
 ```bash
 docker compose run --rm backend pytest -v
 ```
 
-### 3. Live Workflow End-to-End Acceptance & Reliability Tests (35 assertions)
-Runs real HTTP requests through the FlowForge n8n webhook on port 5679, exercising 10 synthetic fixtures, data minimization verification, idempotency replays, conflict handling, validation errors, and real failure modes (503, timeouts, connection drops, and uncertain replay recovery):
+### 3. Live Normal-Operation Webhook Acceptance (192 assertions)
+Runs synthetic HTTP requests through FlowForge n8n with normal backend simulation disabled. Covers fixtures, type/shape parity, tracing, 100/101-character correlation boundaries, validation, persistence, idempotency, audit and best-effort telemetry:
 ```bash
 python3 scripts/test_support_workflow.py
 ```
+
+Run real transport faults separately using a disposable n8n engine and synthetic proxy (36 assertions):
+```bash
+python3 scripts/test_workflow_faults.py
+python3 scripts/verify_workflow_runtime.py
+```
+
+Run suites sequentially with no unrelated ticket writers. Synthetic business records remain; the fault harness uses no production volumes or credentials.
 
 ### 4. API Smoke Tests
 ```bash
 python3 scripts/smoke_test.py
 ```
 
-### 5. Local Demonstration & Workflow Import
-To inspect or re-import the workflow into FlowForge n8n:
-```bash
-# Import workflow JSON
-docker compose exec n8n n8n import:workflow --input=/workflows/support_ticket_intake.json
+### 5. Workflow Maintenance
 
-# Publish (activate) the workflow
-docker compose exec n8n n8n publish:workflow --id=FlowForgeSupportIntake01
+Use the authenticated n8n editor or supported API to update and publish exactly `FlowForgeSupportIntake01`. Production CLI import is not a read-only check: it deactivates imported workflows. Do not unpublish or delete other workflows without approval.
 
-# Restart n8n container to register persistent webhook route
-docker compose restart n8n
+Published node data is configured not to be retained after new completed executions. Ticket content is intentionally stored in the business database and may exist in transient/crashed n8n executions and historical records. Application telemetry retains allowlisted metadata and is best effort.
 
-# Trigger test submission
-curl -X POST http://localhost:5679/webhook/support-ticket-intake \
-  -H "Content-Type: application/json" \
-  -H "X-Correlation-ID: demo-corr-001" \
-  -d '{"source_event_id": "demo-001", "subject": "Unable to access portal", "body": "Session timeout error"}'
-```
+See [Implementation 03](docs/implementation-03.md) for contracts, privacy limits, fault coverage, and safe credential-rotation guidance. Implementation 04 has not started.
 
 This is an engineering portfolio project, not a commercial SaaS platform.

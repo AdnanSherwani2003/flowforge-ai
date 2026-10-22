@@ -1,4 +1,6 @@
 import os
+import uuid
+import threading
 import concurrent.futures
 import pytest
 from sqlalchemy import create_engine, text
@@ -20,13 +22,14 @@ def pg_isolated_engine():
         pytest.skip("PostgreSQL is not configured in current test environment")
 
     admin_engine = create_engine(db_url, isolation_level="AUTOCOMMIT")
-    schema_name = "test_isolated_integration"
+    schema_name = "test_isolated_" + uuid.uuid4().hex
 
     try:
         with admin_engine.connect() as conn:
-            conn.execute(text(f"CREATE SCHEMA IF NOT EXISTS {schema_name}"))
-    except Exception as exc:
-        pytest.skip(f"Could not connect to PostgreSQL: {exc}")
+            conn.execute(text(f"CREATE SCHEMA {schema_name}"))
+    except Exception:
+        admin_engine.dispose()
+        pytest.fail("Configured PostgreSQL is unavailable (connection details suppressed)")
 
     isolated_engine = create_engine(
         db_url,
@@ -41,7 +44,9 @@ def pg_isolated_engine():
 
     Base.metadata.drop_all(bind=isolated_engine)
     with admin_engine.connect() as conn:
-        conn.execute(text(f"DROP SCHEMA IF EXISTS {schema_name} CASCADE"))
+        conn.execute(text(f"DROP SCHEMA {schema_name} CASCADE"))
+    isolated_engine.dispose()
+    admin_engine.dispose()
 
 
 @pytest.fixture(scope="function")
@@ -171,3 +176,62 @@ def test_real_postgres_workflow_run_concurrency(pg_isolated_engine):
     run_ids = set(results)
     # Exactly one unique row should be created and shared among all 5 concurrent threads
     assert len(run_ids) == 1
+
+
+@pytest.mark.parametrize("conflicting", [False, True])
+def test_real_postgres_forced_race_retains_trace(pg_isolated_engine, conflicting):
+    from fastapi import HTTPException
+    from sqlalchemy.orm import Session
+    from sqlalchemy import select, func
+
+    barrier = threading.Barrier(6)
+    event_id = "forced-race-" + uuid.uuid4().hex
+
+    class RacingSession(Session):
+        initial_read = True
+
+        def execute(self, statement, *args, **kwargs):
+            result = super().execute(statement, *args, **kwargs)
+            if self.initial_read and getattr(statement, "is_select", False):
+                self.initial_read = False
+                # Every transaction observes absence before any INSERT is attempted.
+                assert result.scalar_one_or_none() is None
+                barrier.wait(timeout=10)
+
+                class EmptyResult:
+                    def scalar_one_or_none(self):
+                        return None
+                return EmptyResult()
+            return result
+
+    def submit(index):
+        with RacingSession(bind=pg_isolated_engine, autoflush=False) as session:
+            payload = TicketCreate(
+                source_event_id=event_id,
+                subject="Synthetic " + str(index % 2 if conflicting else 0),
+                body="Synthetic race only",
+            )
+            try:
+                ticket, duplicate = create_or_get_ticket(
+                    session, payload, correlation_id=f"corr-race-{index}",
+                    execution_id=f"exec-race-{index}",
+                )
+                return 200 if duplicate else 201
+            except HTTPException as exc:
+                assert exc.status_code == 409
+                return 409
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=6) as executor:
+        results = list(executor.map(submit, range(6)))
+    assert results.count(201) == 1
+    assert results.count(200) == (2 if conflicting else 5)
+    assert results.count(409) == (3 if conflicting else 0)
+    with Session(pg_isolated_engine) as session:
+        ticket = session.execute(select(Ticket).where(Ticket.source_event_id == event_id)).scalar_one()
+        assert session.scalar(select(func.count(Ticket.id)).where(Ticket.source_event_id == event_id)) == 1
+        events = session.scalars(select(AuditEvent).where(AuditEvent.entity_id == ticket.id)).all()
+        assert len(events) == 6
+        assert {e.safe_detail["correlation_id"] for e in events} == {f"corr-race-{i}" for i in range(6)}
+        assert {e.safe_detail["execution_id"] for e in events} == {f"exec-race-{i}" for i in range(6)}
+        assert all("subject" not in e.safe_detail and "body" not in e.safe_detail for e in events)
+        assert any(e.safe_detail.get("action", "").startswith("concurrent_") for e in events)

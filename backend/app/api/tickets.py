@@ -1,5 +1,7 @@
-from fastapi import APIRouter, Depends, Query, Header, status, Response, HTTPException, Request
+from fastapi import APIRouter, Depends, Query, Header, status, Response, HTTPException
 from typing import Optional
+from uuid import uuid4
+from app.schemas.tracing import TraceId
 from sqlalchemy.orm import Session
 from app.core.config import settings
 from app.core.database import get_db
@@ -19,12 +21,14 @@ router = APIRouter(prefix="/tickets", tags=["Support Tickets"])
 def create_ticket(
     payload: TicketCreate,
     response: Response,
-    request: Request,
     db: Session = Depends(get_db),
-    x_correlation_id: Optional[str] = Header(default=None),
-    x_execution_id: Optional[str] = Header(default=None),
+    x_correlation_id: Optional[TraceId] = Header(default=None),
+    x_execution_id: Optional[TraceId] = Header(default=None),
     x_flowforge_simulate: Optional[str] = Header(default=None),
 ):
+    x_correlation_id = x_correlation_id or f"corr-{uuid4().hex}"
+    response.headers["X-Correlation-ID"] = x_correlation_id
+
     # Isolated test-only failure simulation hook:
     # Requires BOTH settings.ENABLE_FAILURE_SIMULATION=True AND explicit X-FlowForge-Simulate header.
     # An ordinary user's source_event_id NEVER triggers any failure.
@@ -40,14 +44,6 @@ def create_ticket(
             raise HTTPException(
                 status_code=status.HTTP_504_GATEWAY_TIMEOUT,
                 detail="Simulated gateway timeout",
-            )
-        elif x_flowforge_simulate == "conn-reset":
-            transport = getattr(request, "scope", {}).get("transport")
-            if transport:
-                transport.abort()
-            raise HTTPException(
-                status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-                detail="Connection reset simulated",
             )
         elif x_flowforge_simulate == "timeout-after-persist":
             # Case B: Persist record, then sleep 6s to trigger gateway timeout on caller

@@ -1,5 +1,6 @@
 from datetime import datetime
 from typing import Optional, Dict, Any, List
+from app.schemas.tracing import TraceId
 from pydantic import BaseModel, Field, field_validator, ConfigDict
 
 
@@ -10,13 +11,13 @@ class WorkflowRunCreate(BaseModel):
         max_length=100,
         description="Identifier of the orchestrating workflow",
     )
-    execution_id: str = Field(
+    execution_id: TraceId = Field(
         ...,
         min_length=1,
         max_length=100,
         description="n8n execution identifier",
     )
-    correlation_id: str = Field(
+    correlation_id: TraceId = Field(
         ...,
         min_length=1,
         max_length=100,
@@ -49,7 +50,7 @@ class WorkflowRunCreate(BaseModel):
         description="Sanitized non-sensitive operational tracing details",
     )
 
-    @field_validator("workflow_name", "execution_id", "correlation_id", "outcome", mode="before")
+    @field_validator("workflow_name", "outcome", mode="before")
     @classmethod
     def strip_and_validate_strings(cls, v: str) -> str:
         if not isinstance(v, str):
@@ -58,6 +59,23 @@ class WorkflowRunCreate(BaseModel):
         if not stripped:
             raise ValueError("Field cannot be empty or whitespace-only")
         return stripped
+
+    @field_validator("safe_detail")
+    @classmethod
+    def validate_safe_detail(cls, value: Dict[str, Any]) -> Dict[str, Any]:
+        allowed = {"status", "duplicate", "error_code", "correlation_rejected", "source_event_id_rejected"}
+        if set(value) - allowed:
+            raise ValueError("Unsupported telemetry metadata field")
+        if "status" in value and (not isinstance(value["status"], str) or value["status"] not in {"accepted", "rejected", "failed"}):
+            raise ValueError("Unsupported telemetry status")
+        if "error_code" in value and (not isinstance(value["error_code"], str) or value["error_code"] not in {
+            "created", "duplicate_replayed", "conflict", "validation_error", "service_unavailable"
+        }):
+            raise ValueError("Unsupported telemetry error code")
+        for key in ("duplicate", "correlation_rejected", "source_event_id_rejected"):
+            if key in value and type(value[key]) is not bool:
+                raise ValueError("Telemetry flags must be booleans")
+        return value
 
     @field_validator("source_event_id", mode="before")
     @classmethod

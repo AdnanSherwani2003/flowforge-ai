@@ -14,15 +14,15 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
       "position": [
-        100,
-        300
+        112,
+        304
       ],
       "webhookId": "support-ticket-intake"
     },
     {
       "parameters": {
         "mode": "raw",
-        "jsonOutput": "={{ JSON.stringify({ source_event_id: $json.body?.source_event_id ? String($json.body.source_event_id).trim() : '', subject: $json.body?.subject ? String($json.body.subject).trim() : '', body: $json.body?.body ? String($json.body.body).trim() : '', simulate: $json.body?.simulate ? String($json.body.simulate).trim() : '', correlation_id: $json.headers?.['x-correlation-id'] || ('corr-' + ($execution.id || '0') + '-' + $now.toMillis()), execution_id: String($execution.id || 'exec-manual'), received_at: $now.toISO() }) }}",
+        "jsonOutput": "={{ JSON.stringify({ payload: $json.body, source_event_id: typeof $json.body?.source_event_id === 'string' && $json.body.source_event_id.trim().length > 0 && $json.body.source_event_id.trim().length <= 128 ? $json.body.source_event_id.trim() : null, source_event_id_rejected: $json.body?.source_event_id !== undefined && !(typeof $json.body.source_event_id === 'string' && $json.body.source_event_id.trim().length > 0 && $json.body.source_event_id.trim().length <= 128), client_correlation_id: $json.headers?.['x-correlation-id'] ?? ('corr-' + $execution.id), correlation_id: typeof $json.headers?.['x-correlation-id'] === 'string' && /^[A-Za-z0-9._:-]{1,100}$/.test($json.headers['x-correlation-id']) ? $json.headers['x-correlation-id'] : ('corr-' + $execution.id), correlation_rejected: $json.headers?.['x-correlation-id'] !== undefined && !(typeof $json.headers['x-correlation-id'] === 'string' && /^[A-Za-z0-9._:-]{1,100}$/.test($json.headers['x-correlation-id'])), execution_id: String($execution.id), received_at: $now.toISO() }) }}",
         "include": "none",
         "options": {}
       },
@@ -32,16 +32,13 @@
       "typeVersion": 3.2,
       "position": [
         320,
-        300
+        304
       ]
     },
     {
       "parameters": {
         "method": "POST",
         "url": "http://backend:8001/api/tickets",
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "={{ JSON.stringify({ source_event_id: $json.source_event_id, subject: $json.subject, body: $json.body }) }}",
         "sendHeaders": true,
         "headerParameters": {
           "parameters": [
@@ -51,18 +48,17 @@
             },
             {
               "name": "X-Correlation-ID",
-              "value": "={{ $json.correlation_id }}"
+              "value": "={{ $json.client_correlation_id }}"
             },
             {
               "name": "X-Execution-ID",
               "value": "={{ $json.execution_id }}"
-            },
-            {
-              "name": "X-FlowForge-Simulate",
-              "value": "={{ $json.simulate || '' }}"
             }
           ]
         },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json.payload) }}",
         "options": {
           "response": {
             "response": {
@@ -74,19 +70,18 @@
           "timeout": 5000
         }
       },
-      "onError": "continueRegularOutput",
       "id": "node-backend-03",
       "name": "Call FastAPI Backend",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        540,
-        300
-      ]
+        544,
+        304
+      ],
+      "onError": "continueRegularOutput"
     },
     {
       "parameters": {
-        "mode": "rules",
         "rules": {
           "values": [
             {
@@ -94,7 +89,8 @@
                 "options": {
                   "caseSensitive": true,
                   "leftValue": "",
-                  "typeValidation": "strict"
+                  "typeValidation": "strict",
+                  "version": 1
                 },
                 "conditions": [
                   {
@@ -114,7 +110,8 @@
                 "options": {
                   "caseSensitive": true,
                   "leftValue": "",
-                  "typeValidation": "strict"
+                  "typeValidation": "strict",
+                  "version": 1
                 },
                 "conditions": [
                   {
@@ -134,7 +131,8 @@
                 "options": {
                   "caseSensitive": true,
                   "leftValue": "",
-                  "typeValidation": "strict"
+                  "typeValidation": "strict",
+                  "version": 1
                 },
                 "conditions": [
                   {
@@ -154,7 +152,8 @@
                 "options": {
                   "caseSensitive": true,
                   "leftValue": "",
-                  "typeValidation": "strict"
+                  "typeValidation": "strict",
+                  "version": 1
                 },
                 "conditions": [
                   {
@@ -180,14 +179,14 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.2,
       "position": [
-        760,
-        300
+        768,
+        304
       ]
     },
     {
       "parameters": {
         "mode": "raw",
-        "jsonOutput": "={{ JSON.stringify({ http_status_code: 201, status: 'accepted', outcome: 'created', ticket_id: $json.body?.id, source_event_id: $json.body?.source_event_id, duplicate: false, correlation_id: $('Extract & Prepare').item.json.correlation_id, execution_id: String($('Extract & Prepare').item.json.execution_id), timestamp: $now.toISO() }) }}",
+        "jsonOutput": "={{ JSON.stringify({ http_status_code: 201, status: 'accepted', outcome: 'created', ticket_id: $json.body?.id, source_event_id: $json.body?.source_event_id, duplicate: false, correlation_id: $('Extract & Prepare').item.json.correlation_id, execution_id: String($('Extract & Prepare').item.json.execution_id), telemetry: 'best_effort', timestamp: $now.toISO() }) }}",
         "include": "none",
         "options": {}
       },
@@ -196,14 +195,14 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.2,
       "position": [
-        1020,
-        100
+        1024,
+        112
       ]
     },
     {
       "parameters": {
         "mode": "raw",
-        "jsonOutput": "={{ JSON.stringify({ http_status_code: 200, status: 'accepted', outcome: 'duplicate_replayed', ticket_id: $json.body?.id, source_event_id: $json.body?.source_event_id, duplicate: true, correlation_id: $('Extract & Prepare').item.json.correlation_id, execution_id: String($('Extract & Prepare').item.json.execution_id), timestamp: $now.toISO() }) }}",
+        "jsonOutput": "={{ JSON.stringify({ http_status_code: 200, status: 'accepted', outcome: 'duplicate_replayed', ticket_id: $json.body?.id, source_event_id: $json.body?.source_event_id, duplicate: true, correlation_id: $('Extract & Prepare').item.json.correlation_id, execution_id: String($('Extract & Prepare').item.json.execution_id), telemetry: 'best_effort', timestamp: $now.toISO() }) }}",
         "include": "none",
         "options": {}
       },
@@ -212,14 +211,14 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.2,
       "position": [
-        1020,
-        250
+        1024,
+        256
       ]
     },
     {
       "parameters": {
         "mode": "raw",
-        "jsonOutput": "={{ JSON.stringify({ http_status_code: 409, status: 'rejected', outcome: 'conflict', error: $json.body?.detail || 'Conflicting payload for existing event', source_event_id: $('Extract & Prepare').item.json.source_event_id, correlation_id: $('Extract & Prepare').item.json.correlation_id, execution_id: String($('Extract & Prepare').item.json.execution_id), timestamp: $now.toISO() }) }}",
+        "jsonOutput": "={{ JSON.stringify({ http_status_code: 409, status: 'rejected', outcome: 'conflict', error: 'Conflicting payload for existing event', source_event_id: $('Extract & Prepare').item.json.source_event_id, correlation_id: $('Extract & Prepare').item.json.correlation_id, execution_id: String($('Extract & Prepare').item.json.execution_id), telemetry: 'best_effort', timestamp: $now.toISO() }) }}",
         "include": "none",
         "options": {}
       },
@@ -228,14 +227,14 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.2,
       "position": [
-        1020,
+        1024,
         400
       ]
     },
     {
       "parameters": {
         "mode": "raw",
-        "jsonOutput": "={{ JSON.stringify({ http_status_code: 422, status: 'rejected', outcome: 'validation_error', error: Array.isArray($json.body?.detail) ? $json.body.detail.map(e => (e.field ? e.field + ': ' : '') + e.msg).join('; ') : (typeof $json.body?.detail === 'string' ? $json.body.detail : 'Request validation failed'), source_event_id: $('Extract & Prepare').item.json.source_event_id, correlation_id: $('Extract & Prepare').item.json.correlation_id, execution_id: String($('Extract & Prepare').item.json.execution_id), timestamp: $now.toISO() }) }}",
+        "jsonOutput": "={{ JSON.stringify({ http_status_code: 422, status: 'rejected', outcome: 'validation_error', error: Array.isArray($json.body?.detail) ? $json.body.detail.map(e => (e.field ? e.field + ': ' : '') + e.msg).join('; ') : (typeof $json.body?.detail === 'string' ? $json.body.detail : 'Request validation failed'), source_event_id: $('Extract & Prepare').item.json.source_event_id, correlation_id: $('Extract & Prepare').item.json.correlation_id, execution_id: String($('Extract & Prepare').item.json.execution_id), telemetry: 'best_effort', timestamp: $now.toISO() }) }}",
         "include": "none",
         "options": {}
       },
@@ -244,14 +243,14 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.2,
       "position": [
-        1020,
-        550
+        1024,
+        560
       ]
     },
     {
       "parameters": {
         "mode": "raw",
-        "jsonOutput": "={{ JSON.stringify({ http_status_code: 503, status: 'failed', outcome: 'service_unavailable', error: $json.statusCode === 503 ? ($json.body?.detail || 'Backend service is temporarily unavailable. Please retry shortly.') : 'Backend service is temporarily unreachable or timed out. Please retry shortly.', source_event_id: $('Extract & Prepare').item.json.source_event_id, correlation_id: $('Extract & Prepare').item.json.correlation_id, execution_id: String($('Extract & Prepare').item.json.execution_id), timestamp: $now.toISO() }) }}",
+        "jsonOutput": "={{ JSON.stringify({ http_status_code: 503, status: 'failed', outcome: 'service_unavailable', error: 'Backend service is temporarily unreachable or timed out. Please retry shortly.', source_event_id: $('Extract & Prepare').item.json.source_event_id, correlation_id: $('Extract & Prepare').item.json.correlation_id, execution_id: String($('Extract & Prepare').item.json.execution_id), telemetry: 'best_effort', timestamp: $now.toISO() }) }}",
         "include": "none",
         "options": {}
       },
@@ -260,13 +259,12 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.2,
       "position": [
-        1020,
-        700
+        1024,
+        704
       ]
     },
     {
       "parameters": {
-        "respondWith": "firstIncomingItem",
         "options": {
           "responseCode": "={{ $json.http_status_code }}",
           "responseHeaders": {
@@ -278,6 +276,10 @@
               {
                 "name": "X-FlowForge-Execution-ID",
                 "value": "={{ $json.execution_id }}"
+              },
+              {
+                "name": "X-FlowForge-Telemetry",
+                "value": "best-effort"
               }
             ]
           }
@@ -296,9 +298,6 @@
       "parameters": {
         "method": "POST",
         "url": "http://backend:8001/api/workflow-runs",
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "={{ JSON.stringify({ workflow_name: 'support_ticket_intake', execution_id: String($json.execution_id || 'unknown'), correlation_id: String($json.correlation_id), source_event_id: $json.source_event_id || null, ticket_id: $json.ticket_id || null, outcome: $json.outcome, status_code: Number($json.http_status_code), safe_detail: { status: $json.status, duplicate: Boolean($json.duplicate), error: $json.error || null } }) }}",
         "sendHeaders": true,
         "headerParameters": {
           "parameters": [
@@ -308,6 +307,9 @@
             }
           ]
         },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ workflow_name: 'support_ticket_intake', execution_id: $json.execution_id, correlation_id: $json.correlation_id, source_event_id: $json.source_event_id ?? null, ticket_id: $json.ticket_id || null, outcome: $json.outcome, status_code: $json.http_status_code, safe_detail: { status: $json.status, duplicate: Boolean($json.duplicate), error_code: $json.outcome, correlation_rejected: $('Extract & Prepare').item.json.correlation_rejected, source_event_id_rejected: $('Extract & Prepare').item.json.source_event_id_rejected } }) }}",
         "options": {
           "response": {
             "response": {
@@ -317,7 +319,6 @@
           "timeout": 3000
         }
       },
-      "onError": "continueRegularOutput",
       "id": "node-telemetry-11",
       "name": "Record Workflow Run",
       "type": "n8n-nodes-base.httpRequest",
@@ -325,7 +326,8 @@
       "position": [
         1520,
         400
-      ]
+      ],
+      "onError": "continueRegularOutput"
     }
   ],
   "connections": {
@@ -470,6 +472,14 @@
   },
   "active": true,
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "timeSavedMode": "fixed",
+    "saveDataErrorExecution": "none",
+    "saveDataSuccessExecution": "none",
+    "saveExecutionProgress": false,
+    "saveManualExecutions": false,
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false
   }
 }

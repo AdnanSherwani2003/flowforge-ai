@@ -76,6 +76,12 @@ services:
       TZ: ${GENERIC_TIMEZONE:-Asia/Kolkata}
       N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS: "true"
       N8N_DIAGNOSTICS_ENABLED: "false"
+      # Future executions do not retain raw node payloads. Preserve historical records.
+      EXECUTIONS_DATA_SAVE_ON_SUCCESS: "none"
+      EXECUTIONS_DATA_SAVE_ON_ERROR: "none"
+      EXECUTIONS_DATA_SAVE_ON_PROGRESS: "false"
+      EXECUTIONS_DATA_SAVE_MANUAL_EXECUTIONS: "false"
+      EXECUTIONS_DATA_PRUNE: "false"
     volumes:
       - n8n_data:/home/node/.n8n
       - ./workflows:/workflows:ro

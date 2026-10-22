@@ -104,6 +104,8 @@ def create_or_get_ticket(
                     event_type="ticket_duplicate_received",
                     safe_detail={
                         "source_event_id": ticket_in.source_event_id,
+                        "correlation_id": correlation_id,
+                        "execution_id": execution_id,
                         "action": "concurrent_duplicate_resolved",
                     },
                     actor=actor,
@@ -117,6 +119,8 @@ def create_or_get_ticket(
                     event_type="ticket_conflict_received",
                     safe_detail={
                         "source_event_id": ticket_in.source_event_id,
+                        "correlation_id": correlation_id,
+                        "execution_id": execution_id,
                         "action": "concurrent_conflict_rejected",
                     },
                     actor=actor,
