@@ -1,3 +1,4 @@
+import app.models.review  # noqa: F401
 import pytest
 from typing import Generator
 from fastapi.testclient import TestClient

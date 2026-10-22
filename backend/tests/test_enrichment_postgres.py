@@ -72,7 +72,7 @@ def test_actual_migration_preserves_existing_ticket(monkeypatch):
                 "INSERT INTO tickets (id,source_event_id,subject,body,status,category,payload_hash) "
                 "VALUES ('migration-ticket','migration-event','Synthetic','Preserve me','received','general','0000000000000000000000000000000000000000000000000000000000000000')"))
             connection.commit()
-            command.upgrade(config, "head")
+            command.upgrade(config, "004_ticket_enrichments")
             assert connection.scalar(text("SELECT body FROM tickets WHERE id='migration-ticket'")) == "Preserve me"
             assert connection.scalar(text("SELECT version_num FROM alembic_version")) == "004_ticket_enrichments"
             assert connection.scalar(text("SELECT count(*) FROM ticket_enrichments")) == 0

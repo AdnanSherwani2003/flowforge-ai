@@ -1,7 +1,7 @@
 # Implementation 04 — Bounded local advisory enrichment
 
-Implemented on 2026-10-22; final acceptance rerun on 2026-10-23; **uncommitted and unpushed** on
-`implementation-04-ollama-enrichment`. Implementation 05 has not started.
+Implemented on 2026-10-22; final acceptance rerun on 2026-10-23; subsequently committed locally as **491b719** on
+`implementation-04-ollama-enrichment`. Implementation 05 continues from that local checkpoint; see [Implementation 05](implementation-05.md).
 
 ## Objective and architecture
 
@@ -359,8 +359,7 @@ editor and deploy verified main backend/Compose configuration. **Retain migratio
 
 ## Next action
 
-Implementation 04 is verified for the local advisory scope. Review the diff and
-evidence; explicit approval is required before commit or push. Recommended message:
+Implementation 04 is verified and committed locally as 491b719 under later explicit authorization. No push occurred. Original checkpoint message:
 `feat: add bounded local Ollama ticket enrichment`.
 No operational user action is required now. Implementation 05 remains out of scope.
 

@@ -1,0 +1,26 @@
+{
+  "checks_passed": 29,
+  "failed": 0,
+  "skipped": 0,
+  "synthetic_reviews": {
+    "approve": {
+      "id": "d67436a6-3fef-49af-9375-6b4811cd85c4",
+      "ticket_id": "90a63e44-5287-4e80-8d42-6e73500a0e82",
+      "enrichment_id": "106f244b-68f1-4120-b2c5-394557a34022",
+      "revision": 1
+    },
+    "reject": {
+      "id": "c3e379e6-823f-4e5f-ad00-1c44d5554f78",
+      "ticket_id": "c6919c6f-8b8f-477d-80ac-7f29743ddce5",
+      "enrichment_id": "0a9731d3-3340-498f-a941-5654127a3ee2",
+      "revision": 1
+    },
+    "attention": {
+      "id": "b92fcbd2-08c2-4946-99be-f359c76ba0ae",
+      "ticket_id": "b57eec0f-6c01-40cb-bae3-2a68a24ea1c6",
+      "enrichment_id": "4592b457-b807-4260-aa41-00705abc7047",
+      "revision": 1
+    }
+  },
+  "mode": "acceptance"
+}

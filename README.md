@@ -11,8 +11,8 @@ Automate repetitive business operations while retaining human approval, auditabi
 1. **Implementation 01**: Local infrastructure setup (Verified).
 2. **Implementation 02**: Data contracts, idempotent ticket ingestion, safe audit logging, and mock CRM APIs (Verified).
 3. **Implementation 03**: Deterministic n8n support-ticket workflow orchestration (Complete and verified).
-4. **Implementation 04**: Bounded local AI enrichment using Ollama (Implemented and verified locally; awaiting commit approval).
-5. **Implementation 05**: Human approval and minimal operational dashboard.
+4. **Implementation 04**: Bounded local AI enrichment using Ollama (Verified; local commit 491b719).
+5. **Implementation 05**: Authenticated human approval and Next.js dashboard (Verified locally; awaiting review).
 6. **Implementation 06**: Lead intake and deduplication.
 7. **Implementation 07**: Daily operations digest.
 
@@ -26,23 +26,24 @@ Automate repetitive business operations while retaining human approval, auditabi
 - **Pydantic v2**: Strict data contracts & input validation
 - **Docker Compose**: Local infrastructure
 - **Ollama 0.40.8**: Existing local Windows runtime; pinned qwen2.5:3b-instruct model
-- **pytest**: Automated testing suite
+- **Next.js, React, TypeScript, Tailwind CSS**: Reviewer dashboard
+- **pytest, Vitest and Testing Library**: Automated testing
 
 ## Current Status
 
-**Implementation 03 is merged and pushed to main at 1489752. Implementation 04 is implemented and verified locally on implementation-04-ollama-enrichment, with no commit or push.**
+**Implementation 05 is running locally at [localhost:3000](http://localhost:3000).**
+It provides an authenticated overview, review queue, original/AI comparison,
+approval/rejection confirmations and durable decision history. Approval records
+human review only; no external action or ticket-state mutation follows.
 
-The 13-node support workflow accepts tickets before requesting bounded local Ollama
-advice. FastAPI validates and stores suggestions separately; ticket category/status
-and business actions remain unchanged. Only new tickets enter AI enrichment.
+Implementation 04 is local commit 491b719. Implementation 05 remains uncommitted
+on implementation-05-human-approval-dashboard. No branch was pushed or merged.
 
-After a Windows restart, open Docker Desktop and Ollama, then verify backend
-connectivity. See [restart and outage recovery](docs/implementation-04.md#windows-restart-and-unavailable-service-recovery).
-
-See [Implementation 04](docs/implementation-04.md) for setup, API contracts, measured
-evaluation, limitations and preservation evidence. The earlier
-[Implementation 03 review](docs/implementation-03-review.md) records completed
-credential rotation and maintenance.
+See [Implementation 05](docs/implementation-05.md) for local login setup,
+architecture, security boundaries and acceptance. Existing
+[Implementation 04](docs/implementation-04.md) documents local model setup and
+[restart recovery](docs/implementation-04.md#windows-restart-and-unavailable-service-recovery).
+The [Implementation 03 review](docs/implementation-03-review.md) records historical maintenance.
 
 ## Workflow Location
 
@@ -54,6 +55,7 @@ The reproducible workflow definition is version-controlled at:
 
 | Service | Address |
 | :--- | :--- |
+| **Reviewer Dashboard** | http://localhost:3000 |
 | **FastAPI Core** | http://localhost:8001 |
 | **API Documentation** | http://localhost:8001/docs |
 | **FlowForge n8n** | http://localhost:5679 |
@@ -69,7 +71,7 @@ The reproducible workflow definition is version-controlled at:
 docker compose run --rm backend alembic upgrade head
 ```
 
-### 2. Backend Unit and Integration Tests (137 tests)
+### 2. Backend Unit and Integration Tests (159 tests)
 ```bash
 docker compose run --rm backend pytest -v
 ```
@@ -107,12 +109,24 @@ Results are advisory. Unavailable outcomes require explicit bounded retry; no
 customer replies or ticket-state changes occur. GPU and CPU measurements are
 recorded in docs/evaluation/.
 
-### 6. Workflow Maintenance
+### 6. Human Review
+
+Open http://localhost:3000 and sign in as the configured reviewer. Passwords remain
+in ignored local configuration. See [setup and demo](docs/implementation-05.md#local-setup-and-demonstration).
+
+```bash
+python3 scripts/test_review_integration.py
+```
+
+The 13-node n8n workflow is unchanged; completed enrichment creates a durable
+review through FastAPI. No waiting n8n execution is needed.
+
+### 7. Workflow Maintenance
 
 Use the authenticated n8n editor or supported API to update and publish exactly `FlowForgeSupportIntake01`. Production CLI import is not a read-only check: it deactivates imported workflows. Do not unpublish or delete other workflows without approval.
 
 Published node data is configured not to be retained after new completed executions. Ticket content is intentionally stored in the business database and may exist in transient/crashed n8n executions and historical records. Application telemetry retains allowlisted metadata and is best effort.
 
-See [Implementation 03](docs/implementation-03.md) for contracts, privacy limits, fault coverage, and safe credential-rotation guidance. See [Implementation 04](docs/implementation-04.md) for current advisory AI behavior. Implementation 05 has not started.
+See [Implementation 03](docs/implementation-03.md) for contracts, privacy limits, fault coverage, and safe credential-rotation guidance. See [Implementation 04](docs/implementation-04.md) for current advisory AI behavior. Implementation 06 has not started.
 
 This is an engineering portfolio project, not a commercial SaaS platform.

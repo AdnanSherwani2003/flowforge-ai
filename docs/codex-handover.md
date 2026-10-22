@@ -31,7 +31,7 @@ Core Architectural Principles:
 - **Repository Location**: `/home/adnan/projects/flowforge-ai`
 - **Operating Environment**: Ubuntu WSL2 on Windows 11 with Docker Desktop
 - **GitHub Remote**: `https://github.com/AdnanSherwani2003/flowforge-ai.git`
-- **Active Branch**: `implementation-04-ollama-enrichment` (uncommitted; do not commit/push without approval)
+- **Active Branch**: `implementation-05-human-approval-dashboard` (uncommitted; do not commit/push without approval)
 
 ---
 
@@ -50,17 +50,17 @@ Core Architectural Principles:
 
 ## 4. Current Implementation Status & Roadmap
 
-**2026-10-23 current status:** Implementation 03 was fast-forward merged and pushed to main at 1489752 after regression verification. Implementation 04 passed final acceptance locally, awaiting commit approval. Migration 004_ticket_enrichments and the 13-node published workflow are live. Published version: 4a1f9756-89ab-488c-9348-f9fb51e0966e. Failure simulation remains false.
+**2026-10-23 current status:** Implementation 03 was fast-forward merged and pushed to main at 1489752 after regression verification. Implementation 04 is committed locally as 491b719. Implementation 05 is verified locally and awaiting review, with no push or merge. Migration 005_reviews and the unchanged 13-node workflow are live. Dashboard: http://localhost:3000. Published version: 4a1f9756-89ab-488c-9348-f9fb51e0966e. Failure simulation remains false.
 
-See [Implementation 04](implementation-04.md) for current contracts and measurements.
+See [Implementation 05](implementation-05.md) for current review contracts and [Implementation 04](implementation-04.md) for inference measurements.
 The [Implementation 03 maintenance report](implementation-03-review.md) remains historical evidence of completed rotation; no credentials or keys changed during Implementation 04.
 
 ### Official Implementation Roadmap
 1. [x] **Implementation 01**: Local infrastructure setup (Docker Compose, networking, multi-role PostgreSQL).
 2. [x] **Implementation 02**: Data contracts, idempotent ticket ingestion, safe audit logging, and mock CRM APIs.
 3. [x] **Implementation 03**: Deterministic n8n support-ticket workflow orchestration (Complete for the documented local scope).
-4. [x] **Implementation 04**: Bounded local advisory enrichment using Ollama (verified locally; awaiting commit approval).
-5. [ ] **Implementation 05**: Human approval and minimal operational dashboard.
+4. [x] **Implementation 04**: Bounded local advisory enrichment using Ollama (local commit 491b719).
+5. [x] **Implementation 05**: Authenticated human approval dashboard (verified, uncommitted).
 6. [ ] **Implementation 06**: Lead intake and deduplication.
 7. [ ] **Implementation 07**: Daily operations digest.
 
@@ -84,7 +84,7 @@ docker compose ps
 docker compose exec -T backend alembic upgrade head
 ```
 
-### Run Backend Unit and Integration Test Suite (137 Tests)
+### Run Backend Unit and Integration Test Suite (159 Tests)
 ```bash
 docker compose exec -T backend pytest -v
 ```
@@ -157,10 +157,15 @@ Only wWjX3Bi5uRDyLzGu was unpublished with the installed supported CLI, followed
 
 FlowForgeSupportIntake01 is now published with 13 nodes and sole ownership of the intended webhook. No other publication state changed. Do not delete or archive these records.
 
-### C. Implementation 04 review checkpoint
+### C. Implementation 05 acceptance checkpoint
 
-Read [Implementation 04](implementation-04.md), its evaluation artifacts and the current diff.
-The branch is uncommitted and unpushed; obtain explicit approval before either action.
-The existing Windows Ollama 0.40.8 uses pinned qwen2.5:3b-instruct, with CPU fallback.
-No extra model service, vector database, queue, paid API or framework was added.
-Keep all suggestions advisory. Do not begin Implementation 05 without instructions.
+Implementation 04 received local commit 491b719 before branching.
+Implementation 05 is uncommitted, unstaged and unpushed. Read
+[Implementation 05](implementation-05.md) and acceptance artifacts before
+authorizing a checkpoint. Do not push/merge; the user plans to publish 04–06 later.
+Do not start Implementation 06 without instructions.
+
+Reviewer configuration is in ignored mode-0600 .env; never print passwords.
+Next.js on localhost:3000 is a server-side presentation layer; FastAPI enforces
+every review operation. n8n and Ollama contracts are unchanged. Reviews use durable
+PostgreSQL rows rather than waiting n8n executions.

@@ -1,3 +1,4 @@
+import app.models.review  # noqa: F401
 import sys
 import os
 from logging.config import fileConfig

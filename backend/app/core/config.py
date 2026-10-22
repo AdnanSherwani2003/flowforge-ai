@@ -56,6 +56,11 @@ class Settings(BaseSettings):
             raise ValueError("Model digest must be a complete SHA-256 identifier")
         return value
 
+    REVIEWER_USERNAME: str = Field(default="", max_length=64)
+    REVIEWER_PASSWORD_HASH: str = ""
+    REVIEWER_SESSION_SECRET: str = ""
+    REVIEWER_SESSION_SECONDS: int = Field(default=3600, ge=60, le=3600)
+
     model_config = SettingsConfigDict(
         env_file=".env",
         env_file_encoding="utf-8",

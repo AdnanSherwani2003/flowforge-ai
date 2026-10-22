@@ -1,6 +1,6 @@
 import uuid
 from datetime import datetime
-from sqlalchemy import String, Integer, Float, DateTime, ForeignKey, UniqueConstraint, CheckConstraint, func
+from sqlalchemy import String, Integer, Float, DateTime, ForeignKey, UniqueConstraint, CheckConstraint, Index, func
 from sqlalchemy.orm import Mapped, mapped_column
 from app.models.base import Base
 
@@ -29,6 +29,7 @@ class TicketEnrichment(Base):
     completed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
 
     __table_args__ = (
+        Index("ix_enrichments_ticket_started_id", "ticket_id", "started_at", "id"),
         UniqueConstraint("ticket_id", "model", "model_digest", "prompt_version", "schema_version", name="uq_ticket_enrichment_version"),
         CheckConstraint("status IN ('processing','succeeded','needs_review','unavailable')", name="ck_enrichment_status"),
         CheckConstraint("category IN ('billing','account_access','technical_issue','shipping','general','unknown')", name="ck_enrichment_category"),

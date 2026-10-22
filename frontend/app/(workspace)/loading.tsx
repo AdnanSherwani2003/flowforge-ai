@@ -1,0 +1,1 @@
+export default function Loading(){return <div role="status" aria-label="Loading workspace"><h1>Loading workspace…</h1><p className="muted" style={{marginTop:12}}>Fetching the latest review data.</p><div className="skeleton"/><div className="skeleton" style={{height:240}}/></div>;}

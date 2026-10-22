@@ -46,6 +46,9 @@ services:
       OLLAMA_MODEL_DIGEST: "${OLLAMA_MODEL_DIGEST:-357c53fb659c5076de1d65ccb0b397446227b71a42be9d1603d46168015c9e4b}"
       OLLAMA_TIMEOUT_SECONDS: "${OLLAMA_TIMEOUT_SECONDS:-25}"
       OLLAMA_NUM_GPU: "${OLLAMA_NUM_GPU:--1}"
+      REVIEWER_USERNAME: "${FLOWFORGE_REVIEWER_USERNAME:-}"
+      REVIEWER_PASSWORD_HASH: "${FLOWFORGE_REVIEWER_PASSWORD_HASH:-}"
+      REVIEWER_SESSION_SECRET: "${FLOWFORGE_REVIEWER_SESSION_SECRET:-}"
     depends_on:
       postgres:
         condition: service_healthy
@@ -58,6 +61,27 @@ services:
       interval: 15s
       timeout: 5s
       retries: 5
+
+  frontend:
+    build:
+      context: ./frontend
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:3000:3000"
+    environment:
+      BACKEND_URL: http://backend:8001
+      DASHBOARD_ORIGIN: http://localhost:3000
+      COOKIE_SECURE: "false"
+      NEXT_TELEMETRY_DISABLED: "1"
+    depends_on:
+      backend:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000/login').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
 
   n8n:
     image: n8nio/n8n:2.43.8

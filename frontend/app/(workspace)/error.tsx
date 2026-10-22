@@ -1,0 +1,2 @@
+ "use client";
+export default function ErrorPage({reset}:{reset:()=>void}){return <section className="panel"><div className="panel-body"><h1>We could not load this view</h1><p role="alert" className="error">The review service is unavailable or the request could not be found. Your saved decisions remain in the database.</p><button className="btn" onClick={reset}>Try again</button></div></section>;}

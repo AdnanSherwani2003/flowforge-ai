@@ -1,3 +1,4 @@
+import app.models.review  # noqa: F401
 from app.models.base import Base
 from app.models.ticket import Ticket
 from app.models.lead import Lead

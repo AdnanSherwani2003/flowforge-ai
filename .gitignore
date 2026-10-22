@@ -27,3 +27,8 @@ dist/
 *.sqlite3
 coverage/
 htmlcov/
+
+# Frontend local build/test outputs
+*.tsbuildinfo
+test-results/
+playwright-report/

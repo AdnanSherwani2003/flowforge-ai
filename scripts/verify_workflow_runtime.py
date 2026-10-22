@@ -44,7 +44,7 @@ def main():
                """SELECT "workflowId" FROM webhook_entity WHERE method='POST' AND "webhookPath"='support-ticket-intake'""") == "FlowForgeSupportIntake01"
     assert sql("flowforge_n8n", """SELECT count(*) FROM workflow_entity
         WHERE id='wWjX3Bi5uRDyLzGu' AND active=false AND "activeVersionId" IS NULL""") == "1"
-    assert sql("flowforge", "SELECT version_num FROM alembic_version") == "004_ticket_enrichments"
+    assert sql("flowforge", "SELECT version_num FROM alembic_version") == "005_reviews"
     assert sql("flowforge", """SELECT count(*) FROM information_schema.columns WHERE table_schema='public'
         AND table_name='workflow_runs' AND column_name IN ('execution_id','correlation_id') AND character_maximum_length=100""") == "2"
     assert sql("flowforge", """SELECT count(*) FROM pg_constraint WHERE conrelid='workflow_runs'::regclass

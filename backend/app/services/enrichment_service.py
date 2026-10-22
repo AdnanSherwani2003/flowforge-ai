@@ -51,6 +51,8 @@ def claim_enrichment(db, ticket_id, retry_unavailable=False):
     # Copy only the needed fields before releasing the transaction/connection.
     subject, body = ticket.subject, ticket.body
     row = get_enrichment(db, ticket_id)
+    from app.services.review_service import lock_ticket
+    lock_ticket(db, ticket_id)
     token = str(uuid.uuid4())
     if row is None:
         row = TicketEnrichment(
@@ -99,6 +101,8 @@ def finish_enrichment(db, row_id, token, result, correlation_id=None, execution_
     )).rowcount
     row = db.get(TicketEnrichment, row_id)
     if changed:
+        from app.services.review_service import ensure_review
+        ensure_review(db, row)
         record_audit_event(
             db, entity_id=row.ticket_id, event_type="ticket_enrichment_recorded", actor="local_ai_advisory",
             safe_detail={

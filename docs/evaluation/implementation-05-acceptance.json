@@ -1,0 +1,238 @@
+{
+  "date": "2026-10-23",
+  "timezone": "Asia/Calcutta",
+  "branch": "implementation-05-human-approval-dashboard",
+  "implementation_04_local_commit": "491b719",
+  "implementation_05_committed": false,
+  "pushed": false,
+  "merged": false,
+  "suites": {
+    "backend": {
+      "passed": 159,
+      "failed": 0,
+      "skipped": 0
+    },
+    "frontend": {
+      "passed": 20,
+      "failed": 0,
+      "skipped": 0
+    },
+    "review_integration": {
+      "passed": 29,
+      "failed": 0,
+      "skipped": 0
+    },
+    "normal_webhook": {
+      "passed": 192,
+      "failed": 0,
+      "skipped": 0
+    },
+    "enrichment": {
+      "passed": 21,
+      "failed": 0,
+      "skipped": 0
+    },
+    "isolated_faults": {
+      "passed": 39,
+      "failed": 0,
+      "skipped": 0
+    },
+    "api_smoke": {
+      "passed": 8,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "backend_warnings": 69,
+  "frontend_build": "passed",
+  "lint": "passed",
+  "typecheck": "passed",
+  "npm_audit_vulnerabilities": 0,
+  "migration": "005_reviews",
+  "published_workflow_nodes": 13,
+  "workflow_unchanged": true,
+  "running_backend_source_matches": true,
+  "existing_database_credentials_and_encryption_key_preserved": true,
+  "existing_containers_except_backend_unchanged": true,
+  "existing_mounts_unchanged": true,
+  "tables": {
+    "flowforge.tickets": {
+      "before": 316,
+      "after": 353,
+      "previous_records_unchanged": true
+    },
+    "flowforge.leads": {
+      "before": 18,
+      "after": 19,
+      "previous_records_unchanged": true
+    },
+    "flowforge.audit_events": {
+      "before": 507,
+      "after": 664,
+      "previous_records_unchanged": true
+    },
+    "flowforge.workflow_runs": {
+      "before": 807,
+      "after": 904,
+      "previous_records_unchanged": true
+    },
+    "flowforge.ticket_enrichments": {
+      "before": 44,
+      "after": 73,
+      "previous_records_unchanged": true
+    },
+    "flowforge_n8n.workflow_entity": {
+      "before": 5,
+      "after": 5,
+      "previous_records_unchanged": true
+    },
+    "flowforge_n8n.workflow_history": {
+      "before": 25,
+      "after": 25,
+      "previous_records_unchanged": true
+    },
+    "flowforge_n8n.execution_entity": {
+      "before": 333,
+      "after": 333,
+      "previous_records_unchanged": true
+    },
+    "flowforge_n8n.execution_data": {
+      "before": 333,
+      "after": 333,
+      "previous_records_unchanged": true
+    },
+    "flowforge_n8n.credentials_entity": {
+      "before": 0,
+      "after": 0,
+      "previous_records_unchanged": true
+    }
+  },
+  "browser_demo_database_proof": {
+    "approve": {
+      "review_id": "0cfa5f05-cfaa-4f35-afbf-9a915941d4e3",
+      "status": "approved",
+      "reviewer": "reviewer",
+      "note_present": false,
+      "revision": 2,
+      "ticket_status": "received",
+      "ticket_category": "unknown",
+      "enrichment_id": "98f35c7a-d6a8-4e38-8a74-1d540912a8f3",
+      "enrichment_status": "succeeded",
+      "final_audits": 1
+    },
+    "reject": {
+      "review_id": "8d7d2f99-54ef-434a-a521-4066a0a1a157",
+      "status": "rejected",
+      "reviewer": "reviewer",
+      "note_present": true,
+      "revision": 2,
+      "ticket_status": "received",
+      "ticket_category": "unknown",
+      "enrichment_id": "081325eb-7643-480e-926c-b62b2f49c7dc",
+      "enrichment_status": "succeeded",
+      "final_audits": 1
+    },
+    "attention": {
+      "review_id": "f1848cd4-653a-4c6d-8781-8cf660f374b2",
+      "status": "attention",
+      "reviewer": null,
+      "note_present": false,
+      "revision": 1,
+      "ticket_status": "received",
+      "ticket_category": "unknown",
+      "enrichment_id": "98a27fc3-dcf7-4dcf-bbf4-6b1315f3347c",
+      "enrichment_status": "needs_review",
+      "final_audits": 0
+    }
+  },
+  "memory_mib_snapshot": {
+    "backend": 72.59,
+    "frontend": 47.89,
+    "n8n": 472.8,
+    "postgres": 57.76
+  },
+  "limits": [
+    "Trusted local single reviewer",
+    "No individual session revocation",
+    "Legacy ticket API unauthenticated on loopback",
+    "Physical mobile and formal accessibility audit not run",
+    "Full model benchmark not rerun"
+  ],
+  "critical_blockers": [],
+  "git_safety": {
+    "files_scanned": 146,
+    "client_javascript_files_scanned": 15,
+    "known_secret_matches": 0,
+    "env_ignored": true,
+    "env_tracked": false,
+    "staged_files": 0,
+    "head": "491b719",
+    "main": "1489752",
+    "changed_files": [
+      ".gitignore",
+      "README.md",
+      "backend/alembic/env.py",
+      "backend/alembic/versions/005_reviews.py",
+      "backend/app/api/reviews.py",
+      "backend/app/core/config.py",
+      "backend/app/core/reviewer_auth.py",
+      "backend/app/main.py",
+      "backend/app/models/__init__.py",
+      "backend/app/models/review.py",
+      "backend/app/models/ticket_enrichment.py",
+      "backend/app/services/enrichment_service.py",
+      "backend/app/services/review_service.py",
+      "backend/requirements.txt",
+      "backend/tests/conftest.py",
+      "backend/tests/test_enrichment_postgres.py",
+      "backend/tests/test_reviews.py",
+      "compose.yaml",
+      "docs/codex-handover.md",
+      "docs/evaluation/implementation-05-acceptance.json",
+      "docs/evaluation/implementation-05-integration.json",
+      "docs/implementation-04.md",
+      "docs/implementation-05.md",
+      "frontend/.dockerignore",
+      "frontend/Dockerfile",
+      "frontend/app/(workspace)/error.tsx",
+      "frontend/app/(workspace)/history/page.tsx",
+      "frontend/app/(workspace)/layout.tsx",
+      "frontend/app/(workspace)/loading.tsx",
+      "frontend/app/(workspace)/page.tsx",
+      "frontend/app/(workspace)/reviews/[id]/page.tsx",
+      "frontend/app/(workspace)/reviews/page.tsx",
+      "frontend/app/api/auth/login/route.ts",
+      "frontend/app/api/auth/logout/route.ts",
+      "frontend/app/api/reviews/[id]/[decision]/route.ts",
+      "frontend/app/error.tsx",
+      "frontend/app/globals.css",
+      "frontend/app/layout.tsx",
+      "frontend/app/login/page.tsx",
+      "frontend/components/decision-form.tsx",
+      "frontend/components/login-form.tsx",
+      "frontend/components/logout.tsx",
+      "frontend/components/navigation.tsx",
+      "frontend/components/refresh.tsx",
+      "frontend/components/ui.tsx",
+      "frontend/eslint.config.mjs",
+      "frontend/lib/backend.ts",
+      "frontend/lib/security.ts",
+      "frontend/lib/types.ts",
+      "frontend/next-env.d.ts",
+      "frontend/next.config.ts",
+      "frontend/package-lock.json",
+      "frontend/package.json",
+      "frontend/postcss.config.mjs",
+      "frontend/tests/overview.test.tsx",
+      "frontend/tests/security.test.ts",
+      "frontend/tests/setup.ts",
+      "frontend/tests/workspace.test.tsx",
+      "frontend/tsconfig.json",
+      "frontend/vitest.config.ts",
+      "scripts/setup_reviewer.py",
+      "scripts/test_review_integration.py",
+      "scripts/verify_workflow_runtime.py"
+    ],
+    "diff_check": "passed"
+  }
+}
