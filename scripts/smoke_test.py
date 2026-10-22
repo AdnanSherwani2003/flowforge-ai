@@ -80,12 +80,12 @@ def main():
     lead_payload = {
         "source_event_id": f"evt-{run_id}-lead",
         "name": "Dev User",
-        "email": "  Dev.User@Example.COM  "
+        "email": f"  Dev.User.{run_id}@Example.COM  "
     }
     status, data = request("POST", "/api/mock-crm/leads", lead_payload)
     print(f"[7/8] Lead creation: HTTP {status} (normalized_email='{data.get('normalized_email')}')")
     assert status == 201, f"Expected 201, got {status}"
-    assert data["normalized_email"] == "dev.user@example.com"
+    assert data["normalized_email"] == f"dev.user.{run_id}@example.com"
     assert data["duplicate"] is False
     lead_id = data["id"]
 

@@ -49,6 +49,7 @@ def credentials():
 def main():
     parser=argparse.ArgumentParser()
     parser.add_argument("--prepare",action="store_true",help="Create synthetic UI demo reviews without deciding")
+    parser.add_argument("--output",type=Path,help="Explicit acceptance report destination")
     args=parser.parse_args()
     creds=credentials()
     check(request(BACKEND+"/reviews")[0]==401,"Backend rejects unauthenticated review reads")
@@ -104,6 +105,7 @@ def main():
         check(ticket["status"]=="received" and ticket["category"]=="unknown","No business-state change")
     path=Path("/tmp/flowforge-05-ui-demo.json") if args.prepare else ROOT/"docs/evaluation/implementation-05-integration.json"
     value={"checks_passed":checks,"failed":0,"skipped":0,"synthetic_reviews":created,"mode":"prepare" if args.prepare else "acceptance"}
+    if args.output and not args.prepare:path=args.output
     path.write_text(json.dumps(value,indent=2)+"\n")
     if args.prepare:os.chmod(path,0o600)
     print(json.dumps(value))

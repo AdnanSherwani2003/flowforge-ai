@@ -1,5 +1,8 @@
-from fastapi import APIRouter, Depends, Query, status, Response, HTTPException
+from fastapi import APIRouter, Depends, Query, Header, status, Response, HTTPException
 from sqlalchemy.orm import Session
+from typing import Optional
+from uuid import uuid4
+from app.schemas.tracing import TraceId
 from app.core.database import get_db
 from app.schemas.lead import LeadCreate, LeadResponse, LeadListResponse
 from app.services import lead_service
@@ -17,12 +20,19 @@ def create_lead(
     payload: LeadCreate,
     response: Response,
     db: Session = Depends(get_db),
+    x_correlation_id: Optional[TraceId] = Header(default=None),
+    x_execution_id: Optional[TraceId] = Header(default=None),
 ):
-    lead, is_duplicate = lead_service.create_or_get_lead(
+    correlation_id = x_correlation_id or f"corr-{uuid4().hex}"
+    response.headers["X-Correlation-ID"] = correlation_id
+    result = lead_service.ingest_lead(
         db=db,
         lead_in=payload,
-        actor="api_client",
+        actor="n8n_workflow" if x_execution_id else "api_client",
+        correlation_id=correlation_id,
+        execution_id=x_execution_id,
     )
+    lead, is_duplicate, reason = result
     if is_duplicate:
         response.status_code = status.HTTP_200_OK
 
@@ -34,6 +44,8 @@ def create_lead(
         status=lead.status,
         created_at=lead.created_at,
         duplicate=is_duplicate,
+        duplicate_reason=reason,
+        submitted_source_event_id=payload.source_event_id,
     )
 
 

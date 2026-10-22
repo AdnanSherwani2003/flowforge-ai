@@ -1,135 +1,107 @@
-import logging
-from typing import Tuple, List, Optional
-from fastapi import HTTPException, status
-from sqlalchemy import select, func, desc
+"""Deterministic lead intake: event identity before business identity."""
+import hashlib
+import uuid
+from typing import NamedTuple, Optional, Tuple, List
+from fastapi import HTTPException
+from sqlalchemy import select, func, desc, text
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 from app.models.lead import Lead
-from app.models.audit_event import AuditEvent
+from app.models.lead_intake import LeadIdentity, LeadEvent
 from app.schemas.lead import LeadCreate
 from app.services.hasher import compute_canonical_hash
 from app.services.audit_service import record_audit_event
 
-logger = logging.getLogger("flowforge.lead_service")
+
+class LeadOutcome(NamedTuple):
+    lead: Lead
+    duplicate: bool
+    duplicate_reason: Optional[str]
 
 
 def compute_lead_canonical_hash(lead_in: LeadCreate) -> str:
+    # Preserve Implementation 02 canonical hashes exactly.
     return compute_canonical_hash({
-        "email": lead_in.email,
-        "name": lead_in.name,
+        "email": lead_in.email, "name": lead_in.name,
         "source_event_id": lead_in.source_event_id,
     })
 
 
-def create_or_get_lead(
-    db: Session,
-    lead_in: LeadCreate,
-    actor: str = "api_client",
-) -> Tuple[Lead, bool]:
+def _lock(db: Session, kind: str, value: str):
+    if db.get_bind().dialect.name == "postgresql":
+        key = int.from_bytes(hashlib.sha256(
+            ("flowforge:lead:" + kind + ":" + value).encode()
+        ).digest()[:8], "big", signed=True)
+        db.execute(text("SET LOCAL lock_timeout = '3000ms'"))
+        db.execute(text("SELECT pg_advisory_xact_lock(:key)"), {"key": key})
+
+
+def ingest_lead(
+    db: Session, lead_in: LeadCreate, actor: str = "api_client",
+    correlation_id: Optional[str] = None, execution_id: Optional[str] = None,
+) -> LeadOutcome:
     payload_hash = compute_lead_canonical_hash(lead_in)
+    trace = {k: v for k, v in {
+        "correlation_id": correlation_id, "execution_id": execution_id
+    }.items() if v is not None}
 
-    existing = db.execute(
-        select(Lead).where(Lead.source_event_id == lead_in.source_event_id)
-    ).scalar_one_or_none()
+    def audit(lead, event_type, action, reason=None):
+        detail = {"action": action, **trace}
+        if reason:
+            detail["duplicate_reason"] = reason
+        record_audit_event(db, lead.id, event_type, detail, actor)
 
-    domain = lead_in.email.split("@")[-1] if "@" in lead_in.email else "unknown"
-
-    if existing is not None:
-        if existing.payload_hash == payload_hash:
-            record_audit_event(
-                db=db,
-                entity_id=existing.id,
-                event_type="lead_duplicate_received",
-                safe_detail={
-                    "source_event_id": lead_in.source_event_id,
-                    "action": "duplicate_lead_event_replayed",
-                },
-                actor=actor,
-            )
-            db.commit()
-            return existing, True
-        else:
-            record_audit_event(
-                db=db,
-                entity_id=existing.id,
-                event_type="lead_conflict_received",
-                safe_detail={
-                    "source_event_id": lead_in.source_event_id,
-                    "action": "conflicting_lead_payload_rejected",
-                },
-                actor=actor,
-            )
-            db.commit()
-            raise HTTPException(
-                status_code=status.HTTP_409_CONFLICT,
-                detail=f"Conflict: source_event_id '{lead_in.source_event_id}' already exists with different payload content.",
-            )
-
-    import uuid
-    new_lead = Lead(
-        id=str(uuid.uuid4()),
-        source_event_id=lead_in.source_event_id,
-        normalized_email=lead_in.email,
-        name=lead_in.name,
-        status="new",
-        payload_hash=payload_hash,
-    )
-    db.add(new_lead)
-
-    try:
-        db.flush()
-    except IntegrityError:
-        db.rollback()
-        existing = db.execute(
-            select(Lead).where(Lead.source_event_id == lead_in.source_event_id)
-        ).scalar_one_or_none()
-
-        if existing is not None:
-            if existing.payload_hash == payload_hash:
-                record_audit_event(
-                    db=db,
-                    entity_id=existing.id,
-                    event_type="lead_duplicate_received",
-                    safe_detail={
-                        "source_event_id": lead_in.source_event_id,
-                        "action": "concurrent_duplicate_resolved",
-                    },
-                    actor=actor,
-                )
+    # Fixed lock order: event, then email. Every writer uses the same protocol.
+    # Unique PKs/FKs remain the final guard; retry once after a uniqueness race.
+    for attempt in range(2):
+        try:
+            _lock(db, "event", lead_in.source_event_id)
+            event = db.get(LeadEvent, lead_in.source_event_id)
+            if event:
+                lead = db.get(Lead, event.lead_id)
+                if event.payload_hash != payload_hash:
+                    audit(lead, "lead_conflict_received", "conflicting_lead_payload_rejected")
+                    db.commit()
+                    raise HTTPException(409, "Source event already exists with different payload content.")
+                audit(lead, "lead_duplicate_received", "duplicate_lead_event_replayed", "event")
                 db.commit()
-                return existing, True
+                return LeadOutcome(lead, True, "event")
+
+            _lock(db, "email", str(lead_in.email))
+            identity = db.get(LeadIdentity, str(lead_in.email))
+            if identity:
+                lead = db.get(Lead, identity.lead_id)
+                reason = "email"
             else:
-                record_audit_event(
-                    db=db,
-                    entity_id=existing.id,
-                    event_type="lead_conflict_received",
-                    safe_detail={
-                        "source_event_id": lead_in.source_event_id,
-                        "action": "concurrent_conflict_rejected",
-                    },
-                    actor=actor,
+                lead = Lead(
+                    id=str(uuid.uuid4()), source_event_id=lead_in.source_event_id,
+                    normalized_email=str(lead_in.email), name=lead_in.name,
+                    status="new", payload_hash=payload_hash,
                 )
-                db.commit()
-                raise HTTPException(
-                    status_code=status.HTTP_409_CONFLICT,
-                    detail=f"Conflict: source_event_id '{lead_in.source_event_id}' already exists with different payload content.",
-                )
-        raise
+                db.add(lead)
+                db.flush()
+                db.add(LeadIdentity(normalized_email=lead.normalized_email, lead_id=lead.id))
+                reason = None
+            # Record even email-duplicate events: their replay/conflict must be durable.
+            db.add(LeadEvent(source_event_id=lead_in.source_event_id,
+                             lead_id=lead.id, payload_hash=payload_hash))
+            audit(lead, "lead_duplicate_received" if reason else "lead_created",
+                  "existing_email_preserved" if reason else "new_lead_created", reason)
+            db.commit()
+            return LeadOutcome(lead, reason is not None, reason)
+        except IntegrityError:
+            db.rollback()
+            if attempt:
+                raise
+    raise RuntimeError("Unreachable lead intake state")
 
-    record_audit_event(
-        db=db,
-        entity_id=new_lead.id,
-        event_type="lead_created",
-        safe_detail={
-            "source_event_id": new_lead.source_event_id,
-            "email_domain": domain,
-            "status": new_lead.status,
-        },
-        actor=actor,
-    )
-    db.commit()
-    db.refresh(new_lead)
-    return new_lead, False
+
+def create_or_get_lead(
+    db: Session, lead_in: LeadCreate, actor: str = "api_client",
+) -> Tuple[Lead, bool]:
+    """Keep the original Implementation 02 service tuple contract."""
+    result = ingest_lead(db, lead_in, actor)
+    return result.lead, result.duplicate
 
 
 def get_lead_by_id(db: Session, lead_id: str) -> Optional[Lead]:

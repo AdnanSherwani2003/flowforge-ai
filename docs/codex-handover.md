@@ -157,13 +157,21 @@ Only wWjX3Bi5uRDyLzGu was unpublished with the installed supported CLI, followed
 
 FlowForgeSupportIntake01 is now published with 13 nodes and sole ownership of the intended webhook. No other publication state changed. Do not delete or archive these records.
 
-### C. Implementation 05 acceptance checkpoint
+### C. Completed Implementations 01–06 and publication
 
 Implementation 04 received local commit 491b719 before branching.
-Implementation 05 is uncommitted, unstaged and unpushed. Read
-[Implementation 05](implementation-05.md) and acceptance artifacts before
-authorizing a checkpoint. Do not push/merge; the user plans to publish 04–06 later.
-Do not start Implementation 06 without instructions.
+Implementation 05 received authorized local commit 7625989 (63 files).
+Implementation 06 is complete and accepted on implementation-06-lead-intake.
+The user authorized its local checkpoint, fast-forward of main, and normal pushes
+of main and the 04–06 implementation branches. Preserve separate commits and all
+branches; never force-push, reset or rewrite history. Read
+[Implementation 06](implementation-06.md) for acceptance and limits.
+Implementation 07 remains planned; do not begin without new instructions.
+
+Lead workflow FlowForgeLeadIntake01 is separately published with 11 nodes at
+POST /webhook/lead-intake. Additive migration 006_lead_intake preserves historical
+lead IDs and duplicates while introducing event/email identity registries. The
+existing 13-node support workflow is unchanged.
 
 Reviewer configuration is in ignored mode-0600 .env; never print passwords.
 Next.js on localhost:3000 is a server-side presentation layer; FastAPI enforces

@@ -1,0 +1,175 @@
+{
+  "normal": [
+    {
+      "name": "new",
+      "payload": {
+        "source_event_id": "{run}-main",
+        "name": "Synthetic Contact",
+        "email": "{run}@example.com"
+      },
+      "status": 201,
+      "reason": null
+    },
+    {
+      "name": "event_replay",
+      "payload": {
+        "source_event_id": "{run}-main",
+        "name": "Synthetic Contact",
+        "email": "{run}@example.com"
+      },
+      "status": 200,
+      "reason": "event"
+    },
+    {
+      "name": "existing_email",
+      "payload": {
+        "source_event_id": "{run}-alias",
+        "name": "Changed Synthetic",
+        "email": "{run}@example.com"
+      },
+      "status": 200,
+      "reason": "email"
+    },
+    {
+      "name": "alias_replay",
+      "payload": {
+        "source_event_id": "{run}-alias",
+        "name": "Changed Synthetic",
+        "email": "{run}@example.com"
+      },
+      "status": 200,
+      "reason": "event"
+    },
+    {
+      "name": "event_conflict",
+      "payload": {
+        "source_event_id": "{run}-main",
+        "name": "Changed Synthetic",
+        "email": "{run}@example.com"
+      },
+      "status": 409
+    },
+    {
+      "name": "alias_conflict",
+      "payload": {
+        "source_event_id": "{run}-alias",
+        "name": "Conflicting Synthetic",
+        "email": "{run}@example.com"
+      },
+      "status": 409
+    },
+    {
+      "name": "email_case",
+      "payload": {
+        "source_event_id": "{run}-case",
+        "name": "Synthetic Case",
+        "email": "{run}@EXAMPLE.COM"
+      },
+      "status": 200,
+      "reason": "email"
+    },
+    {
+      "name": "trimmed_replay",
+      "payload": {
+        "source_event_id": "  {run}-main  ",
+        "name": "  Synthetic Contact  ",
+        "email": "  {run}@EXAMPLE.COM  "
+      },
+      "status": 200,
+      "reason": "event"
+    },
+    {
+      "name": "invalid_email",
+      "payload": {
+        "source_event_id": "{run}-invalid",
+        "name": "Synthetic",
+        "email": "SYNTHETIC_PRIVATE_EMAIL_CANARY"
+      },
+      "status": 422
+    },
+    {
+      "name": "missing_required",
+      "payload": {
+        "source_event_id": "{run}-missing"
+      },
+      "status": 422
+    },
+    {
+      "name": "wrong_name_type",
+      "payload": {
+        "source_event_id": "{run}-type-name",
+        "name": 42,
+        "email": "{run}@example.com"
+      },
+      "status": 422
+    },
+    {
+      "name": "wrong_email_type",
+      "payload": {
+        "source_event_id": "{run}-type-email",
+        "name": "Synthetic",
+        "email": {
+          "value": "PRIVATE_CANARY"
+        }
+      },
+      "status": 422
+    },
+    {
+      "name": "wrong_event_type",
+      "payload": {
+        "source_event_id": false,
+        "name": "Synthetic",
+        "email": "{run}@example.com"
+      },
+      "status": 422
+    },
+    {
+      "name": "array_body",
+      "payload": [],
+      "status": 422
+    },
+    {
+      "name": "null_body",
+      "payload": null,
+      "status": 422
+    },
+    {
+      "name": "string_body",
+      "payload": "PRIVATE_CANARY",
+      "status": 422
+    },
+    {
+      "name": "invalid_trace",
+      "payload": {
+        "source_event_id": "{run}-badtrace",
+        "name": "Synthetic",
+        "email": "{run}@example.com"
+      },
+      "headers": {
+        "X-Correlation-ID": "invalid trace"
+      },
+      "status": 422
+    },
+    {
+      "name": "long_event",
+      "payload": {
+        "source_event_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "name": "Synthetic",
+        "email": "{run}@example.com"
+      },
+      "status": 422
+    }
+  ],
+  "concurrency": [
+    "same_event",
+    "same_email"
+  ],
+  "isolated_faults": [
+    "503",
+    "refused",
+    "reset",
+    "timeout",
+    "after-persist",
+    "telemetry-down"
+  ]
+}

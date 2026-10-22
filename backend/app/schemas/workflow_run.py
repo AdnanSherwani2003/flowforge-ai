@@ -33,6 +33,7 @@ class WorkflowRunCreate(BaseModel):
         max_length=36,
         description="Persisted ticket UUID if created/replayed",
     )
+    lead_id: Optional[str] = Field(default=None, max_length=36)
     outcome: str = Field(
         ...,
         min_length=1,
@@ -63,7 +64,7 @@ class WorkflowRunCreate(BaseModel):
     @field_validator("safe_detail")
     @classmethod
     def validate_safe_detail(cls, value: Dict[str, Any]) -> Dict[str, Any]:
-        allowed = {"status", "duplicate", "error_code", "correlation_rejected", "source_event_id_rejected"}
+        allowed = {"status", "duplicate", "error_code", "correlation_rejected", "source_event_id_rejected", "duplicate_reason"}
         if set(value) - allowed:
             raise ValueError("Unsupported telemetry metadata field")
         if "status" in value and (not isinstance(value["status"], str) or value["status"] not in {"accepted", "rejected", "failed"}):
@@ -72,6 +73,8 @@ class WorkflowRunCreate(BaseModel):
             "created", "duplicate_replayed", "conflict", "validation_error", "service_unavailable"
         }):
             raise ValueError("Unsupported telemetry error code")
+        if "duplicate_reason" in value and value["duplicate_reason"] not in ("event", "email"):
+            raise ValueError("Unsupported duplicate reason")
         for key in ("duplicate", "correlation_rejected", "source_event_id_rejected"):
             if key in value and type(value[key]) is not bool:
                 raise ValueError("Telemetry flags must be booleans")
@@ -93,6 +96,7 @@ class WorkflowRunResponse(BaseModel):
     correlation_id: str
     source_event_id: Optional[str] = None
     ticket_id: Optional[str] = None
+    lead_id: Optional[str] = None
     outcome: str
     status_code: int
     safe_detail: Dict[str, Any]

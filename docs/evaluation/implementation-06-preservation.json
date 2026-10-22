@@ -1,0 +1,270 @@
+{
+  "tables": {
+    "tickets": {
+      "baseline": 353,
+      "current": 411,
+      "missing": 0,
+      "modified": 0
+    },
+    "leads": {
+      "baseline": 19,
+      "current": 30,
+      "missing": 0,
+      "modified": 0
+    },
+    "audit_events": {
+      "baseline": 664,
+      "current": 885,
+      "missing": 0,
+      "modified": 0
+    },
+    "workflow_runs": {
+      "baseline": 904,
+      "current": 1145,
+      "missing": 0,
+      "modified": 0
+    },
+    "ticket_enrichments": {
+      "baseline": 73,
+      "current": 119,
+      "missing": 0,
+      "modified": 0
+    },
+    "reviews": {
+      "baseline": 73,
+      "current": 119,
+      "missing": 0,
+      "modified": 0
+    },
+    "n8n.workflow_entity": {
+      "baseline": 5,
+      "current": 6,
+      "missing": 0,
+      "modified": 0
+    },
+    "n8n.workflow_history": {
+      "baseline": 25,
+      "current": 26,
+      "missing": 0,
+      "modified": 0
+    },
+    "n8n.execution_entity": {
+      "baseline": 333,
+      "current": 333,
+      "missing": 0,
+      "modified": 0
+    },
+    "n8n.execution_data": {
+      "baseline": 333,
+      "current": 333,
+      "missing": 0,
+      "modified": 0
+    },
+    "n8n.credentials_entity": {
+      "baseline": 0,
+      "current": 0,
+      "missing": 0,
+      "modified": 0
+    }
+  },
+  "containers": {
+    "/flowforge-ai-frontend-1": {
+      "same_id": true,
+      "same_image": true,
+      "same_start": true,
+      "same_env": true,
+      "same_mounts": true
+    },
+    "/flowforge-ai-backend-1": {
+      "same_id": false,
+      "same_image": false,
+      "same_start": false,
+      "same_env": true,
+      "same_mounts": true
+    },
+    "/flowforge-ai-n8n-1": {
+      "same_id": true,
+      "same_image": true,
+      "same_start": true,
+      "same_env": true,
+      "same_mounts": true
+    },
+    "/sentinel-publication-postgres-51e50f3643b0": {
+      "same_id": true,
+      "same_image": true,
+      "same_start": true,
+      "same_env": true,
+      "same_mounts": true
+    },
+    "/sentinel-publication-neo4j-51e50f3643b0": {
+      "same_id": true,
+      "same_image": true,
+      "same_start": true,
+      "same_env": true,
+      "same_mounts": true
+    },
+    "/sentinel-ci-fix-linux-792d2f256247": {
+      "same_id": true,
+      "same_image": true,
+      "same_start": true,
+      "same_env": true,
+      "same_mounts": true
+    },
+    "/sentinel-publication-postgres-d00bcd9b8bc7": {
+      "same_id": true,
+      "same_image": true,
+      "same_start": true,
+      "same_env": true,
+      "same_mounts": true
+    },
+    "/sentinel-publication-neo4j-d00bcd9b8bc7": {
+      "same_id": true,
+      "same_image": true,
+      "same_start": true,
+      "same_env": true,
+      "same_mounts": true
+    },
+    "/sentinel-package-prep-0e18f6c877f8": {
+      "same_id": true,
+      "same_image": true,
+      "same_start": true,
+      "same_env": true,
+      "same_mounts": true
+    },
+    "/sentinel-demo-i20-api-1": {
+      "same_id": true,
+      "same_image": true,
+      "same_start": true,
+      "same_env": true,
+      "same_mounts": true
+    },
+    "/sentinel-demo-i20-worker-1": {
+      "same_id": true,
+      "same_image": true,
+      "same_start": true,
+      "same_env": true,
+      "same_mounts": true
+    },
+    "/sentinel-demo-i20-worker-2": {
+      "same_id": true,
+      "same_image": true,
+      "same_start": true,
+      "same_env": true,
+      "same_mounts": true
+    },
+    "/sentinel-demo-i20-postgres-1": {
+      "same_id": true,
+      "same_image": true,
+      "same_start": true,
+      "same_env": true,
+      "same_mounts": true
+    },
+    "/sentinel-demo-i20-neo4j-1": {
+      "same_id": true,
+      "same_image": true,
+      "same_start": true,
+      "same_env": true,
+      "same_mounts": true
+    },
+    "/frosty_swartz": {
+      "same_id": true,
+      "same_image": true,
+      "same_start": true,
+      "same_env": true,
+      "same_mounts": true
+    },
+    "/hopeful_cohen": {
+      "same_id": true,
+      "same_image": true,
+      "same_start": true,
+      "same_env": true,
+      "same_mounts": true
+    },
+    "/flowforge-ai-postgres-1": {
+      "same_id": true,
+      "same_image": true,
+      "same_start": true,
+      "same_env": true,
+      "same_mounts": true
+    },
+    "/sentinel-neo4j": {
+      "same_id": true,
+      "same_image": true,
+      "same_start": true,
+      "same_env": true,
+      "same_mounts": true
+    },
+    "/n8n": {
+      "same_id": true,
+      "same_image": true,
+      "same_start": true,
+      "same_env": true,
+      "same_mounts": true
+    },
+    "/welcome-to-docker": {
+      "same_id": true,
+      "same_image": true,
+      "same_start": true,
+      "same_env": true,
+      "same_mounts": true
+    }
+  },
+  "env_unchanged": true,
+  "services": {
+    "backend": {
+      "running": true,
+      "health": "healthy",
+      "ports": {
+        "8001/tcp": [
+          {
+            "HostIp": "127.0.0.1",
+            "HostPort": "8001"
+          }
+        ]
+      }
+    },
+    "frontend": {
+      "running": true,
+      "health": "healthy",
+      "ports": {
+        "3000/tcp": [
+          {
+            "HostIp": "127.0.0.1",
+            "HostPort": "3000"
+          }
+        ]
+      }
+    },
+    "n8n": {
+      "running": true,
+      "health": null,
+      "ports": {
+        "5678/tcp": [
+          {
+            "HostIp": "127.0.0.1",
+            "HostPort": "5679"
+          }
+        ]
+      },
+      "readiness_status": 200
+    },
+    "postgres": {
+      "running": true,
+      "health": "healthy",
+      "ports": {
+        "5432/tcp": null
+      }
+    }
+  },
+  "historical_email_duplicates": {
+    "groups": 1,
+    "rows": 18,
+    "strategy": "Preserved; earliest created_at then id selected in identity registry; original event mappings retained"
+  },
+  "migration": "006_lead_intake",
+  "backup": "/home/adnan/.local/share/flowforge-ai/backups/implementation-06-20261022T205740Z/flowforge.dump",
+  "backup_catalog_verified": true,
+  "personal_n8n": {
+    "workflows": 37
+  }
+}

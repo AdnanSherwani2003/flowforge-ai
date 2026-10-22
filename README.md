@@ -11,10 +11,10 @@ Automate repetitive business operations while retaining human approval, auditabi
 1. **Implementation 01**: Local infrastructure setup (Verified).
 2. **Implementation 02**: Data contracts, idempotent ticket ingestion, safe audit logging, and mock CRM APIs (Verified).
 3. **Implementation 03**: Deterministic n8n support-ticket workflow orchestration (Complete and verified).
-4. **Implementation 04**: Bounded local AI enrichment using Ollama (Verified; local commit 491b719).
-5. **Implementation 05**: Authenticated human approval and Next.js dashboard (Verified locally; awaiting review).
-6. **Implementation 06**: Lead intake and deduplication.
-7. **Implementation 07**: Daily operations digest.
+4. **Implementation 04**: Bounded local AI enrichment using Ollama (Complete; commit 491b719).
+5. **Implementation 05**: Authenticated human approval and Next.js dashboard (Complete; commit 7625989).
+6. **Implementation 06**: Deterministic lead intake and email deduplication (Complete and accepted for the local-first scope).
+7. **Implementation 07**: Daily operations digest (Planned; not started).
 
 ## Technology Stack
 
@@ -36,8 +36,12 @@ It provides an authenticated overview, review queue, original/AI comparison,
 approval/rejection confirmations and durable decision history. Approval records
 human review only; no external action or ticket-state mutation follows.
 
-Implementation 04 is local commit 491b719. Implementation 05 remains uncommitted
-on implementation-05-human-approval-dashboard. No branch was pushed or merged.
+Implementations 01–06 are complete and accepted for the intended local-first scope.
+Implementation 04 is commit 491b719 and Implementation 05 is commit 7625989;
+Implementation 06 adds the separate deterministic lead workflow. The accepted
+history retains separate implementation commits and feature branches, with
+fast-forward publication to main. See [Implementation 06](docs/implementation-06.md)
+for lead behavior, preserved historical duplicates and acceptance evidence.
 
 See [Implementation 05](docs/implementation-05.md) for local login setup,
 architecture, security boundaries and acceptance. Existing
@@ -49,7 +53,8 @@ The [Implementation 03 review](docs/implementation-03-review.md) records histori
 
 The reproducible workflow definition is version-controlled at:
 - `workflows/support_ticket_intake.json`
-- Mapped inside FlowForge n8n container at: `/workflows/support_ticket_intake.json`
+- `workflows/lead_intake.json` — separate 11-node lead workflow
+- Workflows directory mounted read-only inside FlowForge n8n; support export at: `/workflows/support_ticket_intake.json`
 
 ## Service Addresses
 
@@ -60,7 +65,8 @@ The reproducible workflow definition is version-controlled at:
 | **API Documentation** | http://localhost:8001/docs |
 | **FlowForge n8n** | http://localhost:5679 |
 | **Health Check** | http://localhost:8001/health |
-| **Live Webhook Endpoint** | http://localhost:5679/webhook/support-ticket-intake |
+| **Lead Webhook Endpoint** | http://localhost:5679/webhook/lead-intake |
+| **Support Webhook Endpoint** | http://localhost:5679/webhook/support-ticket-intake |
 
 ---
 
@@ -71,7 +77,7 @@ The reproducible workflow definition is version-controlled at:
 docker compose run --rm backend alembic upgrade head
 ```
 
-### 2. Backend Unit and Integration Tests (159 tests)
+### 2. Backend Unit and Integration Tests (184 tests)
 ```bash
 docker compose run --rm backend pytest -v
 ```
@@ -121,12 +127,24 @@ python3 scripts/test_review_integration.py
 The 13-node n8n workflow is unchanged; completed enrichment creates a durable
 review through FastAPI. No waiting n8n execution is needed.
 
-### 7. Workflow Maintenance
+### 7. Lead Intake
 
-Use the authenticated n8n editor or supported API to update and publish exactly `FlowForgeSupportIntake01`. Production CLI import is not a read-only check: it deactivates imported workflows. Do not unpublish or delete other workflows without approval.
+POST a fresh synthetic source_event_id, name and email to the lead webhook.
+Replay returns the same lead; another event with the same normalized email returns
+200 with duplicate_reason email and preserves existing details. Changed content
+for a remembered event returns 409. See [contracts and demo](docs/implementation-06.md).
+
+```bash
+python3 scripts/test_lead_workflow.py  # 358 assertions, 20 scenarios
+python3 scripts/test_lead_faults.py    # 36 isolated assertions
+```
+
+### 8. Workflow Maintenance
+
+Use the authenticated n8n editor or supported API to update and publish the intended stable workflow: `FlowForgeSupportIntake01` or `FlowForgeLeadIntake01`. Production CLI import is not a read-only check: it deactivates imported workflows. Do not unpublish or delete other workflows without approval.
 
 Published node data is configured not to be retained after new completed executions. Ticket content is intentionally stored in the business database and may exist in transient/crashed n8n executions and historical records. Application telemetry retains allowlisted metadata and is best effort.
 
-See [Implementation 03](docs/implementation-03.md) for contracts, privacy limits, fault coverage, and safe credential-rotation guidance. See [Implementation 04](docs/implementation-04.md) for current advisory AI behavior. Implementation 06 has not started.
+See [Implementation 03](docs/implementation-03.md) for contracts, privacy limits, fault coverage, and safe credential-rotation guidance. See [Implementation 04](docs/implementation-04.md) for current advisory AI behavior. See [Implementation 06](docs/implementation-06.md) for current lead behavior. Implementation 07 has not started.
 
 This is an engineering portfolio project, not a commercial SaaS platform.

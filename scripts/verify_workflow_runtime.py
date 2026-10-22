@@ -44,7 +44,17 @@ def main():
                """SELECT "workflowId" FROM webhook_entity WHERE method='POST' AND "webhookPath"='support-ticket-intake'""") == "FlowForgeSupportIntake01"
     assert sql("flowforge_n8n", """SELECT count(*) FROM workflow_entity
         WHERE id='wWjX3Bi5uRDyLzGu' AND active=false AND "activeVersionId" IS NULL""") == "1"
-    assert sql("flowforge", "SELECT version_num FROM alembic_version") == "005_reviews"
+    run("docker", "compose", "exec", "-T", "n8n", "n8n", "export:workflow",
+        "--id=FlowForgeLeadIntake01", "--published", "--output=/tmp/flowforge-lead-verification.json")
+    lead_actual = json.loads(run("docker", "compose", "exec", "-T", "n8n", "cat", "/tmp/flowforge-lead-verification.json"))[0]
+    lead_expected = json.loads((ROOT / "workflows/lead_intake.json").read_text())
+    assert all(lead_actual[key] == lead_expected[key] for key in lead_expected), "Published lead workflow differs"
+    assert lead_actual["active"] and lead_actual["activeVersionId"] == lead_actual["versionId"]
+    assert len(lead_actual["nodes"]) == 11
+    assert sql("flowforge_n8n", """SELECT "workflowId" FROM webhook_entity
+        WHERE method='POST' AND "webhookPath"='lead-intake'""") == "FlowForgeLeadIntake01"
+    print("PASS: 11 published lead nodes/connections/settings match source; separate webhook owner")
+    assert sql("flowforge", "SELECT version_num FROM alembic_version") == "006_lead_intake"
     assert sql("flowforge", """SELECT count(*) FROM information_schema.columns WHERE table_schema='public'
         AND table_name='workflow_runs' AND column_name IN ('execution_id','correlation_id') AND character_maximum_length=100""") == "2"
     assert sql("flowforge", """SELECT count(*) FROM pg_constraint WHERE conrelid='workflow_runs'::regclass

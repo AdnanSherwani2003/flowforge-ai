@@ -1,0 +1,485 @@
+{
+  "name": "FlowForge AI - Lead Intake",
+  "id": "FlowForgeLeadIntake01",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "lead-intake",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "lead-node-webhook-01",
+      "name": "Lead Webhook Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        112,
+        304
+      ],
+      "webhookId": "lead-intake"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={{ JSON.stringify({ payload: $json.body, source_event_id: typeof $json.body?.source_event_id === 'string' && $json.body.source_event_id.trim().length > 0 && $json.body.source_event_id.trim().length <= 128 ? $json.body.source_event_id.trim() : null, source_event_id_rejected: $json.body?.source_event_id !== undefined && !(typeof $json.body.source_event_id === 'string' && $json.body.source_event_id.trim().length > 0 && $json.body.source_event_id.trim().length <= 128), client_correlation_id: $json.headers?.['x-correlation-id'] ?? ('corr-' + $execution.id), correlation_id: typeof $json.headers?.['x-correlation-id'] === 'string' && /^[A-Za-z0-9._:-]{1,100}$/.test($json.headers['x-correlation-id']) ? $json.headers['x-correlation-id'] : ('corr-' + $execution.id), correlation_rejected: $json.headers?.['x-correlation-id'] !== undefined && !(typeof $json.headers['x-correlation-id'] === 'string' && /^[A-Za-z0-9._:-]{1,100}$/.test($json.headers['x-correlation-id'])), execution_id: String($execution.id), received_at: $now.toISO() }) }}",
+        "include": "none",
+        "options": {}
+      },
+      "id": "lead-node-extract-02",
+      "name": "Extract & Prepare Lead",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.2,
+      "position": [
+        320,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://backend:8001/api/mock-crm/leads",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "X-Correlation-ID",
+              "value": "={{ $json.client_correlation_id }}"
+            },
+            {
+              "name": "X-Execution-ID",
+              "value": "={{ $json.execution_id }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json.payload) }}",
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "neverError": true,
+              "responseFormat": "json"
+            }
+          },
+          "timeout": 5000
+        }
+      },
+      "id": "lead-node-backend-03",
+      "name": "Call FastAPI Mock CRM",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        544,
+        304
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.statusCode }}",
+                    "rightValue": 201,
+                    "operator": {
+                      "type": "number",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.statusCode }}",
+                    "rightValue": 200,
+                    "operator": {
+                      "type": "number",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.statusCode }}",
+                    "rightValue": 409,
+                    "operator": {
+                      "type": "number",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.statusCode }}",
+                    "rightValue": 422,
+                    "operator": {
+                      "type": "number",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "id": "lead-node-switch-04",
+      "name": "Route Lead Outcome",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        768,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={{ JSON.stringify({ http_status_code: 201, status: 'accepted', outcome: 'created', lead_id: $json.body?.id, source_event_id: $json.body?.submitted_source_event_id, duplicate: false, correlation_id: $('Extract & Prepare Lead').item.json.correlation_id, execution_id: String($('Extract & Prepare Lead').item.json.execution_id), telemetry: 'best_effort', timestamp: $now.toISO() }) }}",
+        "include": "none",
+        "options": {}
+      },
+      "id": "lead-node-fmt-created-05",
+      "name": "Format Created Outcome",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.2,
+      "position": [
+        1024,
+        112
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={{ JSON.stringify({ http_status_code: 200, status: 'accepted', outcome: 'duplicate_replayed', lead_id: $json.body?.id, source_event_id: $json.body?.submitted_source_event_id, duplicate: true, duplicate_reason: $json.body?.duplicate_reason, correlation_id: $('Extract & Prepare Lead').item.json.correlation_id, execution_id: String($('Extract & Prepare Lead').item.json.execution_id), telemetry: 'best_effort', timestamp: $now.toISO() }) }}",
+        "include": "none",
+        "options": {}
+      },
+      "id": "lead-node-fmt-dup-06",
+      "name": "Format Duplicate Outcome",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.2,
+      "position": [
+        1024,
+        256
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={{ JSON.stringify({ http_status_code: 409, status: 'rejected', outcome: 'conflict', error: 'Conflicting payload for existing event', source_event_id: $('Extract & Prepare Lead').item.json.source_event_id, correlation_id: $('Extract & Prepare Lead').item.json.correlation_id, execution_id: String($('Extract & Prepare Lead').item.json.execution_id), telemetry: 'best_effort', timestamp: $now.toISO() }) }}",
+        "include": "none",
+        "options": {}
+      },
+      "id": "lead-node-fmt-conf-07",
+      "name": "Format Conflict Outcome",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.2,
+      "position": [
+        1024,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={{ JSON.stringify({ http_status_code: 422, status: 'rejected', outcome: 'validation_error', error: 'Lead request validation failed', source_event_id: $('Extract & Prepare Lead').item.json.source_event_id, correlation_id: $('Extract & Prepare Lead').item.json.correlation_id, execution_id: String($('Extract & Prepare Lead').item.json.execution_id), telemetry: 'best_effort', timestamp: $now.toISO() }) }}",
+        "include": "none",
+        "options": {}
+      },
+      "id": "lead-node-fmt-val-08",
+      "name": "Format Validation Error",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.2,
+      "position": [
+        1024,
+        560
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={{ JSON.stringify({ http_status_code: 503, status: 'failed', outcome: 'service_unavailable', error: 'Backend service is temporarily unreachable or timed out. Please retry shortly.', source_event_id: $('Extract & Prepare Lead').item.json.source_event_id, correlation_id: $('Extract & Prepare Lead').item.json.correlation_id, execution_id: String($('Extract & Prepare Lead').item.json.execution_id), telemetry: 'best_effort', timestamp: $now.toISO() }) }}",
+        "include": "none",
+        "options": {}
+      },
+      "id": "lead-node-fmt-err-09",
+      "name": "Format Unavailable Outcome",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.2,
+      "position": [
+        1024,
+        704
+      ]
+    },
+    {
+      "parameters": {
+        "options": {
+          "responseCode": "={{ $json.http_status_code }}",
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "X-Correlation-ID",
+                "value": "={{ $json.correlation_id }}"
+              },
+              {
+                "name": "X-FlowForge-Execution-ID",
+                "value": "={{ $json.execution_id }}"
+              },
+              {
+                "name": "X-FlowForge-Telemetry",
+                "value": "best-effort"
+              }
+            ]
+          }
+        }
+      },
+      "id": "lead-node-respond-10",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1280,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://backend:8001/api/workflow-runs",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ workflow_name: 'lead_intake', execution_id: $json.execution_id, correlation_id: $json.correlation_id, source_event_id: $json.source_event_id ?? null, lead_id: $json.lead_id || null, outcome: $json.outcome, status_code: $json.http_status_code, safe_detail: { ...($json.duplicate_reason ? {duplicate_reason: $json.duplicate_reason} : {}), status: $json.status, duplicate: Boolean($json.duplicate), error_code: $json.outcome, correlation_rejected: $('Extract & Prepare Lead').item.json.correlation_rejected, source_event_id_rejected: $('Extract & Prepare Lead').item.json.source_event_id_rejected } }) }}",
+        "options": {
+          "response": {
+            "response": {
+              "neverError": true
+            }
+          },
+          "timeout": 3000
+        }
+      },
+      "id": "lead-node-telemetry-11",
+      "name": "Record Lead Workflow Execution",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1520,
+        400
+      ],
+      "onError": "continueRegularOutput"
+    }
+  ],
+  "connections": {
+    "Lead Webhook Trigger": {
+      "main": [
+        [
+          {
+            "node": "Extract & Prepare Lead",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract & Prepare Lead": {
+      "main": [
+        [
+          {
+            "node": "Call FastAPI Mock CRM",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call FastAPI Mock CRM": {
+      "main": [
+        [
+          {
+            "node": "Route Lead Outcome",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Route Lead Outcome": {
+      "main": [
+        [
+          {
+            "node": "Format Created Outcome",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Format Duplicate Outcome",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Format Conflict Outcome",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Format Validation Error",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Format Unavailable Outcome",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Created Outcome": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Duplicate Outcome": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Conflict Outcome": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Validation Error": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Unavailable Outcome": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respond to Webhook": {
+      "main": [
+        [
+          {
+            "node": "Record Lead Workflow Execution",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "timeSavedMode": "fixed",
+    "saveDataErrorExecution": "none",
+    "saveDataSuccessExecution": "none",
+    "saveExecutionProgress": false,
+    "saveManualExecutions": false,
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false
+  }
+}

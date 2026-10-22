@@ -7,4 +7,6 @@ from app.models.workflow_run import WorkflowRun
 
 from app.models.ticket_enrichment import TicketEnrichment
 
-__all__ = ["Base", "Ticket", "Lead", "AuditEvent", "WorkflowRun", "TicketEnrichment"]
+from app.models.lead_intake import LeadIdentity, LeadEvent
+
+__all__ = ["Base", "Ticket", "Lead", "AuditEvent", "WorkflowRun", "TicketEnrichment", "LeadIdentity", "LeadEvent"]

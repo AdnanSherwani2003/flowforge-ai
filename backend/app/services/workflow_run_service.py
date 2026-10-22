@@ -29,6 +29,7 @@ def record_workflow_run(
         correlation_id=run_in.correlation_id,
         source_event_id=run_in.source_event_id,
         ticket_id=run_in.ticket_id,
+        lead_id=run_in.lead_id,
         outcome=run_in.outcome,
         status_code=run_in.status_code,
         safe_detail=run_in.safe_detail,

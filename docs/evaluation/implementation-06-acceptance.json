@@ -1,0 +1,218 @@
+{
+  "accepted_local_date": "2026-10-23 Asia/Calcutta",
+  "implementation_05_commit": "7625989a51561bb898ccb2ec5087312cc93036c2",
+  "implementation_05_commit_message": "feat: add authenticated human approval dashboard",
+  "implementation_05_checkpoint_verified_files": 63,
+  "implementation_06_status": "implemented; published locally; uncommitted and unstaged",
+  "git_safety": {
+    "branch": "implementation-06-lead-intake",
+    "head": "7625989a51561bb898ccb2ec5087312cc93036c2",
+    "implementation_05_files": 63,
+    "diff_check": "passed",
+    "staged_files": 0,
+    "env_ignored": true,
+    "env_mode": "0o600",
+    "secret_scan_files": 158,
+    "secret_findings": 0,
+    "changed_files": [
+      "README.md",
+      "backend/alembic/versions/006_lead_intake.py",
+      "backend/app/api/mock_crm.py",
+      "backend/app/models/__init__.py",
+      "backend/app/models/lead_intake.py",
+      "backend/app/models/workflow_run.py",
+      "backend/app/schemas/lead.py",
+      "backend/app/schemas/workflow_run.py",
+      "backend/app/services/lead_service.py",
+      "backend/app/services/workflow_run_service.py",
+      "backend/tests/fixtures/lead_intake.json",
+      "backend/tests/test_lead_intake.py",
+      "docs/codex-handover.md",
+      "docs/evaluation/implementation-06-acceptance.json",
+      "docs/evaluation/implementation-06-preservation.json",
+      "docs/evaluation/implementation-06-review-regression.json",
+      "docs/evaluation/implementation-06-webhook.json",
+      "docs/implementation-05.md",
+      "docs/implementation-06.md",
+      "scripts/fault_proxy.py",
+      "scripts/smoke_test.py",
+      "scripts/test_lead_faults.py",
+      "scripts/test_lead_workflow.py",
+      "scripts/test_review_integration.py",
+      "scripts/test_workflow_faults.py",
+      "scripts/verify_workflow_runtime.py",
+      "workflows/lead_intake.json"
+    ],
+    "changed_file_count": 27
+  },
+  "suites": {
+    "backend": {
+      "command": "docker compose exec -T backend pytest -q",
+      "passed": 184,
+      "failed": 0,
+      "skipped": 0,
+      "unit": "tests",
+      "executed": true
+    },
+    "frontend": {
+      "command": "npm test",
+      "passed": 20,
+      "failed": 0,
+      "skipped": 0,
+      "unit": "tests",
+      "executed": true
+    },
+    "lead_webhook": {
+      "command": "python3 scripts/test_lead_workflow.py",
+      "passed": 358,
+      "failed": 0,
+      "skipped": 0,
+      "unit": "assertions",
+      "executed": true
+    },
+    "lead_faults": {
+      "command": "python3 scripts/test_lead_faults.py",
+      "passed": 36,
+      "failed": 0,
+      "skipped": 0,
+      "unit": "assertions",
+      "executed": true
+    },
+    "support_webhook": {
+      "command": "python3 scripts/test_support_workflow.py",
+      "passed": 192,
+      "failed": 0,
+      "skipped": 0,
+      "unit": "assertions",
+      "executed": true
+    },
+    "enrichment": {
+      "command": "python3 scripts/test_enrichment_workflow.py",
+      "passed": 21,
+      "failed": 0,
+      "skipped": 0,
+      "unit": "assertions",
+      "executed": true
+    },
+    "support_faults": {
+      "command": "python3 scripts/test_workflow_faults.py",
+      "passed": 39,
+      "failed": 0,
+      "skipped": 0,
+      "unit": "assertions",
+      "executed": true
+    },
+    "review_integration": {
+      "command": "python3 scripts/test_review_integration.py --output docs/evaluation/implementation-06-review-regression.json",
+      "passed": 29,
+      "failed": 0,
+      "skipped": 0,
+      "unit": "checks",
+      "executed": true
+    },
+    "api_smoke": {
+      "command": "python3 scripts/smoke_test.py",
+      "passed": 8,
+      "failed": 0,
+      "skipped": 0,
+      "unit": "checks",
+      "executed": true
+    }
+  },
+  "other_checks": {
+    "frontend_build": "passed",
+    "frontend_lint": "passed",
+    "frontend_typecheck": "passed",
+    "npm_audit_vulnerabilities": 0,
+    "runtime_workflow_export_equality": "passed",
+    "backend_deprecation_warnings": 91,
+    "initial_collection_import_error": "corrected before complete green runs"
+  },
+  "workflow": {
+    "id": "FlowForgeLeadIntake01",
+    "name": "FlowForge AI - Lead Intake",
+    "nodes": 11,
+    "published_version": "10e6555a-6c4f-44a5-bb37-1d82c0fa2df6",
+    "source_export": "workflows/lead_intake.json",
+    "webhook": "http://localhost:5679/webhook/lead-intake",
+    "telemetry": "post-response best effort",
+    "inference_or_customer_actions": false
+  },
+  "support_workflow": {
+    "id": "FlowForgeSupportIntake01",
+    "nodes": 13,
+    "published_version": "4a1f9756-89ab-488c-9348-f9fb51e0966e",
+    "unchanged": true
+  },
+  "migration": "006_lead_intake",
+  "lead_acceptance_scenarios": 20,
+  "lead_webhook_created_records": 3,
+  "enrichment_regression_initial_response_latencies_ms": [
+    70,
+    99,
+    74
+  ],
+  "evidence": [
+    "docs/evaluation/implementation-06-webhook.json",
+    "docs/evaluation/implementation-06-preservation.json",
+    "docs/evaluation/implementation-06-review-regression.json"
+  ],
+  "no_critical_blockers": true,
+  "known_limits": [
+    "local unauthenticated ingress",
+    "exact normalized email is a business policy, not verified personal identity",
+    "historical duplicate leads intentionally retained",
+    "best-effort telemetry has no outbox",
+    "direct writers bypassing registries unsupported",
+    "no production load or public ingress acceptance"
+  ],
+  "recommended_commit": "feat: add deterministic lead intake and email deduplication",
+  "manual_actions_required": "Review acceptance before authorizing an Implementation 06 commit. Publishing 04-06 needs separate authorization.",
+  "pushed": false,
+  "merged": false,
+  "implementation_06_committed": false,
+  "implementation_07_started": false,
+  "evidence_scope": "Engineering acceptance snapshot before the authorized Git checkpoint; current publication state is established by verified Git references.",
+  "checkpoint_verification": {
+    "date": "2026-10-23 Asia/Calcutta",
+    "authorization": "User accepted Implementation 06 and authorized its commit, fast-forward main and normal pushes of main and implementation branches 04-06.",
+    "fresh_reruns": {
+      "backend": 184,
+      "frontend": 20,
+      "lead_webhook": 358,
+      "support_webhook": 192,
+      "enrichment": 21,
+      "review_integration": 29,
+      "api_smoke": 8
+    },
+    "fresh_rerun_failures": 0,
+    "fresh_rerun_skips": 0,
+    "prior_fault_suites_reviewed": {
+      "lead": 36,
+      "support": 39
+    },
+    "runtime_exports_match": {
+      "lead_nodes": 11,
+      "support_nodes": 13
+    },
+    "migration_verified": "006_lead_intake",
+    "publishing_preservation_check": {
+      "preexisting_containers_unchanged": 20,
+      "personal_workflows_unchanged": 37,
+      "existing_records_modified_or_missing": 0,
+      "existing_n8n_definitions_history_executions_unchanged": true,
+      "credentials_env_and_model_metadata_unchanged": true
+    },
+    "secret_scan": {
+      "current_files_scanned": 158,
+      "historical_blobs_scanned": 187,
+      "credential_findings": 0,
+      "provider_pattern_findings": 0,
+      "private_key_findings": 0,
+      "env_ignored": true,
+      "env_mode": "0600"
+    },
+    "remote_main_before_publication": "1489752c5a3f988d2a6d57f81cd854b77d830077",
+    "history_rewriting_authorized": false
+  }
+}

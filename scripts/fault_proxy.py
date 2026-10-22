@@ -1,5 +1,6 @@
 """Synthetic-only fault proxy. Never loaded by the business backend."""
 import json
+import os
 import socket
 import struct
 import threading
@@ -54,7 +55,7 @@ class Handler(BaseHTTPRequestHandler):
         for key in ("X-Correlation-ID", "X-Execution-ID"):
             if key in self.headers:
                 headers[key] = self.headers[key]
-        req = urllib.request.Request("http://backend:8001/api/tickets", data=data, headers=headers)
+        req = urllib.request.Request("http://backend:8001" + os.environ.get("FAULT_BACKEND_PATH", "/api/tickets"), data=data, headers=headers)
         try:
             with urllib.request.urlopen(req, timeout=3) as response:
                 status, body = response.status, json.load(response)
