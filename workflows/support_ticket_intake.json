@@ -328,6 +328,75 @@
         400
       ],
       "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "only-created-condition",
+              "leftValue": "={{ $('Respond to Webhook').item.json.outcome }}",
+              "rightValue": "created",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "07893ddd-01a4-4462-90f1-04750bc2b7f2",
+      "name": "Only Newly Created Tickets",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ 'http://backend:8001/api/tickets/' + $('Respond to Webhook').item.json.ticket_id + '/enrich' }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-Correlation-ID",
+              "value": "={{ $('Respond to Webhook').item.json.correlation_id }}"
+            },
+            {
+              "name": "X-Execution-ID",
+              "value": "={{ $('Respond to Webhook').item.json.execution_id }}"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "neverError": true
+            }
+          },
+          "timeout": 35000
+        }
+      },
+      "id": "9bfe4056-1a47-49a2-8541-51974763c20d",
+      "name": "Request Advisory Enrichment",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        224,
+        0
+      ],
+      "onError": "continueRegularOutput"
     }
   ],
   "connections": {
@@ -463,6 +532,28 @@
         [
           {
             "node": "Record Workflow Run",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Only Newly Created Tickets": {
+      "main": [
+        [
+          {
+            "node": "Request Advisory Enrichment",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Record Workflow Run": {
+      "main": [
+        [
+          {
+            "node": "Only Newly Created Tickets",
             "type": "main",
             "index": 0
           }

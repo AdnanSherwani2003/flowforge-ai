@@ -1,0 +1,26 @@
+{
+  "observed_date": "2026-10-22",
+  "ollama_version": "0.40.8",
+  "model_download_bytes": 1929912432,
+  "gpu": "NVIDIA RTX 3050 Laptop GPU",
+  "gpu_total_mib": 6144,
+  "wsl_total_ram_mib": 11804,
+  "gpu_loaded_api_ps": {
+    "size_bytes": 2085974179,
+    "size_vram_bytes": 2085974179,
+    "context_length": 2048
+  },
+  "cpu_loaded_api_ps": {
+    "size_bytes": 2090776656,
+    "size_vram_bytes": 0,
+    "context_length": 2048
+  },
+  "docker_memory_mib_snapshot": {
+    "backend": 71.03,
+    "n8n": 440.9,
+    "postgres": 83.9
+  },
+  "first_real_inference_ms": 6647,
+  "extra_cpu_probe_ms": 9649,
+  "notes": "Ollama API size figures describe loaded allocation, not total process RSS or peak system memory. Docker snapshot is not a peak benchmark."
+}

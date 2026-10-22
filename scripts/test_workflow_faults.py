@@ -75,6 +75,9 @@ def main():
                     "={{ $json.payload.fault === 'refused' ? 'http://" + proxy +
                     ":8081/' : 'http://" + proxy + ":8080/' + $json.payload.fault }}"
                 )
+            if node["name"] == "Request Advisory Enrichment":
+                # AI outage is confined to this disposable workflow; normal Ollama stays online.
+                node["parameters"]["url"] = "http://" + proxy + ":8080/503"
             if node["name"] == "Record Workflow Run":
                 node["parameters"]["jsonBody"] = node["parameters"]["jsonBody"].replace(
                     "workflow_name: 'support_ticket_intake'", f"workflow_name: '{tag}'"
@@ -180,6 +183,17 @@ def main():
                     status, _, result = make_request(webhook, "POST", replay)
                     check(status == 200 and result.get("duplicate") is True and result.get("ticket_id") == ticket, mode + " subsequent replay")
                     check(make_request(BACKEND_URL + "/api/tickets?limit=1")[2]["total"] == before + 1, mode + " exactly one business ticket")
+
+            payload = {"source_event_id": tag + "-ai-down", "subject": "Synthetic",
+                       "body": "Synthetic AI outage", "fault": "success"}
+            count_before_ai = make_request(proxy_url)[2].get("503", 0)
+            status, _, response = make_request(webhook, "POST", payload)
+            check(status == 201 and response.get("outcome") == "created", "AI outage preserves initial acceptance")
+            saved = execution_data(response)
+            check("Request Advisory Enrichment" in saved and make_request(proxy_url)[2].get("503", 0) == count_before_ai + 1,
+                  "post-response enrichment reached isolated unavailable service")
+            check(make_request(BACKEND_URL + "/api/tickets/" + response["ticket_id"])[2]["status"] == "received",
+                  "AI outage does not change business ticket state")
 
             payload = {"source_event_id": tag + "-telemetry", "subject": "Synthetic", "body": "Synthetic", "fault": "telemetry-down"}
             status, _, response = make_request(webhook, "POST", payload)

@@ -1,0 +1,117 @@
+{
+  "acceptance_date": "2026-10-23",
+  "timezone": "Asia/Calcutta",
+  "branch": "implementation-04-ollama-enrichment",
+  "base_commit": "1489752c5a3f988d2a6d57f81cd854b77d830077",
+  "suites": {
+    "backend": {
+      "pass": 137,
+      "fail": 0,
+      "skip": 0
+    },
+    "normal_webhook": {
+      "pass": 192,
+      "fail": 0,
+      "skip": 0
+    },
+    "isolated_fault": {
+      "pass": 39,
+      "fail": 0,
+      "skip": 0
+    },
+    "enrichment_integration": {
+      "pass": 21,
+      "fail": 0,
+      "skip": 0
+    },
+    "api_smoke": {
+      "pass": 8,
+      "fail": 0,
+      "skip": 0
+    }
+  },
+  "backend_warnings": 60,
+  "initial_webhook_response_ms": [
+    101,
+    96,
+    99
+  ],
+  "ollama": {
+    "version": "0.40.8",
+    "local_model": "qwen2.5:3b-instruct",
+    "windows_listener": "127.0.0.1:11434",
+    "backend_connectivity_http": 200,
+    "genuine_inference": "passed in enrichment integration",
+    "startup_shortcut_present": true,
+    "restart_performed_by_review": false
+  },
+  "published_export_matches": true,
+  "migration": "004_ticket_enrichments",
+  "existing_containers_mounts_environment_unchanged": true,
+  "running_backend_source_matches": true,
+  "tables": {
+    "flowforge.tickets": {
+      "before": 288,
+      "after": 316,
+      "previous_records_unchanged": true
+    },
+    "flowforge.leads": {
+      "before": 17,
+      "after": 18,
+      "previous_records_unchanged": true
+    },
+    "flowforge.audit_events": {
+      "before": 447,
+      "after": 507,
+      "previous_records_unchanged": true
+    },
+    "flowforge.workflow_runs": {
+      "before": 719,
+      "after": 807,
+      "previous_records_unchanged": true
+    },
+    "flowforge.ticket_enrichments": {
+      "before": 24,
+      "after": 44,
+      "previous_records_unchanged": true
+    },
+    "flowforge_n8n.workflow_entity": {
+      "before": 5,
+      "after": 5,
+      "previous_records_unchanged": true
+    },
+    "flowforge_n8n.workflow_history": {
+      "before": 25,
+      "after": 25,
+      "previous_records_unchanged": true
+    },
+    "flowforge_n8n.execution_entity": {
+      "before": 333,
+      "after": 333,
+      "previous_records_unchanged": true
+    },
+    "flowforge_n8n.execution_data": {
+      "before": 333,
+      "after": 333,
+      "previous_records_unchanged": true
+    },
+    "flowforge_n8n.credentials_entity": {
+      "before": 0,
+      "after": 0,
+      "previous_records_unchanged": true
+    }
+  },
+  "critical_blockers": [],
+  "git_checkpoint": {
+    "staged_files": 33,
+    "env_ignored": true,
+    "env_tracked": false,
+    "files_scanned": 98,
+    "known_credential_matches": 0,
+    "diff_check": "passed",
+    "staged_diff_check": "passed",
+    "committed": false,
+    "pushed": false,
+    "recommended_commit": "feat: add bounded local Ollama ticket enrichment"
+  }
+}

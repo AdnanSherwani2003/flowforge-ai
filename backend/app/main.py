@@ -7,6 +7,7 @@ from app.core.config import settings
 from app.api.tickets import router as tickets_router
 from app.api.mock_crm import router as mock_crm_router
 from app.api.workflow_runs import router as workflow_runs_router
+from app.api.enrichments import router as enrichments_router
 
 logger = logging.getLogger("flowforge.api")
 
@@ -66,3 +67,5 @@ def health_check():
 app.include_router(tickets_router, prefix="/api")
 app.include_router(mock_crm_router, prefix="/api")
 app.include_router(workflow_runs_router, prefix="/api")
+
+app.include_router(enrichments_router, prefix="/api")

@@ -1,0 +1,56 @@
+{
+  "checked_at_utc": "2026-10-22T15:16:30.949500+00:00",
+  "tables": {
+    "flowforge.tickets": {
+      "before": 256,
+      "after": 288,
+      "all_previous_ids_present": true
+    },
+    "flowforge.audit_events": {
+      "before": 375,
+      "after": 447,
+      "all_previous_ids_present": true
+    },
+    "flowforge.leads": {
+      "before": 16,
+      "after": 17,
+      "all_previous_ids_present": true
+    },
+    "flowforge.workflow_runs": {
+      "before": 623,
+      "after": 719,
+      "all_previous_ids_present": true
+    },
+    "flowforge_n8n.workflow_entity": {
+      "before": 5,
+      "after": 5,
+      "all_previous_ids_present": true
+    },
+    "flowforge_n8n.workflow_history": {
+      "before": 20,
+      "after": 25,
+      "all_previous_ids_present": true
+    },
+    "flowforge_n8n.execution_entity": {
+      "before": 333,
+      "after": 333,
+      "all_previous_ids_present": true
+    },
+    "flowforge_n8n.execution_data": {
+      "before": 333,
+      "after": 333,
+      "all_previous_ids_present": true
+    },
+    "flowforge_n8n.credentials_entity": {
+      "before": 0,
+      "after": 0,
+      "all_previous_ids_present": true
+    }
+  },
+  "existing_named_volume_mounts_unchanged": true,
+  "all_existing_containers_except_backend_unrecreated": true,
+  "compose_credential_and_encryption_key_hashes_unchanged": true,
+  "four_inactive_workflows_unchanged": true,
+  "current_migration": "004_ticket_enrichments",
+  "enrichment_status_counts": "needs_review|5\nsucceeded|7\nunavailable|12"
+}

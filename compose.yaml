@@ -40,6 +40,12 @@ services:
       POSTGRES_PASSWORD: ${FLOWFORGE_DB_PASSWORD:?required}
       DATABASE_URL: postgresql+psycopg://flowforge_app:${FLOWFORGE_DB_PASSWORD:?required}@postgres:5432/flowforge
       ENABLE_FAILURE_SIMULATION: "${FLOWFORGE_ENABLE_SIMULATION:-false}"
+      ENRICHMENT_ENABLED: "${FLOWFORGE_ENRICHMENT_ENABLED:-true}"
+      OLLAMA_BASE_URL: "${OLLAMA_BASE_URL:-http://host.docker.internal:11434}"
+      OLLAMA_MODEL: "${OLLAMA_MODEL:-qwen2.5:3b-instruct}"
+      OLLAMA_MODEL_DIGEST: "${OLLAMA_MODEL_DIGEST:-357c53fb659c5076de1d65ccb0b397446227b71a42be9d1603d46168015c9e4b}"
+      OLLAMA_TIMEOUT_SECONDS: "${OLLAMA_TIMEOUT_SECONDS:-25}"
+      OLLAMA_NUM_GPU: "${OLLAMA_NUM_GPU:--1}"
     depends_on:
       postgres:
         condition: service_healthy

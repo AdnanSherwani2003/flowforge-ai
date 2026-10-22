@@ -1,0 +1,39 @@
+{
+  "verified_at_utc": "2026-10-22T15:15:19.207787+00:00",
+  "backend_pytest": {
+    "passed": 137,
+    "failed": 0,
+    "skipped": 0,
+    "warnings": 60,
+    "original_tests_retained": 82
+  },
+  "normal_webhook_assertions": {
+    "passed": 192,
+    "failed": 0,
+    "skipped": 0
+  },
+  "api_smoke_stages": {
+    "passed": 8,
+    "failed": 0,
+    "skipped": 0
+  },
+  "isolated_fault_assertions": {
+    "passed": 39,
+    "failed": 0,
+    "skipped": 0
+  },
+  "published_enrichment_assertions": {
+    "passed": 21,
+    "failed": 0,
+    "skipped": 0,
+    "latest_initial_response_ms": [
+      117,
+      90,
+      64
+    ]
+  },
+  "runtime_verification": "passed",
+  "published_version": "4a1f9756-89ab-488c-9348-f9fb51e0966e",
+  "migration": "004_ticket_enrichments",
+  "failure_simulation": false
+}

@@ -9,6 +9,7 @@ import app.models.ticket  # noqa: F401
 import app.models.lead  # noqa: F401
 import app.models.audit_event  # noqa: F401
 import app.models.workflow_run  # noqa: F401
+import app.models.ticket_enrichment  # noqa: F401
 from app.models.base import Base
 from app.core.database import get_db
 from app.main import app as fastapi_app
