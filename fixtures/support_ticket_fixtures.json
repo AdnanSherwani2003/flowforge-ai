@@ -1,0 +1,157 @@
+{
+  "description": "Deterministic synthetic test fixtures for FlowForge AI Implementation 03 Support Ticket Intake workflow",
+  "version": "1.0.0",
+  "valid_tickets": [
+    {
+      "id_suffix": "01",
+      "subject": "Unable to access account dashboard",
+      "body": "Whenever I attempt to log into the customer portal, I am redirected to the login screen with a session timeout error.",
+      "expected_outcome": "created",
+      "expected_status_code": 201
+    },
+    {
+      "id_suffix": "02",
+      "subject": "Billing discrepancy on invoice INV-2026-089",
+      "body": "Our monthly subscription fee reflects an unexpected charge for extra seats that were de-provisioned last billing cycle.",
+      "expected_outcome": "created",
+      "expected_status_code": 201
+    },
+    {
+      "id_suffix": "03",
+      "subject": "Webhook delivery failure to endpoint",
+      "body": "Outbound webhooks for event type order.completed are returning HTTP 504 gateway timeout after 10 seconds.",
+      "expected_outcome": "created",
+      "expected_status_code": 201
+    },
+    {
+      "id_suffix": "04",
+      "subject": "API rate limit encountered during sync job",
+      "body": "Nightly batch synchronization job was throttled with HTTP 429 Too Many Requests at 02:15 UTC.",
+      "expected_outcome": "created",
+      "expected_status_code": 201
+    },
+    {
+      "id_suffix": "05",
+      "subject": "SSO authentication failure via SAML 2.0",
+      "body": "Employees attempting Okta SSO login are encountering an Invalid SAML Response error with assertion code 403.",
+      "expected_outcome": "created",
+      "expected_status_code": 201
+    },
+    {
+      "id_suffix": "06",
+      "subject": "CSV export contains corrupted UTF-8 characters",
+      "body": "When downloading customer audit logs as CSV, non-ASCII characters in names appear as question marks or mojibake.",
+      "expected_outcome": "created",
+      "expected_status_code": 201
+    },
+    {
+      "id_suffix": "07",
+      "subject": "Missing audit log events for deleted users",
+      "body": "Compliance review revealed that user de-provisioning events between Oct 10 and Oct 15 are absent from the audit trail.",
+      "expected_outcome": "created",
+      "expected_status_code": 201
+    },
+    {
+      "id_suffix": "08",
+      "subject": "Permission escalation issue in team workspace",
+      "body": "Standard team members can see administrative configuration tabs despite role-based access control restrictions.",
+      "expected_outcome": "created",
+      "expected_status_code": 201
+    },
+    {
+      "id_suffix": "09",
+      "subject": "Password reset email delivery delay",
+      "body": "Customers are reporting that verification and password reset emails are taking upwards of 45 minutes to arrive.",
+      "expected_outcome": "created",
+      "expected_status_code": 201
+    },
+    {
+      "id_suffix": "10",
+      "subject": "Mobile viewport rendering issue in notification center",
+      "body": "On iOS Safari viewports below 400px width, the notification drawer overlaps navigation controls preventing dismissal.",
+      "expected_outcome": "created",
+      "expected_status_code": 201
+    }
+  ],
+  "edge_cases": [
+    {
+      "scenario": "identical_duplicate",
+      "description": "Submitting the exact same source_event_id, subject, and body returns the existing ticket with duplicate=true",
+      "expected_outcome": "duplicate_replayed",
+      "expected_status_code": 200
+    },
+    {
+      "scenario": "conflicting_duplicate",
+      "description": "Submitting an existing source_event_id with different subject/body content returns HTTP 409 conflict",
+      "expected_outcome": "conflict",
+      "expected_status_code": 409
+    },
+    {
+      "scenario": "missing_subject",
+      "payload": {
+        "source_event_id": "test-edge-missing-subject",
+        "body": "Body without subject"
+      },
+      "expected_outcome": "validation_error",
+      "expected_status_code": 422
+    },
+    {
+      "scenario": "missing_body",
+      "payload": {
+        "source_event_id": "test-edge-missing-body",
+        "subject": "Subject without body"
+      },
+      "expected_outcome": "validation_error",
+      "expected_status_code": 422
+    },
+    {
+      "scenario": "missing_source_event_id",
+      "payload": {
+        "subject": "Subject without event id",
+        "body": "Body without event id"
+      },
+      "expected_outcome": "validation_error",
+      "expected_status_code": 422
+    },
+    {
+      "scenario": "whitespace_only_subject",
+      "payload": {
+        "source_event_id": "test-edge-ws-subject",
+        "subject": "    \t\n   ",
+        "body": "Valid body text"
+      },
+      "expected_outcome": "validation_error",
+      "expected_status_code": 422
+    },
+    {
+      "scenario": "whitespace_only_body",
+      "payload": {
+        "source_event_id": "test-edge-ws-body",
+        "subject": "Valid Subject",
+        "body": "    \t\n   "
+      },
+      "expected_outcome": "validation_error",
+      "expected_status_code": 422
+    },
+    {
+      "scenario": "oversized_subject",
+      "payload": {
+        "source_event_id": "test-edge-oversized-subject",
+        "subject": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "body": "Valid body text"
+      },
+      "expected_outcome": "validation_error",
+      "expected_status_code": 422
+    },
+    {
+      "scenario": "oversized_event_id",
+      "payload": {
+        "source_event_id": "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE",
+        "subject": "Valid subject",
+        "body": "Valid body text"
+      },
+      "expected_outcome": "validation_error",
+      "expected_status_code": 422
+    }
+  ]
+}

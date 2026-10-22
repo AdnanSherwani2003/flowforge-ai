@@ -15,6 +15,9 @@ class Settings(BaseSettings):
     POSTGRES_PASSWORD: str = ""
     DATABASE_URL: Optional[str] = None
 
+    # Test failure simulation hook (disabled by default)
+    ENABLE_FAILURE_SIMULATION: bool = False
+
     model_config = SettingsConfigDict(
         env_file=".env",
         env_file_encoding="utf-8",

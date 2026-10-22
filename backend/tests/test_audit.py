@@ -36,7 +36,7 @@ def test_audit_event_generation_and_safe_detail(client):
     assert "ticket_duplicate_received" in event_types
     assert "ticket_conflict_received" in event_types
 
-    # Inspect safe_detail of ticket_created: ensure full body and credentials are NOT logged
+    # Inspect safe_detail: strictly verify NO raw subject, body, or secrets exist
     created_event = next(e for e in events if e["event_type"] == "ticket_created")
     detail = created_event["safe_detail"]
 
@@ -44,9 +44,12 @@ def test_audit_event_generation_and_safe_detail(client):
     assert "source_event_id" in detail
     assert "subject_length" in detail
     assert "body_length" in detail
+    assert "subject" not in detail
+    assert "body" not in detail
     assert "secret123" not in str(detail)
     assert "4111222233334444" not in str(detail)
     assert "abc-xyz-secret" not in str(detail)
+    assert "Sensitive customer inquiry" not in str(detail)
 
 
 def test_audit_nonexistent_ticket_returns_404(client):

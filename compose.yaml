@@ -39,6 +39,7 @@ services:
       POSTGRES_USER: flowforge_app
       POSTGRES_PASSWORD: ${FLOWFORGE_DB_PASSWORD:?required}
       DATABASE_URL: postgresql+psycopg://flowforge_app:${FLOWFORGE_DB_PASSWORD:?required}@postgres:5432/flowforge
+      ENABLE_FAILURE_SIMULATION: "${FLOWFORGE_ENABLE_SIMULATION:-false}"
     depends_on:
       postgres:
         condition: service_healthy
@@ -77,6 +78,7 @@ services:
       N8N_DIAGNOSTICS_ENABLED: "false"
     volumes:
       - n8n_data:/home/node/.n8n
+      - ./workflows:/workflows:ro
     depends_on:
       postgres:
         condition: service_healthy

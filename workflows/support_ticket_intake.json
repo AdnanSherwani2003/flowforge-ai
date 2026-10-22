@@ -1,0 +1,475 @@
+{
+  "name": "FlowForge AI - Support Ticket Intake",
+  "id": "FlowForgeSupportIntake01",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "support-ticket-intake",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "node-webhook-01",
+      "name": "Webhook Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        100,
+        300
+      ],
+      "webhookId": "support-ticket-intake"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={{ JSON.stringify({ source_event_id: $json.body?.source_event_id ? String($json.body.source_event_id).trim() : '', subject: $json.body?.subject ? String($json.body.subject).trim() : '', body: $json.body?.body ? String($json.body.body).trim() : '', simulate: $json.body?.simulate ? String($json.body.simulate).trim() : '', correlation_id: $json.headers?.['x-correlation-id'] || ('corr-' + ($execution.id || '0') + '-' + $now.toMillis()), execution_id: String($execution.id || 'exec-manual'), received_at: $now.toISO() }) }}",
+        "include": "none",
+        "options": {}
+      },
+      "id": "node-extract-02",
+      "name": "Extract & Prepare",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.2,
+      "position": [
+        320,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://backend:8001/api/tickets",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ source_event_id: $json.source_event_id, subject: $json.subject, body: $json.body }) }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "X-Correlation-ID",
+              "value": "={{ $json.correlation_id }}"
+            },
+            {
+              "name": "X-Execution-ID",
+              "value": "={{ $json.execution_id }}"
+            },
+            {
+              "name": "X-FlowForge-Simulate",
+              "value": "={{ $json.simulate || '' }}"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "neverError": true,
+              "responseFormat": "json"
+            }
+          },
+          "timeout": 5000
+        }
+      },
+      "onError": "continueRegularOutput",
+      "id": "node-backend-03",
+      "name": "Call FastAPI Backend",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        540,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "rules",
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.statusCode }}",
+                    "rightValue": 201,
+                    "operator": {
+                      "type": "number",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.statusCode }}",
+                    "rightValue": 200,
+                    "operator": {
+                      "type": "number",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.statusCode }}",
+                    "rightValue": 409,
+                    "operator": {
+                      "type": "number",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.statusCode }}",
+                    "rightValue": 422,
+                    "operator": {
+                      "type": "number",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "id": "node-switch-04",
+      "name": "Route Outcome",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        760,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={{ JSON.stringify({ http_status_code: 201, status: 'accepted', outcome: 'created', ticket_id: $json.body?.id, source_event_id: $json.body?.source_event_id, duplicate: false, correlation_id: $('Extract & Prepare').item.json.correlation_id, execution_id: String($('Extract & Prepare').item.json.execution_id), timestamp: $now.toISO() }) }}",
+        "include": "none",
+        "options": {}
+      },
+      "id": "node-fmt-created-05",
+      "name": "Format Created Outcome",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.2,
+      "position": [
+        1020,
+        100
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={{ JSON.stringify({ http_status_code: 200, status: 'accepted', outcome: 'duplicate_replayed', ticket_id: $json.body?.id, source_event_id: $json.body?.source_event_id, duplicate: true, correlation_id: $('Extract & Prepare').item.json.correlation_id, execution_id: String($('Extract & Prepare').item.json.execution_id), timestamp: $now.toISO() }) }}",
+        "include": "none",
+        "options": {}
+      },
+      "id": "node-fmt-dup-06",
+      "name": "Format Duplicate Outcome",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.2,
+      "position": [
+        1020,
+        250
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={{ JSON.stringify({ http_status_code: 409, status: 'rejected', outcome: 'conflict', error: $json.body?.detail || 'Conflicting payload for existing event', source_event_id: $('Extract & Prepare').item.json.source_event_id, correlation_id: $('Extract & Prepare').item.json.correlation_id, execution_id: String($('Extract & Prepare').item.json.execution_id), timestamp: $now.toISO() }) }}",
+        "include": "none",
+        "options": {}
+      },
+      "id": "node-fmt-conf-07",
+      "name": "Format Conflict Outcome",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.2,
+      "position": [
+        1020,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={{ JSON.stringify({ http_status_code: 422, status: 'rejected', outcome: 'validation_error', error: Array.isArray($json.body?.detail) ? $json.body.detail.map(e => (e.field ? e.field + ': ' : '') + e.msg).join('; ') : (typeof $json.body?.detail === 'string' ? $json.body.detail : 'Request validation failed'), source_event_id: $('Extract & Prepare').item.json.source_event_id, correlation_id: $('Extract & Prepare').item.json.correlation_id, execution_id: String($('Extract & Prepare').item.json.execution_id), timestamp: $now.toISO() }) }}",
+        "include": "none",
+        "options": {}
+      },
+      "id": "node-fmt-val-08",
+      "name": "Format Validation Outcome",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.2,
+      "position": [
+        1020,
+        550
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={{ JSON.stringify({ http_status_code: 503, status: 'failed', outcome: 'service_unavailable', error: $json.statusCode === 503 ? ($json.body?.detail || 'Backend service is temporarily unavailable. Please retry shortly.') : 'Backend service is temporarily unreachable or timed out. Please retry shortly.', source_event_id: $('Extract & Prepare').item.json.source_event_id, correlation_id: $('Extract & Prepare').item.json.correlation_id, execution_id: String($('Extract & Prepare').item.json.execution_id), timestamp: $now.toISO() }) }}",
+        "include": "none",
+        "options": {}
+      },
+      "id": "node-fmt-err-09",
+      "name": "Format Unavailable Outcome",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.2,
+      "position": [
+        1020,
+        700
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "firstIncomingItem",
+        "options": {
+          "responseCode": "={{ $json.http_status_code }}",
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "X-Correlation-ID",
+                "value": "={{ $json.correlation_id }}"
+              },
+              {
+                "name": "X-FlowForge-Execution-ID",
+                "value": "={{ $json.execution_id }}"
+              }
+            ]
+          }
+        }
+      },
+      "id": "node-respond-10",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1280,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://backend:8001/api/workflow-runs",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ workflow_name: 'support_ticket_intake', execution_id: String($json.execution_id || 'unknown'), correlation_id: String($json.correlation_id), source_event_id: $json.source_event_id || null, ticket_id: $json.ticket_id || null, outcome: $json.outcome, status_code: Number($json.http_status_code), safe_detail: { status: $json.status, duplicate: Boolean($json.duplicate), error: $json.error || null } }) }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "neverError": true
+            }
+          },
+          "timeout": 3000
+        }
+      },
+      "onError": "continueRegularOutput",
+      "id": "node-telemetry-11",
+      "name": "Record Workflow Run",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1520,
+        400
+      ]
+    }
+  ],
+  "connections": {
+    "Webhook Trigger": {
+      "main": [
+        [
+          {
+            "node": "Extract & Prepare",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract & Prepare": {
+      "main": [
+        [
+          {
+            "node": "Call FastAPI Backend",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call FastAPI Backend": {
+      "main": [
+        [
+          {
+            "node": "Route Outcome",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Route Outcome": {
+      "main": [
+        [
+          {
+            "node": "Format Created Outcome",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Format Duplicate Outcome",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Format Conflict Outcome",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Format Validation Outcome",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Format Unavailable Outcome",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Created Outcome": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Duplicate Outcome": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Conflict Outcome": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Validation Outcome": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Unavailable Outcome": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respond to Webhook": {
+      "main": [
+        [
+          {
+            "node": "Record Workflow Run",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

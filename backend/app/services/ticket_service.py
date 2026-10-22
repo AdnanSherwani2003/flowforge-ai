@@ -25,6 +25,8 @@ def create_or_get_ticket(
     db: Session,
     ticket_in: TicketCreate,
     actor: str = "api_client",
+    correlation_id: Optional[str] = None,
+    execution_id: Optional[str] = None,
 ) -> Tuple[Ticket, bool]:
     """Handles idempotent ticket submission:
     - Case 1 (New event): Creates record, returns (ticket, False).
@@ -46,6 +48,8 @@ def create_or_get_ticket(
                 event_type="ticket_duplicate_received",
                 safe_detail={
                     "source_event_id": ticket_in.source_event_id,
+                    "correlation_id": correlation_id,
+                    "execution_id": execution_id,
                     "action": "duplicate_event_replayed",
                 },
                 actor=actor,
@@ -59,6 +63,8 @@ def create_or_get_ticket(
                 event_type="ticket_conflict_received",
                 safe_detail={
                     "source_event_id": ticket_in.source_event_id,
+                    "correlation_id": correlation_id,
+                    "execution_id": execution_id,
                     "action": "conflicting_payload_rejected",
                     "reason": "payload_hash_mismatch",
                 },
@@ -128,6 +134,8 @@ def create_or_get_ticket(
         event_type="ticket_created",
         safe_detail={
             "source_event_id": new_ticket.source_event_id,
+            "correlation_id": correlation_id,
+            "execution_id": execution_id,
             "subject_length": len(new_ticket.subject),
             "body_length": len(new_ticket.body),
             "category": new_ticket.category,

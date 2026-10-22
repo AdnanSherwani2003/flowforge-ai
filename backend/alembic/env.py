@@ -14,6 +14,7 @@ from app.models.base import Base
 import app.models.ticket  # noqa: F401
 import app.models.lead  # noqa: F401
 import app.models.audit_event  # noqa: F401
+import app.models.workflow_run  # noqa: F401
 
 config = context.config
 

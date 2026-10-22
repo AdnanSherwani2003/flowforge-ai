@@ -1,5 +1,7 @@
-from fastapi import APIRouter, Depends, Query, status, Response, HTTPException
+from fastapi import APIRouter, Depends, Query, Header, status, Response, HTTPException, Request
+from typing import Optional
 from sqlalchemy.orm import Session
+from app.core.config import settings
 from app.core.database import get_db
 from app.schemas.ticket import TicketCreate, TicketResponse, TicketListResponse
 from app.schemas.audit_event import TicketAuditResponse, AuditEventResponse
@@ -17,12 +19,60 @@ router = APIRouter(prefix="/tickets", tags=["Support Tickets"])
 def create_ticket(
     payload: TicketCreate,
     response: Response,
+    request: Request,
     db: Session = Depends(get_db),
+    x_correlation_id: Optional[str] = Header(default=None),
+    x_execution_id: Optional[str] = Header(default=None),
+    x_flowforge_simulate: Optional[str] = Header(default=None),
 ):
+    # Isolated test-only failure simulation hook:
+    # Requires BOTH settings.ENABLE_FAILURE_SIMULATION=True AND explicit X-FlowForge-Simulate header.
+    # An ordinary user's source_event_id NEVER triggers any failure.
+    if settings.ENABLE_FAILURE_SIMULATION and x_flowforge_simulate:
+        if x_flowforge_simulate == "503":
+            raise HTTPException(
+                status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+                detail="Database service is temporarily unavailable. Please retry shortly.",
+            )
+        elif x_flowforge_simulate == "timeout":
+            import time
+            time.sleep(6)
+            raise HTTPException(
+                status_code=status.HTTP_504_GATEWAY_TIMEOUT,
+                detail="Simulated gateway timeout",
+            )
+        elif x_flowforge_simulate == "conn-reset":
+            transport = getattr(request, "scope", {}).get("transport")
+            if transport:
+                transport.abort()
+            raise HTTPException(
+                status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+                detail="Connection reset simulated",
+            )
+        elif x_flowforge_simulate == "timeout-after-persist":
+            # Case B: Persist record, then sleep 6s to trigger gateway timeout on caller
+            actor = "n8n_workflow" if x_execution_id else "api_client"
+            ticket, is_duplicate = ticket_service.create_or_get_ticket(
+                db=db,
+                ticket_in=payload,
+                actor=actor,
+                correlation_id=x_correlation_id,
+                execution_id=x_execution_id,
+            )
+            import time
+            time.sleep(6)
+            raise HTTPException(
+                status_code=status.HTTP_504_GATEWAY_TIMEOUT,
+                detail="Simulated gateway timeout after persistence",
+            )
+
+    actor = "n8n_workflow" if x_execution_id else "api_client"
     ticket, is_duplicate = ticket_service.create_or_get_ticket(
         db=db,
         ticket_in=payload,
-        actor="api_client",
+        actor=actor,
+        correlation_id=x_correlation_id,
+        execution_id=x_execution_id,
     )
     if is_duplicate:
         response.status_code = status.HTTP_200_OK

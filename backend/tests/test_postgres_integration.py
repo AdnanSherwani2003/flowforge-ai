@@ -136,3 +136,38 @@ def test_real_postgres_lead_persistence(pg_session):
     fetched = get_lead_by_id(pg_session, lead.id)
     assert fetched is not None
     assert fetched.normalized_email == "real.pg.lead@example.com"
+
+
+def test_real_postgres_workflow_run_concurrency(pg_isolated_engine):
+    from app.services.workflow_run_service import record_workflow_run
+    from app.schemas.workflow_run import WorkflowRunCreate
+    WorkerSession = sessionmaker(autocommit=False, autoflush=False, bind=pg_isolated_engine)
+    payload = WorkflowRunCreate(
+        workflow_name="support_ticket_intake",
+        execution_id="pg-concurrent-exec-01",
+        correlation_id="pg-concurrent-corr-01",
+        source_event_id="pg-concurrent-evt-01",
+        outcome="created",
+        status_code=201,
+        safe_detail={"status": "accepted"},
+    )
+
+    results = []
+
+    def submit():
+        session = WorkerSession()
+        try:
+            run = record_workflow_run(session, payload)
+            return run.id
+        finally:
+            session.close()
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
+        futures = [executor.submit(submit) for _ in range(5)]
+        for f in concurrent.futures.as_completed(futures):
+            results.append(f.result())
+
+    assert len(results) == 5
+    run_ids = set(results)
+    # Exactly one unique row should be created and shared among all 5 concurrent threads
+    assert len(run_ids) == 1
