@@ -4,7 +4,7 @@
 No production workflow is changed. Temporary credential material is mode 0600
 and removed with the test directory; n8n stores it encrypted in disposable tmpfs.
 """
-import copy,json,os,tempfile,time,uuid
+import copy,json,os,tempfile,time,uuid,argparse
 from datetime import date,timedelta
 from pathlib import Path
 from test_workflow_faults import docker,ROOT
@@ -13,6 +13,9 @@ from test_review_integration import request,credentials,BACKEND
 
 
 def main():
+    parser=argparse.ArgumentParser()
+    parser.add_argument("--output",type=Path,default=ROOT/"docs/evaluation/implementation-07-faults.json")
+    args=parser.parse_args()
     tag="ff-digest-fault-"+uuid.uuid4().hex[:8]
     proxy,engine=tag+"-proxy",tag+"-n8n"
     started=[];checks=0;results=[]
@@ -137,7 +140,7 @@ def main():
         finally:
             for name in reversed(started):docker("stop","--time","10",name,check=False)
     evidence={"passed":checks,"failed":0,"skipped":0,"scenarios":results}
-    (ROOT/"docs/evaluation/implementation-07-faults.json").write_text(json.dumps(evidence,indent=2)+"\n")
+    args.output.write_text(json.dumps(evidence,indent=2)+"\n")
     print(f"Digest faults: {checks} passed, 0 failed, 0 skipped")
 
 if __name__=="__main__":main()

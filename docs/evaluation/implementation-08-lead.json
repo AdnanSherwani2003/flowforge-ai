@@ -1,0 +1,179 @@
+{
+  "passed": 358,
+  "failed": 0,
+  "skipped": 0,
+  "scenario_count": 20,
+  "run": "lead-768ed353944d4354",
+  "lead_count_before": 37,
+  "lead_count_after": 40,
+  "results": [
+    {
+      "scenario": "new",
+      "http_status": 201,
+      "outcome": "created",
+      "execution_id": "1201",
+      "lead_id": "3a6c54d5-ef17-435d-9086-8ed08d7befa0",
+      "duplicate_reason": null
+    },
+    {
+      "scenario": "event_replay",
+      "http_status": 200,
+      "outcome": "duplicate_replayed",
+      "execution_id": "1202",
+      "lead_id": "3a6c54d5-ef17-435d-9086-8ed08d7befa0",
+      "duplicate_reason": "event"
+    },
+    {
+      "scenario": "existing_email",
+      "http_status": 200,
+      "outcome": "duplicate_replayed",
+      "execution_id": "1203",
+      "lead_id": "3a6c54d5-ef17-435d-9086-8ed08d7befa0",
+      "duplicate_reason": "email"
+    },
+    {
+      "scenario": "alias_replay",
+      "http_status": 200,
+      "outcome": "duplicate_replayed",
+      "execution_id": "1204",
+      "lead_id": "3a6c54d5-ef17-435d-9086-8ed08d7befa0",
+      "duplicate_reason": "event"
+    },
+    {
+      "scenario": "event_conflict",
+      "http_status": 409,
+      "outcome": "conflict",
+      "execution_id": "1205",
+      "lead_id": null,
+      "duplicate_reason": null
+    },
+    {
+      "scenario": "alias_conflict",
+      "http_status": 409,
+      "outcome": "conflict",
+      "execution_id": "1206",
+      "lead_id": null,
+      "duplicate_reason": null
+    },
+    {
+      "scenario": "email_case",
+      "http_status": 200,
+      "outcome": "duplicate_replayed",
+      "execution_id": "1207",
+      "lead_id": "3a6c54d5-ef17-435d-9086-8ed08d7befa0",
+      "duplicate_reason": "email"
+    },
+    {
+      "scenario": "trimmed_replay",
+      "http_status": 200,
+      "outcome": "duplicate_replayed",
+      "execution_id": "1208",
+      "lead_id": "3a6c54d5-ef17-435d-9086-8ed08d7befa0",
+      "duplicate_reason": "event"
+    },
+    {
+      "scenario": "invalid_email",
+      "http_status": 422,
+      "outcome": "validation_error",
+      "execution_id": "1209",
+      "lead_id": null,
+      "duplicate_reason": null
+    },
+    {
+      "scenario": "missing_required",
+      "http_status": 422,
+      "outcome": "validation_error",
+      "execution_id": "1210",
+      "lead_id": null,
+      "duplicate_reason": null
+    },
+    {
+      "scenario": "wrong_name_type",
+      "http_status": 422,
+      "outcome": "validation_error",
+      "execution_id": "1211",
+      "lead_id": null,
+      "duplicate_reason": null
+    },
+    {
+      "scenario": "wrong_email_type",
+      "http_status": 422,
+      "outcome": "validation_error",
+      "execution_id": "1212",
+      "lead_id": null,
+      "duplicate_reason": null
+    },
+    {
+      "scenario": "wrong_event_type",
+      "http_status": 422,
+      "outcome": "validation_error",
+      "execution_id": "1213",
+      "lead_id": null,
+      "duplicate_reason": null
+    },
+    {
+      "scenario": "array_body",
+      "http_status": 422,
+      "outcome": "validation_error",
+      "execution_id": "1214",
+      "lead_id": null,
+      "duplicate_reason": null
+    },
+    {
+      "scenario": "null_body",
+      "http_status": 422,
+      "outcome": "validation_error",
+      "execution_id": "1215",
+      "lead_id": null,
+      "duplicate_reason": null
+    },
+    {
+      "scenario": "string_body",
+      "http_status": 422,
+      "outcome": "validation_error",
+      "execution_id": "1216",
+      "lead_id": null,
+      "duplicate_reason": null
+    },
+    {
+      "scenario": "invalid_trace",
+      "http_status": 422,
+      "outcome": "validation_error",
+      "execution_id": "1217",
+      "lead_id": null,
+      "duplicate_reason": null
+    },
+    {
+      "scenario": "long_event",
+      "http_status": 422,
+      "outcome": "validation_error",
+      "execution_id": "1218",
+      "lead_id": null,
+      "duplicate_reason": null
+    },
+    {
+      "scenario": "same_event",
+      "statuses": [
+        201,
+        200,
+        200,
+        200,
+        200,
+        200
+      ],
+      "lead_id": "db0b4244-b9cf-4c5f-ae04-9b09d0de41cc"
+    },
+    {
+      "scenario": "same_email",
+      "statuses": [
+        201,
+        200,
+        200,
+        200,
+        200,
+        200
+      ],
+      "lead_id": "cdbb8a43-0615-4d5b-827b-18e85de47b93"
+    }
+  ]
+}

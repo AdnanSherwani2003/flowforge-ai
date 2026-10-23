@@ -2,7 +2,7 @@ import logging
 from fastapi import FastAPI, Request, status
 from fastapi.responses import JSONResponse
 from fastapi.exceptions import RequestValidationError
-from sqlalchemy.exc import OperationalError, DBAPIError
+from sqlalchemy.exc import OperationalError, DBAPIError, TimeoutError as PoolTimeout
 from app.core.config import settings
 from app.api.tickets import router as tickets_router
 from app.api.mock_crm import router as mock_crm_router
@@ -10,6 +10,7 @@ from app.api.workflow_runs import router as workflow_runs_router
 from app.api.enrichments import router as enrichments_router
 from app.api.reviews import router as reviews_router
 from app.api.digests import router as digests_router
+from app.api.system import router as system_router
 
 logger = logging.getLogger("flowforge.api")
 
@@ -39,11 +40,13 @@ async def validation_exception_handler(request: Request, exc: RequestValidationE
     )
 
 
+@app.exception_handler(PoolTimeout)
 @app.exception_handler(OperationalError)
 async def db_operational_error_handler(request: Request, exc: OperationalError):
     logger.error("Database operational error: %s", type(exc).__name__)
     return JSONResponse(
         status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+        headers={"Retry-After": "2"},
         content={"detail": "Database service is temporarily unavailable. Please retry shortly."},
     )
 
@@ -66,6 +69,7 @@ def health_check():
     }
 
 
+app.include_router(system_router)
 app.include_router(tickets_router, prefix="/api")
 app.include_router(mock_crm_router, prefix="/api")
 app.include_router(workflow_runs_router, prefix="/api")

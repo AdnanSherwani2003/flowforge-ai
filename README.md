@@ -14,7 +14,8 @@ Automate repetitive business operations while retaining human approval, auditabi
 4. **Implementation 04**: Bounded local AI enrichment using Ollama (Complete; commit 491b719).
 5. **Implementation 05**: Authenticated human approval and Next.js dashboard (Complete; commit 7625989).
 6. **Implementation 06**: Deterministic lead intake and email deduplication (Complete and accepted for the local-first scope).
-7. **Implementation 07**: Deterministic daily operations digest (Complete and accepted for the local-first scope).
+7. **Implementation 07**: Deterministic daily operations digest (Accepted; local commit e746ff6).
+8. **Implementation 08**: Resilience and recovery (Implemented locally; awaiting acceptance).
 
 ## Technology Stack
 
@@ -37,7 +38,9 @@ approval/rejection confirmations and durable decision history. Approval records
 human review only; no external action or ticket-state mutation follows.
 
 Implementations 01–06 are complete and published for the intended local-first scope.
-Implementation 07 is accepted locally on implementation-07-daily-operations-digest.
+Implementation 07 is accepted and checkpointed locally at e746ff6; it has not been pushed or merged.
+Implementation 08 remains uncommitted on implementation-08-resilience-recovery.
+See [resilience evidence](docs/implementation-08.md) and the [local recovery runbook](docs/recovery-runbook.md).
 See [Implementation 07](docs/implementation-07.md) for authenticated daily reports,
 counting rules, the 09:00 schedule and missed-day recovery.
 Implementation 04 is commit 491b719 and Implementation 05 is commit 7625989;
@@ -69,7 +72,8 @@ The reproducible workflow definition is version-controlled at:
 | **FastAPI Core** | http://localhost:8001 |
 | **API Documentation** | http://localhost:8001/docs |
 | **FlowForge n8n** | http://localhost:5679 |
-| **Health Check** | http://localhost:8001/health |
+| **Process Liveness** | http://localhost:8001/health |
+| **Database Readiness** | http://localhost:8001/ready |
 | **Lead Webhook Endpoint** | http://localhost:5679/webhook/lead-intake |
 | **Support Webhook Endpoint** | http://localhost:5679/webhook/support-ticket-intake |
 
@@ -82,7 +86,7 @@ The reproducible workflow definition is version-controlled at:
 docker compose run --rm backend alembic upgrade head
 ```
 
-### 2. Backend Unit and Integration Tests (214 tests)
+### 2. Backend Unit and Integration Tests (222 tests)
 ```bash
 docker compose run --rm backend pytest -v
 ```
@@ -157,12 +161,26 @@ python3 scripts/test_digest_integration.py
 python3 scripts/test_digest_faults.py
 ```
 
-### 9. Workflow Maintenance
+### 9. Resilience and Recovery
+
+```bash
+python3 scripts/test_recovery_stack.py
+python3 scripts/test_resilience_regressions.py
+```
+
+The first command creates an isolated synthetic stack, uses a model stub and waits
+for the actual 120-second inference lease. Only its labeled test containers and
+network are removed. Private synthetic database artifacts are retained outside
+Git; plaintext fixture configuration is removed. The second command reruns existing
+suites against normal local services and preserves their synthetic records.
+Run without competing inference. See the recovery runbook for safe operator steps.
+
+### 10. Workflow Maintenance
 
 Use the authenticated n8n editor or supported API to update and publish the intended stable workflow: `FlowForgeSupportIntake01`, `FlowForgeLeadIntake01` or `FlowForgeDailyDigest01`. Production CLI import is not a read-only check: it deactivates imported workflows. Do not unpublish or delete other workflows without approval.
 
 Completed execution data is configured not to be saved. Manual/debug retention was observed for two digest runs; see Implementation 07 for evidence and limits. Ticket content is intentionally stored in the business database and may exist in transient/crashed n8n executions and historical records. Application telemetry retains allowlisted metadata and is best effort.
 
-See [Implementation 03](docs/implementation-03.md) for contracts, privacy limits, fault coverage, and safe credential-rotation guidance. See [Implementation 04](docs/implementation-04.md) for current advisory AI behavior. See [Implementation 06](docs/implementation-06.md) for current lead behavior. See [Implementation 07](docs/implementation-07.md) for daily reporting. Implementation 08 has not started.
+See [Implementation 03](docs/implementation-03.md) for contracts, privacy limits, fault coverage, and safe credential-rotation guidance. See [Implementation 04](docs/implementation-04.md) for current advisory AI behavior. See [Implementation 06](docs/implementation-06.md) for current lead behavior. See [Implementation 07](docs/implementation-07.md) for daily reporting. Implementation 08 adds bounded database waits, separate readiness, interrupted-enrichment recovery visibility and isolated restart tests. No Implementation 09 work has started.
 
 This is an engineering portfolio project, not a commercial SaaS platform.

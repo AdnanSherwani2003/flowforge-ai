@@ -1,0 +1,9 @@
+{
+  "liveness": 200,
+  "readiness": 200,
+  "optional_diagnostic_unauthenticated": 401,
+  "optional_diagnostic": {
+    "ollama": "available",
+    "required_for_readiness": false
+  }
+}

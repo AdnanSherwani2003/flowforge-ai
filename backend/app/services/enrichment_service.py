@@ -32,13 +32,20 @@ def get_enrichment(db, ticket_id):
 def _expire_lease(db, row):
     if row.status == "processing":
         cutoff = datetime.now(timezone.utc) - timedelta(seconds=LEASE_SECONDS)
-        db.execute(update(TicketEnrichment).execution_options(synchronize_session="fetch").where(
+        changed = db.execute(update(TicketEnrichment).execution_options(synchronize_session="fetch").where(
             TicketEnrichment.id == row.id, TicketEnrichment.status == "processing",
             TicketEnrichment.started_at <= cutoff,
         ).values(
             status="unavailable", diagnostic_code="lease_expired", completed_at=datetime.now(timezone.utc),
             lease_token=None, reason="Interrupted enrichment requires an explicit retry.",
-        ))
+        )).rowcount
+        if changed:
+            db.refresh(row)
+            from app.services.review_service import ensure_review
+            ensure_review(db, row)
+            record_audit_event(db, row.ticket_id, "ticket_enrichment_interrupted",
+                {"enrichment_id": row.id, "status": "unavailable",
+                 "diagnostic_code": "lease_expired"}, actor="review_system")
         db.commit()
         db.refresh(row)
     return row

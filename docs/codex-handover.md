@@ -166,7 +166,7 @@ The user authorized its local checkpoint, fast-forward of main, and normal pushe
 of main and the 04–06 implementation branches. Preserve separate commits and all
 branches; never force-push, reset or rewrite history. Read
 [Implementation 06](implementation-06.md) for acceptance and limits.
-Implementation 07 remains planned; do not begin without new instructions.
+Implementation 07 is now accepted and locally checkpointed; see the current status below.
 
 Lead workflow FlowForgeLeadIntake01 is separately published with 11 nodes at
 POST /webhook/lead-intake. Additive migration 006_lead_intake preserves historical
@@ -181,7 +181,8 @@ PostgreSQL rows rather than waiting n8n executions.
 ### D. Implementation 07 local acceptance
 
 Implementation 07 is developed on implementation-07-daily-operations-digest from
-29aa141 and remains uncommitted/unpushed. Migration 007_daily_digests is applied;
+29aa141 and was accepted and locally committed as e746ff6cd59eba100504f9c2ccb36ea22a261457.
+It remains unpushed/unmerged. Migration 007_daily_digests is applied;
 FlowForgeDailyDigest01 is separately published with five nodes, 09:00 Asia/Kolkata.
 The authenticated /digests page provides frozen reports and one-day backfill.
 Read [Implementation 07](implementation-07.md) for exact metrics, scoped credential
@@ -189,4 +190,21 @@ provisioning, timezone alignment, offline recovery and retention observations.
 
 Existing reviewer credentials/encryption keys are preserved. Only a new narrowly
 scoped generation key and encrypted n8n header credential were added.
-Do not commit, push, merge or begin Implementation 08 without new authorization.
+### E. Implementation 08 acceptance pending
+
+Current branch: implementation-08-resilience-recovery, based on local checkpoint
+e746ff6. Implementation 08 remains uncommitted and unstaged pending review.
+Main/origin main remain 29aa141. No push or merge was authorized.
+
+Read [Implementation 08](implementation-08.md) and [recovery runbook](recovery-runbook.md).
+/health is process liveness; /ready checks the required DB. Optional Ollama metadata
+is checked only through authenticated /api/reviewer/dependencies and never gates
+readiness. Database connect/pool/SQL/lock waits are bounded. Expired enrichment
+claims reconcile on explicit POST and now create attention reviews and safe audits.
+There is no background sweeper/outbox, automatic backfill or automatic write retry.
+
+All original business rows, seven workflow definitions, 335 retained execution
+entities/data rows and the existing credential were verified preserved. Only the
+normal backend was recreated. Interruptions were confined to a disposable stack.
+Do not commit Implementation 08, push, merge or begin Implementation 09 without
+new authorization.

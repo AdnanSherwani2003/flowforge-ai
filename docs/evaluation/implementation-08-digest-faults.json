@@ -1,0 +1,42 @@
+{
+  "passed": 44,
+  "failed": 0,
+  "skipped": 0,
+  "scenarios": [
+    {
+      "mode": "503",
+      "status": 503,
+      "initial_elapsed_ms": 106
+    },
+    {
+      "mode": "refused",
+      "status": 503,
+      "initial_elapsed_ms": 75
+    },
+    {
+      "mode": "timeout",
+      "status": 503,
+      "initial_elapsed_ms": 8050
+    },
+    {
+      "mode": "after-persist",
+      "status": 503,
+      "initial_elapsed_ms": 8042
+    },
+    {
+      "mode": "unauthorized",
+      "status": 401,
+      "initial_elapsed_ms": 45
+    },
+    {
+      "mode": "validation",
+      "status": 422,
+      "initial_elapsed_ms": 39
+    },
+    {
+      "mode": "telemetry-down",
+      "status": 201,
+      "initial_elapsed_ms": 58
+    }
+  ]
+}

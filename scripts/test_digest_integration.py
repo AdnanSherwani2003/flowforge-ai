@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Authenticated API + Next.js integration; aggregate-only saved evidence."""
 import json
+import argparse
 import uuid
 from datetime import date,timedelta,datetime
 from pathlib import Path
@@ -9,6 +10,9 @@ ROOT=Path(__file__).resolve().parents[1]
 
 
 def main():
+    parser=argparse.ArgumentParser()
+    parser.add_argument("--output",type=Path,default=ROOT/"docs/evaluation/implementation-07-integration.json")
+    args=parser.parse_args()
     checks=0
     def check(ok,label):
         nonlocal checks
@@ -61,7 +65,7 @@ def main():
     check(settings["FLOWFORGE_DIGEST_SERVICE_KEY"] not in html and auth["token"] not in html,"No credentials in HTML")
     check(request(BACKEND+"/digests?limit=51",headers=headers)[0]==422,"Bounded pagination")
     result={"passed":checks,"failed":0,"skipped":0,"backfill_report_id":created["id"],"backfill_date":day.isoformat(),"report":created}
-    (ROOT/"docs/evaluation/implementation-07-integration.json").write_text(json.dumps(result,indent=2)+"\n")
+    args.output.write_text(json.dumps(result,indent=2)+"\n")
     print(f"Digest integration: {checks} passed, 0 failed, 0 skipped")
     return result
 

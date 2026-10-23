@@ -1,0 +1,147 @@
+{
+  "status": "implemented and verified locally; acceptance pending",
+  "verified_local_date": "2026-10-23",
+  "implementation_07_commit": "e746ff6cd59eba100504f9c2ccb36ea22a261457",
+  "branch": "implementation-08-resilience-recovery",
+  "implementation_08_committed": false,
+  "pushed": false,
+  "merged": false,
+  "implementation_09_started": false,
+  "migration": "007_daily_digests (unchanged)",
+  "suites": {
+    "backend": {
+      "passed": 222,
+      "failed": 0,
+      "skipped": 0
+    },
+    "lead": {
+      "passed": 358,
+      "failed": 0,
+      "skipped": 0
+    },
+    "support": {
+      "passed": 192,
+      "failed": 0,
+      "skipped": 0
+    },
+    "enrichment": {
+      "passed": 21,
+      "failed": 0,
+      "skipped": 0
+    },
+    "reviews": {
+      "passed": 29,
+      "failed": 0,
+      "skipped": 0
+    },
+    "smoke": {
+      "passed": 8,
+      "failed": 0,
+      "skipped": 0
+    },
+    "digest": {
+      "passed": 28,
+      "failed": 0,
+      "skipped": 0
+    },
+    "digest_faults": {
+      "passed": 44,
+      "failed": 0,
+      "skipped": 0
+    },
+    "lead_faults": {
+      "passed": 36,
+      "failed": 0,
+      "skipped": 0
+    },
+    "support_faults": {
+      "passed": 39,
+      "failed": 0,
+      "skipped": 0
+    },
+    "frontend": {
+      "passed": 33,
+      "failed": 0,
+      "skipped": 0
+    },
+    "isolated_recovery": {
+      "passed": 49,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "other_checks": {
+    "frontend_lint": "passed",
+    "frontend_typecheck": "passed",
+    "backend_image_build": "passed",
+    "published_workflow_runtime_verification": "passed",
+    "actual_ollama_metadata": "available",
+    "windows_ollama_listener": "127.0.0.1:11434",
+    "working_tree_secret_scan": "passed",
+    "diff_check": "passed",
+    "python_syntax": "passed",
+    "json_parsing": "passed"
+  },
+  "preservation_evidence": "implementation-08-preservation.json",
+  "recovery_runbook": "../recovery-runbook.md",
+  "important_limits": [
+    "Request-driven lease reconciliation; no background sweeper/outbox",
+    "Explicit recovery required when ticket committed before enrichment dispatch",
+    "Optional AI not required for readiness",
+    "DB timeouts do not bound all OS/network stalls",
+    "Production database/n8n not interrupted; isolated n8n uses SQLite",
+    "Ollama process faults use HTTP stub; real pinned model regressions run separately",
+    "Full Windows reboot and database restore not executed",
+    "No exactly-once network delivery claim"
+  ],
+  "development_corrections": [
+    "Unit test monkeypatch target corrected before final 222-pass run",
+    "Isolated n8n publication flags, synthetic email, dynamic port discovery and Next response assertions corrected before final 49-pass run",
+    "Lead suite success-text marker corrected; actual 358-pass output and JSON verified"
+  ],
+  "git_safety": {
+    "changed_files": [
+      "README.md",
+      "backend/app/api/system.py",
+      "backend/app/core/database.py",
+      "backend/app/main.py",
+      "backend/app/services/enrichment_service.py",
+      "backend/tests/test_recovery.py",
+      "compose.yaml",
+      "docs/codex-handover.md",
+      "docs/evaluation/implementation-08-acceptance.json",
+      "docs/evaluation/implementation-08-digest-faults.json",
+      "docs/evaluation/implementation-08-digest.json",
+      "docs/evaluation/implementation-08-lead.json",
+      "docs/evaluation/implementation-08-operations.json",
+      "docs/evaluation/implementation-08-preservation.json",
+      "docs/evaluation/implementation-08-recovery.json",
+      "docs/evaluation/implementation-08-regressions.json",
+      "docs/evaluation/implementation-08-review.json",
+      "docs/implementation-08.md",
+      "docs/recovery-runbook.md",
+      "scripts/recovery_fixture.py",
+      "scripts/test_digest_faults.py",
+      "scripts/test_digest_integration.py",
+      "scripts/test_recovery_stack.py",
+      "scripts/test_resilience_regressions.py"
+    ],
+    "changed_file_count": 24,
+    "staged_files": 0,
+    "main_commit": "29aa141eb69466f2bfa7869c64ccd4922fa4f31c",
+    "origin_main_commit": "29aa141eb69466f2bfa7869c64ccd4922fa4f31c"
+  },
+  "suggested_commit": "feat: add bounded resilience checks and explicit recovery",
+  "manual_actions_required": [
+    "Review acceptance before authorizing Implementation 08 commit",
+    "Use runbook for actual outages; host reboot/restore drills remain separately planned"
+  ],
+  "secret_scan": {
+    "files_scanned": 200,
+    "known_local_secret_and_encoding_matches": 0,
+    "private_key_markers": 0,
+    "env_ignored": true,
+    "env_mode": "0600",
+    "staged_files": 0
+  }
+}

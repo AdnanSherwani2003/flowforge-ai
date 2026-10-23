@@ -1,0 +1,82 @@
+{
+  "business_tables": {
+    "tickets": {
+      "before": 443,
+      "after": 474,
+      "missing_or_changed_original_rows": 0
+    },
+    "audit_events": {
+      "before": 1029,
+      "after": 1157,
+      "missing_or_changed_original_rows": 0
+    },
+    "reviews": {
+      "before": 143,
+      "after": 166,
+      "missing_or_changed_original_rows": 0
+    },
+    "leads": {
+      "before": 37,
+      "after": 44,
+      "missing_or_changed_original_rows": 0
+    },
+    "lead_identities": {
+      "before": 20,
+      "after": 27,
+      "missing_or_changed_original_rows": 0
+    },
+    "lead_events": {
+      "before": 58,
+      "after": 72,
+      "missing_or_changed_original_rows": 0
+    },
+    "daily_digests": {
+      "before": 10,
+      "after": 14,
+      "missing_or_changed_original_rows": 0
+    },
+    "workflow_runs": {
+      "before": 1301,
+      "after": 1445,
+      "missing_or_changed_original_rows": 0
+    },
+    "ticket_enrichments": {
+      "before": 143,
+      "after": 166,
+      "missing_or_changed_original_rows": 0
+    }
+  },
+  "existing_workflows": {
+    "count": 7,
+    "identical_complete_exports": true,
+    "active": 3
+  },
+  "containers": {
+    "existing_count": 20,
+    "only_backend_recreated": true,
+    "all_original_mounts_unchanged": true,
+    "other_environment_hashes_unchanged": true,
+    "backend_environment_matches_unchanged_compose_values": true,
+    "personal_n8n_untouched": true
+  },
+  "ignored_configuration_bytes_unchanged": true,
+  "supported_n8n_entity_export": {
+    "executionentity.jsonl": {
+      "before": 335,
+      "after": 335,
+      "missing_or_changed": 0
+    },
+    "executiondata.jsonl": {
+      "before": 335,
+      "after": 335,
+      "missing_or_changed": 0
+    },
+    "credentialsentity.jsonl": {
+      "before": 1,
+      "after": 1,
+      "missing_or_changed": 0
+    }
+  },
+  "history_comparison": "Per-row SHA-256 against retained encrypted Implementation 07 export; privately decrypted in memory. No direct n8n SQL.",
+  "personal_workflows_read_only_count": 37
+}
