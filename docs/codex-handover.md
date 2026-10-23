@@ -1,5 +1,28 @@
 # FlowForge AI — Codex Handover Documentation
 
+## Current checkpoint — 2026-10-24
+
+Implementation 09 is committed at
+`64f7a477253f000b60b202ecba44c136dd76e59a`, accepted with documented exceptions
+for trusted-local use. Implementation 10 has received final acceptance with
+documented exceptions. The user explicitly authorized its local commit,
+fast-forward integration into `main` and publication of the 07–10 branches and
+`main`. The release is based on that clean 09 checkpoint; see Git for final SHAs.
+No release tag, public runtime deployment or additional implementation is authorized.
+
+Read the [current roadmap](roadmap.md), [developer setup](developer-setup.md),
+[architecture](architecture.md), [demos](portfolio-demos.md),
+[fresh benchmark evidence](benchmark-report.md) and
+[Implementation 10 report](implementation-10.md). The separate portfolio lab
+imports copies into new storage only; its default model is an explicitly labelled
+controlled fixture. Original services/configuration/workflows are preserved.
+
+Earlier status sections below are historical handoff snapshots. In particular,
+Implementation 09's old uncommitted/no-Git-authorization text predates its later
+authorized local checkpoint. All three security exceptions and seven follow-ups
+remain open. Approval records decisions only; customer delivery/actions are not
+implemented. Do not describe a future delivery gate as existing functionality.
+
 Welcome to **FlowForge AI**! This document provides the engineering context, runtime architecture, verification commands, and safety boundaries required for OpenAI Codex to seamlessly continue development.
 
 ---
@@ -31,7 +54,7 @@ Core Architectural Principles:
 - **Repository Location**: `/home/adnan/projects/flowforge-ai`
 - **Operating Environment**: Ubuntu WSL2 on Windows 11 with Docker Desktop
 - **GitHub Remote**: `https://github.com/AdnanSherwani2003/flowforge-ai.git`
-- **Active Branch**: `implementation-09-testing-security` (09 uncommitted and unstaged; no push/merge)
+- **Release Branches**: `main` and retained `implementation-10-portfolio-release`; verify current branch/tip with Git before further work.
 
 ---
 
@@ -50,19 +73,19 @@ Core Architectural Principles:
 
 ## 4. Current Implementation Status & Roadmap
 
-**Current status:** Implementations 01–06 are published on main/origin main at
-29aa141. Implementation 07 is locally committed as e746ff6; accepted Implementation
-08 is locally committed as 973c408d4c6893edae8a558774d3362bd1957f61.
-Implementation 09 remains uncommitted on implementation-09-testing-security.
-Latest applied migration is 007_daily_digests; 08/09 add no migration.
+**Current status:** All ten implementations have final functional acceptance
+for the trusted-local portfolio scope. The authorized final Git release
+integrates 07–10 after 29aa141, preserving e746ff6, 973c408 and 64f7a47 plus the
+separate Implementation 10 commit. Latest migration is 007_daily_digests;
+08/09/10 add no migration.
 Three published support/lead/digest workflows have 13/11/5 nodes; four drafts stay
-inactive. Failure simulation is false. No push or merge during 08/09.
+inactive. Failure simulation is false. The final release changes Git only.
 Read [Implementation 09](implementation-09.md), [security review](security-review.md)
 and [recovery runbook](recovery-runbook.md) before further work. Implementation
 09 is accepted with documented exceptions for trusted-local development only.
 The platform findings, unauthenticated ingress and history-version gap remain
-open risks, not resolved vulnerabilities. Git commit/push/merge and public
-production deployment are explicitly unauthorized.
+open risks, not resolved vulnerabilities. Final Git publication is authorized;
+public production deployment remains unauthorized.
 
 ### Official Implementation Roadmap
 1. [x] **Implementation 01**: Local infrastructure setup (Docker Compose, networking, multi-role PostgreSQL).
@@ -71,9 +94,10 @@ production deployment are explicitly unauthorized.
 4. [x] **Implementation 04**: Bounded local advisory enrichment using Ollama (local commit 491b719).
 5. [x] **Implementation 05**: Authenticated human approval dashboard (published).
 6. [x] **Implementation 06**: Lead intake and deduplication.
-7. [x] **Implementation 07**: Daily operations digest (local e746ff6).
-8. [x] **Implementation 08**: Resilience/recovery (local 973c408).
-9. [x] **Implementation 09**: Testing/security; accepted with documented exceptions for trusted-local development, uncommitted.
+7. [x] **Implementation 07**: Daily operations digest (e746ff6).
+8. [x] **Implementation 08**: Resilience/recovery (973c408).
+9. [x] **Implementation 09**: Testing/security; accepted with documented exceptions for trusted-local development (64f7a47).
+10. [x] **Implementation 10**: Developer handoff, reproducible portfolio demos and final release preparation; accepted with documented exceptions.
 
 ---
 

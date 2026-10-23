@@ -128,7 +128,11 @@ def main():
             today=request(BACKEND+"/digests",headers=auth)[1]["previous_completed_date"]
             expected_report=reports(today)["items"][0]
             check(all(x["digest_id"]==expected_report["id"] for x in scheduled_runs),"Timer selected previous completed local day")
-            check(all(x["outcome"]=="duplicate_replayed" and x["status_code"]==200 for x in scheduled_runs),"Timer safely replayed existing immutable report")
+            # A fresh completed day may have no report before the timer starts.
+            # One creator is valid; subsequent runs must replay the same immutable ID.
+            check(sum(x["status_code"]==201 for x in scheduled_runs)<=1 and all(
+                (x["outcome"],x["status_code"]) in {("created",201),("duplicate_replayed",200)}
+                for x in scheduled_runs),"Timer creates at most one report and safely replays its identity")
             check(values["FLOWFORGE_DIGEST_SERVICE_KEY"] not in json.dumps(scheduled_runs) and all(set(x["safe_detail"])=={"status","duplicate","error_code"} for x in scheduled_runs),"Scheduled telemetry contains safe metadata only")
         except Exception:
             if engine in started:

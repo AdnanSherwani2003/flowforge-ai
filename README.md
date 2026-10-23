@@ -1,238 +1,165 @@
 # FlowForge AI
 
-A local-first AI workflow automation platform built with n8n, FastAPI, PostgreSQL, Ollama, and Next.js.
+**Local AI automation with deterministic rules, human review and an audit trail.**
 
-## Project Goal
+FlowForge AI combines **n8n, FastAPI, PostgreSQL, Next.js and Ollama** for support
+intake, lead deduplication and daily operations reporting. Validated AI advice is
+stored separately from original customer records and human review decisions.
 
-Automate repetitive business operations while retaining human approval, auditability, and failure recovery.
+**Status:** All ten implementations are complete and accepted for a trusted-local
+engineering portfolio, with documented security exceptions. The final release
+includes the developer handoff, reproducible demos and measured test evidence.
+Public production deployment is not approved.
 
-## Official Implementation Roadmap
+![Genuine reviewer sign-in page from the isolated lab](docs/assets/reviewer-sign-in.png)
 
-1. **Implementation 01**: Local infrastructure setup (Verified).
-2. **Implementation 02**: Data contracts, idempotent ticket ingestion, safe audit logging, and mock CRM APIs (Verified).
-3. **Implementation 03**: Deterministic n8n support-ticket workflow orchestration (Complete and verified).
-4. **Implementation 04**: Bounded local AI enrichment using Ollama (Complete; commit 491b719).
-5. **Implementation 05**: Authenticated human approval and Next.js dashboard (Complete; commit 7625989).
-6. **Implementation 06**: Deterministic lead intake and email deduplication (Complete and accepted for the local-first scope).
-7. **Implementation 07**: Deterministic daily operations digest (Accepted; local commit e746ff6).
-8. **Implementation 08**: Resilience and recovery (Accepted; local commit 973c408).
-9. **Implementation 09**: Integrated testing/security (Accepted with documented exceptions for trusted-local development; uncommitted).
+*Actual existing UI, with no private records or credentials. A
+[recording plan](docs/portfolio-presentation.md#recording-plan) covers all demos;
+no video has been fabricated.*
 
-## Technology Stack
+## Business problems and engineering contributions
 
-- **n8n Community 2.43.8**: Workflow orchestration (Dedicated host port 5679)
-- **FastAPI**: Backend API & business logic (Host port 8001)
-- **PostgreSQL 17**: Persistent application data (Internal port 5432)
-- **SQLAlchemy 2.x & psycopg 3**: Database ORM and synchronous connection pooling
-- **Alembic**: Versioned database migrations
-- **Pydantic v2**: Strict data contracts & input validation
-- **Docker Compose**: Local infrastructure
-- **Ollama 0.40.8**: Existing local Windows runtime; pinned qwen2.5:3b-instruct model
-- **Next.js, React, TypeScript, Tailwind CSS**: Reviewer dashboard
-- **pytest, Vitest and Testing Library**: Automated testing
+| Problem | Implemented workflow | Engineering contribution |
+| --- | --- | --- |
+| Repeated tickets and inconsistent triage | Validate/persist, respond, then enrich locally | Event idempotency, strict advisory schema, pinned model, bounded inference, durable human review |
+| Leads repeated through retries/email aliases | Canonical email plus remembered events | Transactional deduplication, conflicts, existing details preserved and audited |
+| Manual daily reporting | Scheduled/manual completed-day digest | One DB snapshot, date/timezone identity, frozen replay, explicit backfill |
 
-## Current Status
+Approval records **a review decision only**. Customer replies, payments and external
+CRM actions are not implemented. The model cannot execute tools or approve itself.
+Future delivery would need a separately implemented authorization gate.
 
-**Implementation 05 is running locally at [localhost:3000](http://localhost:3000).**
-It provides an authenticated overview, review queue, original/AI comparison,
-approval/rejection confirmations and durable decision history. Approval records
-human review only; no external action or ticket-state mutation follows.
+## Why n8n and FastAPI together?
 
-Implementations 01–06 are complete and published for the intended local-first scope.
-Implementation 07 is accepted and checkpointed locally at e746ff6; it has not been pushed or merged.
-Implementation 08 is checkpointed locally at 973c408.
-Implementation 09 was accepted with documented exceptions on 2026-10-24 for trusted-local development only; it remains uncommitted and unstaged on implementation-09-testing-security.
-Main/origin main remain 29aa141; no new push or merge.
-See the [Implementation 09 acceptance report](docs/implementation-09.md) and
-[security assessment](docs/security-review.md). Functional checks pass; platform
-dependency findings, unauthenticated ingress and a five-autosave n8n history
-discrepancy remain explicit acceptance limitations.
-See [resilience evidence](docs/implementation-08.md) and the [local recovery runbook](docs/recovery-runbook.md).
-See [Implementation 07](docs/implementation-07.md) for authenticated daily reports,
-counting rules, the 09:00 schedule and missed-day recovery.
-Implementation 04 is commit 491b719 and Implementation 05 is commit 7625989;
-Implementation 06 adds the separate deterministic lead workflow. The accepted
-history retains separate implementation commits and feature branches, with
-fast-forward publication to main. See [Implementation 06](docs/implementation-06.md)
-for lead behavior, preserved historical duplicates and acceptance evidence.
+n8n owns visual orchestration, webhooks, schedules and routing. FastAPI owns
+contracts, deterministic rules, transactions, model checks and authorization.
+PostgreSQL is authoritative after ambiguous network delivery. Next.js presents
+authenticated data. Business invariants remain independently testable.
+See [architecture and trade-offs](docs/architecture.md).
 
-See [Implementation 05](docs/implementation-05.md) for local login setup,
-architecture, security boundaries and acceptance. Existing
-[Implementation 04](docs/implementation-04.md) documents local model setup and
-[restart recovery](docs/implementation-04.md#windows-restart-and-unavailable-service-recovery).
-The [Implementation 03 review](docs/implementation-03-review.md) records historical maintenance.
-
-## Workflow Location
-
-The reproducible workflow definition is version-controlled at:
-- `workflows/support_ticket_intake.json`
-- `workflows/lead_intake.json` — separate 11-node lead workflow
-- `workflows/daily_operations_digest.json` — separate five-node daily schedule
-- Workflows directory mounted read-only inside FlowForge n8n; support export at: `/workflows/support_ticket_intake.json`
-
-## Service Addresses
-
-| Service | Address |
-| :--- | :--- |
-| **Reviewer Dashboard** | http://localhost:3000 |
-| **Daily Digest** | http://localhost:3000/digests |
-| **FastAPI Core** | http://localhost:8001 |
-| **API Documentation** | http://localhost:8001/docs |
-| **FlowForge n8n** | http://localhost:5679 |
-| **Process Liveness** | http://localhost:8001/health |
-| **Database Readiness** | http://localhost:8001/ready |
-| **Lead Webhook Endpoint** | http://localhost:5679/webhook/lead-intake |
-| **Support Webhook Endpoint** | http://localhost:5679/webhook/support-ticket-intake |
-
----
-
-## Operational Commands
-
-### 1. Database Migrations
-```bash
-docker compose run --rm backend alembic upgrade head
+```mermaid
+flowchart LR
+    Client[Synthetic client] --> N[n8n webhooks and schedule]
+    N --> B[FastAPI validation and business rules]
+    B --> P[(PostgreSQL records and audits)]
+    N -->|after initial response| E[FastAPI advisory enrichment]
+    E --> O[Local Ollama or isolated test fixture]
+    O --> E
+    E --> P
+    Human[Human reviewer] --> UI[Next.js dashboard]
+    UI -->|signed session| B
 ```
 
-### 2. Backend Unit and Integration Tests (233 tests)
-```bash
-docker compose run --rm backend pytest -v
-```
+## Run the isolated demos
 
-### 3. Live Normal-Operation Webhook Acceptance (192 assertions)
-Runs synthetic HTTP requests through FlowForge n8n with normal backend simulation disabled. Covers fixtures, type/shape parity, tracing, 100/101-character correlation boundaries, validation, persistence, idempotency, audit and best-effort telemetry:
-```bash
-python3 scripts/test_support_workflow.py
-```
-
-Run real transport faults separately using a disposable n8n engine and synthetic proxy (39 assertions):
-```bash
-python3 scripts/test_workflow_faults.py
-python3 scripts/verify_workflow_runtime.py
-```
-
-Run suites sequentially with no unrelated ticket writers. Synthetic business records remain; the fault harness uses no production volumes or credentials.
-
-### 4. API Smoke Tests
-```bash
-python3 scripts/smoke_test.py
-```
-
-### 5. Advisory AI Verification
-
-Requires the existing local model; creates only synthetic application records:
+Prerequisites: Python 3, Git, Docker and Compose **2.24.4+** (`!override` support).
+Ubuntu WSL2 + Docker Desktop is the validated host. First builds need internet;
+no paid API credentials are required.
 
 ```bash
-python3 scripts/test_enrichment_workflow.py
-docker compose run --rm --no-deps -e PYTHONPATH=/app -v "$PWD:/workspace:ro" backend python /workspace/scripts/evaluate_enrichment.py
+git clone https://github.com/AdnanSherwani2003/flowforge-ai.git
+cd flowforge-ai
+python3 scripts/portfolio_lab.py start
+python3 scripts/benchmark_portfolio.py --repetitions 3
+python3 scripts/portfolio_lab.py status
 ```
 
-The endpoint pair is POST /api/tickets/{id}/enrich and GET /api/tickets/{id}/enrichment.
-Results are advisory. Unavailable outcomes require explicit bounded retry; no
-customer replies or ticket-state changes occur. GPU and CPU measurements are
-recorded in docs/evaluation/.
+The lab builds from source into a unique `ff-portfolio-*` Compose project with
+independent volumes and generated credentials. It preserves the normal `.env`,
+personal n8n and existing FlowForge services.
 
-### 6. Human Review
+| Lab surface | URL |
+| --- | --- |
+| Reviewer UI | http://localhost:13000 |
+| FastAPI | http://localhost:18001 |
+| n8n | http://localhost:15679 |
 
-Open http://localhost:3000 and sign in as the configured reviewer. Passwords remain
-in ignored local configuration. See [setup and demo](docs/implementation-05.md#local-setup-and-demonstration).
+Private login details: `state.json` under `$HOME/.local/share/flowforge-ai/portfolio-lab/`
+(0600, parent0700). Inspect locally; never paste them into issues or recordings.
+The default model transport is a **controlled HTTP fixture**, not real inference.
+[Developer setup](docs/developer-setup.md) covers real local Ollama and fresh installation.
+[Three demo guides](docs/portfolio-demos.md) provide exact steps and expected results.
 
 ```bash
-python3 scripts/test_review_integration.py
+python3 scripts/portfolio_lab.py stop
 ```
 
-The 13-node n8n workflow is unchanged; completed enrichment creates a durable
-review through FastAPI. No waiting n8n execution is needed.
+Only the owned lab stops; volumes/data remain. Subsequent `start` resumes without
+imports or credential replacement. No reset or volume deletion is part of cleanup.
 
-### 7. Lead Intake
+## Stack and responsibilities
 
-POST a fresh synthetic source_event_id, name and email to the lead webhook.
-Replay returns the same lead; another event with the same normalized email returns
-200 with duplicate_reason email and preserves existing details. Changed content
-for a remembered event returns 409. See [contracts and demo](docs/implementation-06.md).
+| Component | Reviewed version/source | Responsibility |
+| --- | --- | --- |
+| FastAPI / Pydantic | Python 3.12; `backend/constraints.txt` | Contracts, transactions, authorization, model validation |
+| SQLAlchemy / Alembic | SQLAlchemy 2; head `007_daily_digests` | Constraints and additive migrations |
+| PostgreSQL | 17-alpine local image | Business records, identities, reviews and audit |
+| n8n Community | 2.43.8; 13/11/5 nodes | Support/lead orchestration; 09:00 Asia/Kolkata digest |
+| Next.js / React | 16.4.2 /19.3.1 | Reviewer/report UI |
+| Ollama | Existing Windows 0.40.8; pinned `qwen2.5:3b-instruct` | Optional advisory classification |
+| Docker Compose | WSL/Docker Desktop | Separate services and persistent volumes |
+
+These are reviewed versions, not claims of latest or vulnerability-free releases.
+Exact measured images/model are recorded in evaluation evidence; mutable base tags
+and [open patch follow-ups](docs/implementation-09.md#m-open-security-and-maintenance-follow-ups) remain limitations.
+
+## Testing and measurements
+
+Fresh Implementation 10 verification passed 233 backend tests, 44 frontend tests
+and the workflow/API/fault suites. The isolated fixture benchmark passed 20/20
+scenarios in each of three repetitions: 60 passes and 120 replay deliveries with
+zero extra canonical business records. Compound-case median was 72.111 ms and
+P95 was 1461.627 ms; these are serial fixture timings, not inference or load SLAs.
 
 ```bash
-python3 scripts/test_lead_workflow.py  # 358 assertions, 20 scenarios
-python3 scripts/test_lead_faults.py    # 36 isolated assertions
+# Requires configured normal services/model and the isolated lab.
+# Serial execution retains synthetic test records.
+python3 scripts/verify_portfolio.py
 ```
 
-### 8. Daily Operations Digest
+This runs backend/frontend tests, lint/types/build, workflow/API integrations,
+isolated faults, publication parity, the portfolio benchmark, isolated recovery
+and secret checks. Redacted results use `docs/evaluation/implementation-10-*`.
 
-Sign in at http://localhost:3000/digests. Select a completed date to view or generate
-a frozen report. Period activity and current backlog are displayed separately.
-Repeated generation preserves the original report and timestamp. Backfill missed
-days individually; a powered-off local n8n cannot run its 09:00 Asia/Kolkata job.
-See [setup, authentication and exact counting rules](docs/implementation-07.md).
+[Benchmark methodology/results](docs/benchmark-report.md) distinguish fresh 10
+measurements from historical evidence. Fixture timings cannot establish real
+inference latency or model accuracy; serial medians/P95 are not production SLAs.
 
-```bash
-python3 scripts/test_digest_integration.py
-python3 scripts/test_digest_faults.py
-```
+Historical evaluation: category agreement **11/12**, priority **10/12**; median
+inference **597 ms GPU /3189 ms CPU**. A lockout was over-prioritized and a vague
+outage safely abstained. Twelve synthetic cases do not establish production
+accuracy. [Original evidence](docs/implementation-04.md#genuine-local-model-results).
 
-### 9. Resilience and Recovery
+## Security and recovery
 
-```bash
-python3 scripts/test_recovery_stack.py
-python3 scripts/test_resilience_regressions.py
-```
+Backend auth protects reviews/digest reads; a scoped credential permits scheduled
+generation only. Bodies/fields are bounded, SQL parameterized, errors sanitized,
+sensitive responses no-store and customer text React-escaped. Advisory inference
+has a fixed schema/model, timeout, one local slot, lease and explicit retry cap.
+Original tickets survive model failures.
 
-The first command creates an isolated synthetic stack, uses a model stub and waits
-for the actual 120-second inference lease. Only its labeled test containers and
-network are removed. Private synthetic database artifacts are retained outside
-Git; plaintext fixture configuration is removed. The second command reruns existing
-suites against normal local services and preserves their synthetic records.
-Run without competing inference. See the recovery runbook for safe operator steps.
+**Three accepted risks remain unresolved:** five absent historical autosaved
+versions, critical/high image findings and legacy unauthenticated local ingress.
+Loopback is not sender authentication; browser-form writes remain possible.
+All seven follow-ups stay open. Historical/manual/crashed data and backups may
+retain raw text; no-save is not erasure. Read the [security review](docs/security-review.md)
+and [exception investigation](docs/implementation-09-exception-review.md).
 
-### 10. Workflow Maintenance
+The [recovery runbook](docs/recovery-runbook.md) separates automatic recovery,
+explicit replay/retry, backfill and manual work. Isolated app restore was verified
+in 09; normal/n8n restore, ownership and host-reboot recovery remain limited or
+unverified. There is no outbox, sweeper, automatic write replay or unlimited
+backfill. Changed environment needs recreation, not restart alone.
 
-Use the authenticated n8n editor or supported API to update and publish the intended stable workflow: `FlowForgeSupportIntake01`, `FlowForgeLeadIntake01` or `FlowForgeDailyDigest01`. Production CLI import is not a read-only check: it deactivates imported workflows. Do not unpublish or delete other workflows without approval.
+## Documentation and portfolio assets
 
-Completed execution data is configured not to be saved. Manual/debug retention was observed for two digest runs; see Implementation 07 for evidence and limits. Ticket content is intentionally stored in the business database and may exist in transient/crashed n8n executions and historical records. Application telemetry retains allowlisted metadata and is best effort.
+- [Developer setup](docs/developer-setup.md)
+- [Architecture and trade-offs](docs/architecture.md)
+- [Three reproducible demos](docs/portfolio-demos.md)
+- [Benchmark report](docs/benchmark-report.md)
+- [Interview, recording and CV materials](docs/portfolio-presentation.md)
+- [Ten-milestone roadmap and index](docs/roadmap.md)
+- [Implementation 10 report](docs/implementation-10.md)
+- [Developer handover](docs/codex-handover.md)
 
-See [Implementation 03](docs/implementation-03.md) for contracts, privacy limits, fault coverage, and safe credential-rotation guidance. See [Implementation 04](docs/implementation-04.md) for current advisory AI behavior. See [Implementation 06](docs/implementation-06.md) for current lead behavior. See [Implementation 07](docs/implementation-07.md) for daily reporting. Implementation 08 adds bounded database waits, separate readiness, interrupted-enrichment recovery visibility and isolated restart tests. No Implementation 09 work has started.
-
-This is an engineering portfolio project, not a commercial SaaS platform.
-
-
-## Integrated verification and security review
-
-From Ubuntu WSL, with normal FlowForge services, Linux Node/npm and the existing
-Windows Ollama available, run sequentially without competing writers/inference:
-
-```bash
-python3 scripts/verify_system.py
-python3 scripts/audit_dependencies.py
-python3 scripts/audit_secrets.py
-```
-
-The verification command runs frontend tests/lint/types/build, existing backend
-and live acceptance suites, isolated fault/recovery checks, integrated security
-scenarios, published workflow parity and a disposable application restore.
-It creates synthetic records and a protected backup outside Git. Scans report
-findings separately; successful execution does not mean no vulnerabilities.
-The restore uses a network-isolated new PostgreSQL instance, never normal data.
-
-Request bodies are now bounded by actual bytes: backend 65,536; dashboard login
-and decisions 4096; digest generation 1024. Oversize returns 413; malformed JSON
-returns sanitized 422. Legacy unauthenticated ingestion remains a trusted-local
-limitation, including browser-form writes through n8n. AI stays advisory and human
-approval records a decision only.
-
-Execution pruning does not control workflow-version compaction. An older
-encrypted export has five autosaved versions absent from the current instance;
-current definitions/published versions and retained executions still match.
-See the report before changing retention or restoring history. Implementation 09
-requires separate explicit Git checkpoint authorization; Implementation 10 has not started.
-
-
-The [October 24 final exception investigation](docs/implementation-09-exception-review.md)
-records the investigation supporting the user's **2026-10-24 acceptance with
-documented exceptions**, strictly for trusted-local development. It
-distinguishes autosave compaction from Community age pruning, preserves encrypted
-evidence outside /tmp, enumerates each critical/high image finding and records
-the remaining ingress/runtime risks. Implementation 09 remains uncommitted.
-
-
-The three exceptions remain accepted risks, not resolved vulnerabilities.
-[Open security and maintenance follow-ups](docs/implementation-09.md#m-open-security-and-maintenance-follow-ups)
-carry the outstanding work forward. Acceptance does not authorize a Git commit,
-push, merge or public production deployment.
+**Trusted-local engineering portfolio; not an approved public SaaS/production deployment.**

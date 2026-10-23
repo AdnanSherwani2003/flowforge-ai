@@ -1,0 +1,105 @@
+{
+  "backend": {
+    "passed": 233,
+    "failed": 0,
+    "skipped": 0,
+    "command": [
+      "docker",
+      "compose",
+      "exec",
+      "-T",
+      "backend",
+      "pytest",
+      "-q"
+    ]
+  },
+  "lead": {
+    "passed": 358,
+    "failed": 0,
+    "skipped": 0,
+    "command": [
+      "python3",
+      "scripts/test_lead_workflow.py",
+      "--output",
+      "docs/evaluation/implementation-10-lead.json"
+    ]
+  },
+  "support": {
+    "passed": 192,
+    "failed": 0,
+    "skipped": 0,
+    "command": [
+      "python3",
+      "scripts/test_support_workflow.py"
+    ]
+  },
+  "enrichment": {
+    "passed": 21,
+    "failed": 0,
+    "skipped": 0,
+    "command": [
+      "python3",
+      "scripts/test_enrichment_workflow.py"
+    ]
+  },
+  "reviews": {
+    "passed": 29,
+    "failed": 0,
+    "skipped": 0,
+    "command": [
+      "python3",
+      "scripts/test_review_integration.py",
+      "--output",
+      "docs/evaluation/implementation-10-review.json"
+    ]
+  },
+  "smoke": {
+    "passed": 8,
+    "failed": 0,
+    "skipped": 0,
+    "command": [
+      "python3",
+      "scripts/smoke_test.py"
+    ]
+  },
+  "digest": {
+    "passed": 28,
+    "failed": 0,
+    "skipped": 0,
+    "command": [
+      "python3",
+      "scripts/test_digest_integration.py",
+      "--output",
+      "docs/evaluation/implementation-10-digest.json"
+    ]
+  },
+  "digest_faults": {
+    "passed": 44,
+    "failed": 0,
+    "skipped": 0,
+    "command": [
+      "python3",
+      "scripts/test_digest_faults.py",
+      "--output",
+      "docs/evaluation/implementation-10-digest-faults.json"
+    ]
+  },
+  "lead_faults": {
+    "passed": 36,
+    "failed": 0,
+    "skipped": 0,
+    "command": [
+      "python3",
+      "scripts/test_lead_faults.py"
+    ]
+  },
+  "support_faults": {
+    "passed": 39,
+    "failed": 0,
+    "skipped": 0,
+    "command": [
+      "python3",
+      "scripts/test_workflow_faults.py"
+    ]
+  }
+}

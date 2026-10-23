@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--resume", action="store_true", help="Reuse verified suites from this milestone report")
-    parser.add_argument("--milestone", type=int, choices=[8, 9], default=8)
+    parser.add_argument("--milestone", type=int, choices=[8, 9, 10], default=8)
     parser.add_argument("--backend-count", type=int, default=222)
     args = parser.parse_args()
     prefix = f"implementation-{args.milestone:02d}"

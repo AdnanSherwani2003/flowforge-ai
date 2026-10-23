@@ -1,0 +1,109 @@
+{
+  "checks": [
+    {
+      "name": "frontend-tests",
+      "command": [
+        "npm",
+        "test"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/adnan/.local/share/flowforge-ai/verification-10/frontend-tests.log",
+      "sha256": "7a84483322cb248257c87e27c91515a7352152ee83fe6e046915462d2c8b39d6"
+    },
+    {
+      "name": "lint",
+      "command": [
+        "npm",
+        "run",
+        "lint"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/adnan/.local/share/flowforge-ai/verification-10/lint.log",
+      "sha256": "9a3e617097b74101fb65dd3538b25c99a8db15191c70081d9aec4f87d0de3dc1"
+    },
+    {
+      "name": "types",
+      "command": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/adnan/.local/share/flowforge-ai/verification-10/types.log",
+      "sha256": "8941f9667ed33c6fa3958271b9f8010643a11ea0cd23d54de1846362440d4509"
+    },
+    {
+      "name": "build",
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/adnan/.local/share/flowforge-ai/verification-10/build.log",
+      "sha256": "57cf0173ca537953af08fe2185e536651e13b67fcff823258aafdc0e5ff2b00e"
+    },
+    {
+      "name": "regressions",
+      "command": [
+        "python3",
+        "scripts/test_resilience_regressions.py",
+        "--milestone",
+        "10",
+        "--backend-count",
+        "233"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/adnan/.local/share/flowforge-ai/verification-10/regressions.log",
+      "sha256": "09d2805450a5c8c242e07da16661a45faca9d53a5ca0758b4234b55eb46bad02"
+    },
+    {
+      "name": "workflow-parity",
+      "command": [
+        "python3",
+        "scripts/verify_workflow_runtime.py"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/adnan/.local/share/flowforge-ai/verification-10/workflow-parity.log",
+      "sha256": "1fdc87c7ba42f5d13587c20642cfe6b98b6941692f2908f26e5b82364ae259f6"
+    },
+    {
+      "name": "portfolio-benchmark",
+      "command": [
+        "python3",
+        "scripts/benchmark_portfolio.py",
+        "--state",
+        "/home/adnan/.local/share/flowforge-ai/portfolio-lab"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/adnan/.local/share/flowforge-ai/verification-10/portfolio-benchmark.log",
+      "sha256": "3997a6e5851f1554b5f745ec411e22f6eb10335ab84cc1f12cfb9f0d6ef46c14"
+    },
+    {
+      "name": "recovery",
+      "command": [
+        "python3",
+        "scripts/test_recovery_stack.py",
+        "--output",
+        "docs/evaluation/implementation-10-recovery.json"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/adnan/.local/share/flowforge-ai/verification-10/recovery.log",
+      "sha256": "10d431a596e8fa7760f19036c38e4863f677ea001d787d88e55528aeaf71b218"
+    },
+    {
+      "name": "secrets",
+      "command": [
+        "python3",
+        "scripts/audit_secrets.py",
+        "--output",
+        "docs/evaluation/implementation-10-secrets.json"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/adnan/.local/share/flowforge-ai/verification-10/secrets.log",
+      "sha256": "2b5c624c3a015d49e230c982e773bce06ccb33486b631a3a1f98baaec90d9ce0"
+    }
+  ],
+  "recovery_explicitly_omitted": false,
+  "benchmark_model_mode": "See benchmark JSON; controlled fixture is not real inference"
+}

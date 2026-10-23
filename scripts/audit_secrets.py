@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Redacted checks of working files and reachable Git history; never print values."""
+import argparse
 import base64
 import json
 from pathlib import Path
@@ -11,6 +12,9 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--output", type=Path, default=ROOT / "docs/evaluation/implementation-09-secrets.json")
+    args = parser.parse_args()
     def git(*args):
         return subprocess.check_output(["git", *args], cwd=ROOT, text=True)
     sources = [ROOT / ".env"]
@@ -57,7 +61,7 @@ def main():
               "env_mode": oct((ROOT / ".env").stat().st_mode & 0o777),
               "limitations": ["Known current/retained rollback values and encodings plus high-confidence key/token patterns",
                              "Not exhaustive detection of every arbitrary historical secret; manual source/export review also required"]}
-    (ROOT / "docs/evaluation/implementation-09-secrets.json").write_text(json.dumps(report, indent=2) + "\n")
+    args.output.write_text(json.dumps(report, indent=2) + "\n")
     print(json.dumps(report))
     assert not hits, "Potential secret exposure: inspect the redacted report before any credential action"
 

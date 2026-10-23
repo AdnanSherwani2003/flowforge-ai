@@ -1,0 +1,1892 @@
+{
+  "run": "portfolio-f36785c37478",
+  "model_mode": "controlled-fixture",
+  "repetitions": 3,
+  "passed": 60,
+  "failed": 0,
+  "skipped": 0,
+  "case_records": [
+    {
+      "repetition": 1,
+      "case": 1,
+      "name": "Process and database readiness",
+      "status": "passed",
+      "duration_ms": 5.386
+    },
+    {
+      "repetition": 1,
+      "case": 2,
+      "name": "Support webhook creates original ticket",
+      "status": "passed",
+      "duration_ms": 145.935
+    },
+    {
+      "repetition": 1,
+      "case": 3,
+      "name": "Twenty support replays create no extra ticket",
+      "status": "passed",
+      "duration_ms": 1609.515
+    },
+    {
+      "repetition": 1,
+      "case": 4,
+      "name": "Remembered support event conflicts",
+      "status": "passed",
+      "duration_ms": 88.852
+    },
+    {
+      "repetition": 1,
+      "case": 5,
+      "name": "Invalid support rejected",
+      "status": "passed",
+      "duration_ms": 77.315
+    },
+    {
+      "repetition": 1,
+      "case": 6,
+      "name": "Post-response advisory schema and separate review",
+      "status": "passed",
+      "duration_ms": 514.157
+    },
+    {
+      "repetition": 1,
+      "case": 7,
+      "name": "Anonymous human decision denied",
+      "status": "passed",
+      "duration_ms": 4.714
+    },
+    {
+      "repetition": 1,
+      "case": 8,
+      "name": "Human approval leaves original ticket unchanged",
+      "status": "passed",
+      "duration_ms": 39.896
+    },
+    {
+      "repetition": 1,
+      "case": 9,
+      "name": "Decision replay has one final audit",
+      "status": "passed",
+      "duration_ms": 26.628
+    },
+    {
+      "repetition": 1,
+      "case": 10,
+      "name": "Injection marker abstains and cannot be approved",
+      "status": "passed",
+      "duration_ms": 208.64
+    },
+    {
+      "repetition": 1,
+      "case": 11,
+      "name": "Lead creation",
+      "status": "passed",
+      "duration_ms": 80.196
+    },
+    {
+      "repetition": 1,
+      "case": 12,
+      "name": "Twenty lead replays create no extra canonical lead",
+      "status": "passed",
+      "duration_ms": 1451.507
+    },
+    {
+      "repetition": 1,
+      "case": 13,
+      "name": "Canonical normalized email identity",
+      "status": "passed",
+      "duration_ms": 91.235
+    },
+    {
+      "repetition": 1,
+      "case": 14,
+      "name": "Remembered lead event conflicts",
+      "status": "passed",
+      "duration_ms": 80.63
+    },
+    {
+      "repetition": 1,
+      "case": 15,
+      "name": "Invalid email rejected",
+      "status": "passed",
+      "duration_ms": 80.757
+    },
+    {
+      "repetition": 1,
+      "case": 16,
+      "name": "Invalid model output falls back to attention",
+      "status": "passed",
+      "duration_ms": 947.142
+    },
+    {
+      "repetition": 1,
+      "case": 17,
+      "name": "Unavailable model preserves original ticket",
+      "status": "passed",
+      "duration_ms": 832.233
+    },
+    {
+      "repetition": 1,
+      "case": 18,
+      "name": "Completed-day digest matches independent SQL counts",
+      "status": "passed",
+      "duration_ms": 1358.65
+    },
+    {
+      "repetition": 1,
+      "case": 19,
+      "name": "Frozen digest replay and Next display",
+      "status": "passed",
+      "duration_ms": 30.812
+    },
+    {
+      "repetition": 1,
+      "case": 20,
+      "name": "Invalid and unauthorized digest requests rejected",
+      "status": "passed",
+      "duration_ms": 6.56
+    },
+    {
+      "repetition": 2,
+      "case": 1,
+      "name": "Process and database readiness",
+      "status": "passed",
+      "duration_ms": 4.382
+    },
+    {
+      "repetition": 2,
+      "case": 2,
+      "name": "Support webhook creates original ticket",
+      "status": "passed",
+      "duration_ms": 53.918
+    },
+    {
+      "repetition": 2,
+      "case": 3,
+      "name": "Twenty support replays create no extra ticket",
+      "status": "passed",
+      "duration_ms": 1483.881
+    },
+    {
+      "repetition": 2,
+      "case": 4,
+      "name": "Remembered support event conflicts",
+      "status": "passed",
+      "duration_ms": 66.906
+    },
+    {
+      "repetition": 2,
+      "case": 5,
+      "name": "Invalid support rejected",
+      "status": "passed",
+      "duration_ms": 80.613
+    },
+    {
+      "repetition": 2,
+      "case": 6,
+      "name": "Post-response advisory schema and separate review",
+      "status": "passed",
+      "duration_ms": 494.843
+    },
+    {
+      "repetition": 2,
+      "case": 7,
+      "name": "Anonymous human decision denied",
+      "status": "passed",
+      "duration_ms": 2.051
+    },
+    {
+      "repetition": 2,
+      "case": 8,
+      "name": "Human approval leaves original ticket unchanged",
+      "status": "passed",
+      "duration_ms": 32.694
+    },
+    {
+      "repetition": 2,
+      "case": 9,
+      "name": "Decision replay has one final audit",
+      "status": "passed",
+      "duration_ms": 25.639
+    },
+    {
+      "repetition": 2,
+      "case": 10,
+      "name": "Injection marker abstains and cannot be approved",
+      "status": "passed",
+      "duration_ms": 208.695
+    },
+    {
+      "repetition": 2,
+      "case": 11,
+      "name": "Lead creation",
+      "status": "passed",
+      "duration_ms": 65.322
+    },
+    {
+      "repetition": 2,
+      "case": 12,
+      "name": "Twenty lead replays create no extra canonical lead",
+      "status": "passed",
+      "duration_ms": 1393.962
+    },
+    {
+      "repetition": 2,
+      "case": 13,
+      "name": "Canonical normalized email identity",
+      "status": "passed",
+      "duration_ms": 88.416
+    },
+    {
+      "repetition": 2,
+      "case": 14,
+      "name": "Remembered lead event conflicts",
+      "status": "passed",
+      "duration_ms": 65.847
+    },
+    {
+      "repetition": 2,
+      "case": 15,
+      "name": "Invalid email rejected",
+      "status": "passed",
+      "duration_ms": 53.583
+    },
+    {
+      "repetition": 2,
+      "case": 16,
+      "name": "Invalid model output falls back to attention",
+      "status": "passed",
+      "duration_ms": 1023.362
+    },
+    {
+      "repetition": 2,
+      "case": 17,
+      "name": "Unavailable model preserves original ticket",
+      "status": "passed",
+      "duration_ms": 843.417
+    },
+    {
+      "repetition": 2,
+      "case": 18,
+      "name": "Completed-day digest matches independent SQL counts",
+      "status": "passed",
+      "duration_ms": 1461.627
+    },
+    {
+      "repetition": 2,
+      "case": 19,
+      "name": "Frozen digest replay and Next display",
+      "status": "passed",
+      "duration_ms": 31.14
+    },
+    {
+      "repetition": 2,
+      "case": 20,
+      "name": "Invalid and unauthorized digest requests rejected",
+      "status": "passed",
+      "duration_ms": 5.624
+    },
+    {
+      "repetition": 3,
+      "case": 1,
+      "name": "Process and database readiness",
+      "status": "passed",
+      "duration_ms": 4.13
+    },
+    {
+      "repetition": 3,
+      "case": 2,
+      "name": "Support webhook creates original ticket",
+      "status": "passed",
+      "duration_ms": 60.913
+    },
+    {
+      "repetition": 3,
+      "case": 3,
+      "name": "Twenty support replays create no extra ticket",
+      "status": "passed",
+      "duration_ms": 1537.199
+    },
+    {
+      "repetition": 3,
+      "case": 4,
+      "name": "Remembered support event conflicts",
+      "status": "passed",
+      "duration_ms": 59.752
+    },
+    {
+      "repetition": 3,
+      "case": 5,
+      "name": "Invalid support rejected",
+      "status": "passed",
+      "duration_ms": 57.577
+    },
+    {
+      "repetition": 3,
+      "case": 6,
+      "name": "Post-response advisory schema and separate review",
+      "status": "passed",
+      "duration_ms": 516.55
+    },
+    {
+      "repetition": 3,
+      "case": 7,
+      "name": "Anonymous human decision denied",
+      "status": "passed",
+      "duration_ms": 2.652
+    },
+    {
+      "repetition": 3,
+      "case": 8,
+      "name": "Human approval leaves original ticket unchanged",
+      "status": "passed",
+      "duration_ms": 43.097
+    },
+    {
+      "repetition": 3,
+      "case": 9,
+      "name": "Decision replay has one final audit",
+      "status": "passed",
+      "duration_ms": 33.136
+    },
+    {
+      "repetition": 3,
+      "case": 10,
+      "name": "Injection marker abstains and cannot be approved",
+      "status": "passed",
+      "duration_ms": 211.939
+    },
+    {
+      "repetition": 3,
+      "case": 11,
+      "name": "Lead creation",
+      "status": "passed",
+      "duration_ms": 54.639
+    },
+    {
+      "repetition": 3,
+      "case": 12,
+      "name": "Twenty lead replays create no extra canonical lead",
+      "status": "passed",
+      "duration_ms": 1335.368
+    },
+    {
+      "repetition": 3,
+      "case": 13,
+      "name": "Canonical normalized email identity",
+      "status": "passed",
+      "duration_ms": 62.119
+    },
+    {
+      "repetition": 3,
+      "case": 14,
+      "name": "Remembered lead event conflicts",
+      "status": "passed",
+      "duration_ms": 66.19
+    },
+    {
+      "repetition": 3,
+      "case": 15,
+      "name": "Invalid email rejected",
+      "status": "passed",
+      "duration_ms": 52.251
+    },
+    {
+      "repetition": 3,
+      "case": 16,
+      "name": "Invalid model output falls back to attention",
+      "status": "passed",
+      "duration_ms": 868.571
+    },
+    {
+      "repetition": 3,
+      "case": 17,
+      "name": "Unavailable model preserves original ticket",
+      "status": "passed",
+      "duration_ms": 880.132
+    },
+    {
+      "repetition": 3,
+      "case": 18,
+      "name": "Completed-day digest matches independent SQL counts",
+      "status": "passed",
+      "duration_ms": 1354.169
+    },
+    {
+      "repetition": 3,
+      "case": 19,
+      "name": "Frozen digest replay and Next display",
+      "status": "passed",
+      "duration_ms": 30.009
+    },
+    {
+      "repetition": 3,
+      "case": 20,
+      "name": "Invalid and unauthorized digest requests rejected",
+      "status": "passed",
+      "duration_ms": 5.649
+    }
+  ],
+  "http_samples": [
+    {
+      "label": "reviewer_login",
+      "status": 200,
+      "duration_ms": 59.733
+    },
+    {
+      "label": "browser_login",
+      "status": 200,
+      "duration_ms": 58.812
+    },
+    {
+      "label": "health",
+      "status": 200,
+      "duration_ms": 2.164
+    },
+    {
+      "label": "ready",
+      "status": 200,
+      "duration_ms": 3.2
+    },
+    {
+      "label": "support_create",
+      "status": 201,
+      "duration_ms": 145.909
+    },
+    {
+      "label": "count",
+      "status": 200,
+      "duration_ms": 8.28
+    },
+    {
+      "label": "support_replay",
+      "status": 200,
+      "duration_ms": 104.762
+    },
+    {
+      "label": "support_replay",
+      "status": 200,
+      "duration_ms": 65.035
+    },
+    {
+      "label": "support_replay",
+      "status": 200,
+      "duration_ms": 107.131
+    },
+    {
+      "label": "support_replay",
+      "status": 200,
+      "duration_ms": 125.639
+    },
+    {
+      "label": "support_replay",
+      "status": 200,
+      "duration_ms": 90.628
+    },
+    {
+      "label": "support_replay",
+      "status": 200,
+      "duration_ms": 66.187
+    },
+    {
+      "label": "support_replay",
+      "status": 200,
+      "duration_ms": 63.438
+    },
+    {
+      "label": "support_replay",
+      "status": 200,
+      "duration_ms": 81.711
+    },
+    {
+      "label": "support_replay",
+      "status": 200,
+      "duration_ms": 79.346
+    },
+    {
+      "label": "support_replay",
+      "status": 200,
+      "duration_ms": 79.98
+    },
+    {
+      "label": "support_replay",
+      "status": 200,
+      "duration_ms": 79.989
+    },
+    {
+      "label": "support_replay",
+      "status": 200,
+      "duration_ms": 64.052
+    },
+    {
+      "label": "support_replay",
+      "status": 200,
+      "duration_ms": 63.482
+    },
+    {
+      "label": "support_replay",
+      "status": 200,
+      "duration_ms": 69.977
+    },
+    {
+      "label": "support_replay",
+      "status": 200,
+      "duration_ms": 88.504
+    },
+    {
+      "label": "support_replay",
+      "status": 200,
+      "duration_ms": 84.388
+    },
+    {
+      "label": "support_replay",
+      "status": 200,
+      "duration_ms": 64.599
+    },
+    {
+      "label": "support_replay",
+      "status": 200,
+      "duration_ms": 64.227
+    },
+    {
+      "label": "support_replay",
+      "status": 200,
+      "duration_ms": 70.981
+    },
+    {
+      "label": "support_replay",
+      "status": 200,
+      "duration_ms": 77.0
+    },
+    {
+      "label": "count",
+      "status": 200,
+      "duration_ms": 9.736
+    },
+    {
+      "label": "support_conflict",
+      "status": 409,
+      "duration_ms": 88.83
+    },
+    {
+      "label": "support_invalid",
+      "status": 422,
+      "duration_ms": 77.29
+    },
+    {
+      "label": "enrichment_poll",
+      "status": 200,
+      "duration_ms": 8.277
+    },
+    {
+      "label": "review",
+      "status": 200,
+      "duration_ms": 18.67
+    },
+    {
+      "label": "anonymous_decision",
+      "status": 401,
+      "duration_ms": 4.695
+    },
+    {
+      "label": "original",
+      "status": 200,
+      "duration_ms": 6.421
+    },
+    {
+      "label": "hostile_origin",
+      "status": 403,
+      "duration_ms": 6.524
+    },
+    {
+      "label": "human_approval",
+      "status": 200,
+      "duration_ms": 23.14
+    },
+    {
+      "label": "original",
+      "status": 200,
+      "duration_ms": 3.69
+    },
+    {
+      "label": "decision_replay",
+      "status": 200,
+      "duration_ms": 19.765
+    },
+    {
+      "label": "decision_audit",
+      "status": 200,
+      "duration_ms": 6.817
+    },
+    {
+      "label": "guarded_ticket",
+      "status": 201,
+      "duration_ms": 65.244
+    },
+    {
+      "label": "enrichment_poll",
+      "status": 404,
+      "duration_ms": 8.403
+    },
+    {
+      "label": "enrichment_poll",
+      "status": 200,
+      "duration_ms": 12.618
+    },
+    {
+      "label": "attention",
+      "status": 200,
+      "duration_ms": 10.901
+    },
+    {
+      "label": "attention_approval",
+      "status": 409,
+      "duration_ms": 11.088
+    },
+    {
+      "label": "lead_create",
+      "status": 201,
+      "duration_ms": 80.165
+    },
+    {
+      "label": "count",
+      "status": 200,
+      "duration_ms": 13.283
+    },
+    {
+      "label": "lead_replay",
+      "status": 200,
+      "duration_ms": 87.572
+    },
+    {
+      "label": "lead_replay",
+      "status": 200,
+      "duration_ms": 73.73
+    },
+    {
+      "label": "lead_replay",
+      "status": 200,
+      "duration_ms": 61.144
+    },
+    {
+      "label": "lead_replay",
+      "status": 200,
+      "duration_ms": 89.512
+    },
+    {
+      "label": "lead_replay",
+      "status": 200,
+      "duration_ms": 75.405
+    },
+    {
+      "label": "lead_replay",
+      "status": 200,
+      "duration_ms": 58.317
+    },
+    {
+      "label": "lead_replay",
+      "status": 200,
+      "duration_ms": 68.323
+    },
+    {
+      "label": "lead_replay",
+      "status": 200,
+      "duration_ms": 71.969
+    },
+    {
+      "label": "lead_replay",
+      "status": 200,
+      "duration_ms": 73.202
+    },
+    {
+      "label": "lead_replay",
+      "status": 200,
+      "duration_ms": 60.858
+    },
+    {
+      "label": "lead_replay",
+      "status": 200,
+      "duration_ms": 59.871
+    },
+    {
+      "label": "lead_replay",
+      "status": 200,
+      "duration_ms": 63.368
+    },
+    {
+      "label": "lead_replay",
+      "status": 200,
+      "duration_ms": 62.193
+    },
+    {
+      "label": "lead_replay",
+      "status": 200,
+      "duration_ms": 84.613
+    },
+    {
+      "label": "lead_replay",
+      "status": 200,
+      "duration_ms": 79.375
+    },
+    {
+      "label": "lead_replay",
+      "status": 200,
+      "duration_ms": 72.541
+    },
+    {
+      "label": "lead_replay",
+      "status": 200,
+      "duration_ms": 61.878
+    },
+    {
+      "label": "lead_replay",
+      "status": 200,
+      "duration_ms": 59.551
+    },
+    {
+      "label": "lead_replay",
+      "status": 200,
+      "duration_ms": 73.68
+    },
+    {
+      "label": "lead_replay",
+      "status": 200,
+      "duration_ms": 88.379
+    },
+    {
+      "label": "count",
+      "status": 200,
+      "duration_ms": 12.341
+    },
+    {
+      "label": "lead_email_match",
+      "status": 200,
+      "duration_ms": 91.211
+    },
+    {
+      "label": "lead_conflict",
+      "status": 409,
+      "duration_ms": 80.614
+    },
+    {
+      "label": "lead_invalid",
+      "status": 422,
+      "duration_ms": 80.741
+    },
+    {
+      "label": "model_invalid",
+      "status": 201,
+      "duration_ms": 68.658
+    },
+    {
+      "label": "enrichment_poll",
+      "status": 404,
+      "duration_ms": 7.122
+    },
+    {
+      "label": "enrichment_poll",
+      "status": 200,
+      "duration_ms": 10.283
+    },
+    {
+      "label": "persisted_after_fault",
+      "status": 200,
+      "duration_ms": 5.355
+    },
+    {
+      "label": "model_unavailable",
+      "status": 201,
+      "duration_ms": 64.374
+    },
+    {
+      "label": "enrichment_poll",
+      "status": 404,
+      "duration_ms": 7.911
+    },
+    {
+      "label": "enrichment_poll",
+      "status": 200,
+      "duration_ms": 8.39
+    },
+    {
+      "label": "persisted_after_fault",
+      "status": 200,
+      "duration_ms": 6.088
+    },
+    {
+      "label": "find_day",
+      "status": 200,
+      "duration_ms": 5.235
+    },
+    {
+      "label": "find_day",
+      "status": 200,
+      "duration_ms": 4.202
+    },
+    {
+      "label": "find_day",
+      "status": 200,
+      "duration_ms": 6.086
+    },
+    {
+      "label": "find_day",
+      "status": 200,
+      "duration_ms": 4.571
+    },
+    {
+      "label": "seed_ticket",
+      "status": 201,
+      "duration_ms": 9.186
+    },
+    {
+      "label": "seed_ticket",
+      "status": 201,
+      "duration_ms": 8.619
+    },
+    {
+      "label": "seed_lead",
+      "status": 201,
+      "duration_ms": 11.729
+    },
+    {
+      "label": "digest_generate",
+      "status": 201,
+      "duration_ms": 20.291
+    },
+    {
+      "label": "digest_replay",
+      "status": 200,
+      "duration_ms": 10.122
+    },
+    {
+      "label": "digest_page",
+      "status": 200,
+      "duration_ms": 20.632
+    },
+    {
+      "label": "digest_unauthorized",
+      "status": 401,
+      "duration_ms": 2.418
+    },
+    {
+      "label": "digest_invalid",
+      "status": 422,
+      "duration_ms": 4.116
+    },
+    {
+      "label": "reviewer_login",
+      "status": 200,
+      "duration_ms": 57.612
+    },
+    {
+      "label": "browser_login",
+      "status": 200,
+      "duration_ms": 58.337
+    },
+    {
+      "label": "health",
+      "status": 200,
+      "duration_ms": 2.17
+    },
+    {
+      "label": "ready",
+      "status": 200,
+      "duration_ms": 2.192
+    },
+    {
+      "label": "support_create",
+      "status": 201,
+      "duration_ms": 53.901
+    },
+    {
+      "label": "count",
+      "status": 200,
+      "duration_ms": 6.468
+    },
+    {
+      "label": "support_replay",
+      "status": 200,
+      "duration_ms": 70.502
+    },
+    {
+      "label": "support_replay",
+      "status": 200,
+      "duration_ms": 57.82
+    },
+    {
+      "label": "support_replay",
+      "status": 200,
+      "duration_ms": 59.208
+    },
+    {
+      "label": "support_replay",
+      "status": 200,
+      "duration_ms": 57.235
+    },
+    {
+      "label": "support_replay",
+      "status": 200,
+      "duration_ms": 60.859
+    },
+    {
+      "label": "support_replay",
+      "status": 200,
+      "duration_ms": 84.538
+    },
+    {
+      "label": "support_replay",
+      "status": 200,
+      "duration_ms": 87.097
+    },
+    {
+      "label": "support_replay",
+      "status": 200,
+      "duration_ms": 62.036
+    },
+    {
+      "label": "support_replay",
+      "status": 200,
+      "duration_ms": 116.862
+    },
+    {
+      "label": "support_replay",
+      "status": 200,
+      "duration_ms": 96.337
+    },
+    {
+      "label": "support_replay",
+      "status": 200,
+      "duration_ms": 62.72
+    },
+    {
+      "label": "support_replay",
+      "status": 200,
+      "duration_ms": 67.138
+    },
+    {
+      "label": "support_replay",
+      "status": 200,
+      "duration_ms": 65.264
+    },
+    {
+      "label": "support_replay",
+      "status": 200,
+      "duration_ms": 59.084
+    },
+    {
+      "label": "support_replay",
+      "status": 200,
+      "duration_ms": 58.491
+    },
+    {
+      "label": "support_replay",
+      "status": 200,
+      "duration_ms": 69.676
+    },
+    {
+      "label": "support_replay",
+      "status": 200,
+      "duration_ms": 67.2
+    },
+    {
+      "label": "support_replay",
+      "status": 200,
+      "duration_ms": 104.186
+    },
+    {
+      "label": "support_replay",
+      "status": 200,
+      "duration_ms": 100.636
+    },
+    {
+      "label": "support_replay",
+      "status": 200,
+      "duration_ms": 62.865
+    },
+    {
+      "label": "count",
+      "status": 200,
+      "duration_ms": 7.255
+    },
+    {
+      "label": "support_conflict",
+      "status": 409,
+      "duration_ms": 66.888
+    },
+    {
+      "label": "support_invalid",
+      "status": 422,
+      "duration_ms": 80.598
+    },
+    {
+      "label": "enrichment_poll",
+      "status": 200,
+      "duration_ms": 11.001
+    },
+    {
+      "label": "review",
+      "status": 200,
+      "duration_ms": 7.5
+    },
+    {
+      "label": "anonymous_decision",
+      "status": 401,
+      "duration_ms": 2.043
+    },
+    {
+      "label": "original",
+      "status": 200,
+      "duration_ms": 3.252
+    },
+    {
+      "label": "hostile_origin",
+      "status": 403,
+      "duration_ms": 2.766
+    },
+    {
+      "label": "human_approval",
+      "status": 200,
+      "duration_ms": 22.492
+    },
+    {
+      "label": "original",
+      "status": 200,
+      "duration_ms": 4.125
+    },
+    {
+      "label": "decision_replay",
+      "status": 200,
+      "duration_ms": 16.821
+    },
+    {
+      "label": "decision_audit",
+      "status": 200,
+      "duration_ms": 8.771
+    },
+    {
+      "label": "guarded_ticket",
+      "status": 201,
+      "duration_ms": 74.967
+    },
+    {
+      "label": "enrichment_poll",
+      "status": 404,
+      "duration_ms": 8.695
+    },
+    {
+      "label": "enrichment_poll",
+      "status": 200,
+      "duration_ms": 8.692
+    },
+    {
+      "label": "attention",
+      "status": 200,
+      "duration_ms": 7.532
+    },
+    {
+      "label": "attention_approval",
+      "status": 409,
+      "duration_ms": 8.353
+    },
+    {
+      "label": "lead_create",
+      "status": 201,
+      "duration_ms": 65.304
+    },
+    {
+      "label": "count",
+      "status": 200,
+      "duration_ms": 5.558
+    },
+    {
+      "label": "lead_replay",
+      "status": 200,
+      "duration_ms": 60.945
+    },
+    {
+      "label": "lead_replay",
+      "status": 200,
+      "duration_ms": 62.399
+    },
+    {
+      "label": "lead_replay",
+      "status": 200,
+      "duration_ms": 75.85
+    },
+    {
+      "label": "lead_replay",
+      "status": 200,
+      "duration_ms": 69.115
+    },
+    {
+      "label": "lead_replay",
+      "status": 200,
+      "duration_ms": 77.734
+    },
+    {
+      "label": "lead_replay",
+      "status": 200,
+      "duration_ms": 70.735
+    },
+    {
+      "label": "lead_replay",
+      "status": 200,
+      "duration_ms": 61.941
+    },
+    {
+      "label": "lead_replay",
+      "status": 200,
+      "duration_ms": 61.225
+    },
+    {
+      "label": "lead_replay",
+      "status": 200,
+      "duration_ms": 62.695
+    },
+    {
+      "label": "lead_replay",
+      "status": 200,
+      "duration_ms": 64.303
+    },
+    {
+      "label": "lead_replay",
+      "status": 200,
+      "duration_ms": 60.829
+    },
+    {
+      "label": "lead_replay",
+      "status": 200,
+      "duration_ms": 70.539
+    },
+    {
+      "label": "lead_replay",
+      "status": 200,
+      "duration_ms": 76.419
+    },
+    {
+      "label": "lead_replay",
+      "status": 200,
+      "duration_ms": 62.856
+    },
+    {
+      "label": "lead_replay",
+      "status": 200,
+      "duration_ms": 59.198
+    },
+    {
+      "label": "lead_replay",
+      "status": 200,
+      "duration_ms": 68.567
+    },
+    {
+      "label": "lead_replay",
+      "status": 200,
+      "duration_ms": 67.848
+    },
+    {
+      "label": "lead_replay",
+      "status": 200,
+      "duration_ms": 66.909
+    },
+    {
+      "label": "lead_replay",
+      "status": 200,
+      "duration_ms": 63.583
+    },
+    {
+      "label": "lead_replay",
+      "status": 200,
+      "duration_ms": 114.652
+    },
+    {
+      "label": "count",
+      "status": 200,
+      "duration_ms": 9.65
+    },
+    {
+      "label": "lead_email_match",
+      "status": 200,
+      "duration_ms": 88.394
+    },
+    {
+      "label": "lead_conflict",
+      "status": 409,
+      "duration_ms": 65.833
+    },
+    {
+      "label": "lead_invalid",
+      "status": 422,
+      "duration_ms": 53.569
+    },
+    {
+      "label": "model_invalid",
+      "status": 201,
+      "duration_ms": 53.948
+    },
+    {
+      "label": "enrichment_poll",
+      "status": 404,
+      "duration_ms": 6.83
+    },
+    {
+      "label": "enrichment_poll",
+      "status": 200,
+      "duration_ms": 9.958
+    },
+    {
+      "label": "persisted_after_fault",
+      "status": 200,
+      "duration_ms": 5.737
+    },
+    {
+      "label": "model_unavailable",
+      "status": 201,
+      "duration_ms": 65.964
+    },
+    {
+      "label": "enrichment_poll",
+      "status": 404,
+      "duration_ms": 9.151
+    },
+    {
+      "label": "enrichment_poll",
+      "status": 200,
+      "duration_ms": 5.084
+    },
+    {
+      "label": "persisted_after_fault",
+      "status": 200,
+      "duration_ms": 3.461
+    },
+    {
+      "label": "find_day",
+      "status": 200,
+      "duration_ms": 7.98
+    },
+    {
+      "label": "find_day",
+      "status": 200,
+      "duration_ms": 7.386
+    },
+    {
+      "label": "find_day",
+      "status": 200,
+      "duration_ms": 7.839
+    },
+    {
+      "label": "find_day",
+      "status": 200,
+      "duration_ms": 6.656
+    },
+    {
+      "label": "find_day",
+      "status": 200,
+      "duration_ms": 16.331
+    },
+    {
+      "label": "seed_ticket",
+      "status": 201,
+      "duration_ms": 19.817
+    },
+    {
+      "label": "seed_ticket",
+      "status": 201,
+      "duration_ms": 15.814
+    },
+    {
+      "label": "seed_lead",
+      "status": 201,
+      "duration_ms": 12.368
+    },
+    {
+      "label": "digest_generate",
+      "status": 201,
+      "duration_ms": 28.781
+    },
+    {
+      "label": "digest_replay",
+      "status": 200,
+      "duration_ms": 11.083
+    },
+    {
+      "label": "digest_page",
+      "status": 200,
+      "duration_ms": 19.985
+    },
+    {
+      "label": "digest_unauthorized",
+      "status": 401,
+      "duration_ms": 2.925
+    },
+    {
+      "label": "digest_invalid",
+      "status": 422,
+      "duration_ms": 2.678
+    },
+    {
+      "label": "reviewer_login",
+      "status": 200,
+      "duration_ms": 52.263
+    },
+    {
+      "label": "browser_login",
+      "status": 200,
+      "duration_ms": 55.419
+    },
+    {
+      "label": "health",
+      "status": 200,
+      "duration_ms": 1.931
+    },
+    {
+      "label": "ready",
+      "status": 200,
+      "duration_ms": 2.179
+    },
+    {
+      "label": "support_create",
+      "status": 201,
+      "duration_ms": 60.898
+    },
+    {
+      "label": "count",
+      "status": 200,
+      "duration_ms": 6.52
+    },
+    {
+      "label": "support_replay",
+      "status": 200,
+      "duration_ms": 102.776
+    },
+    {
+      "label": "support_replay",
+      "status": 200,
+      "duration_ms": 68.969
+    },
+    {
+      "label": "support_replay",
+      "status": 200,
+      "duration_ms": 61.828
+    },
+    {
+      "label": "support_replay",
+      "status": 200,
+      "duration_ms": 66.099
+    },
+    {
+      "label": "support_replay",
+      "status": 200,
+      "duration_ms": 64.974
+    },
+    {
+      "label": "support_replay",
+      "status": 200,
+      "duration_ms": 65.164
+    },
+    {
+      "label": "support_replay",
+      "status": 200,
+      "duration_ms": 64.928
+    },
+    {
+      "label": "support_replay",
+      "status": 200,
+      "duration_ms": 79.443
+    },
+    {
+      "label": "support_replay",
+      "status": 200,
+      "duration_ms": 65.03
+    },
+    {
+      "label": "support_replay",
+      "status": 200,
+      "duration_ms": 70.944
+    },
+    {
+      "label": "support_replay",
+      "status": 200,
+      "duration_ms": 103.85
+    },
+    {
+      "label": "support_replay",
+      "status": 200,
+      "duration_ms": 143.204
+    },
+    {
+      "label": "support_replay",
+      "status": 200,
+      "duration_ms": 67.59
+    },
+    {
+      "label": "support_replay",
+      "status": 200,
+      "duration_ms": 68.94
+    },
+    {
+      "label": "support_replay",
+      "status": 200,
+      "duration_ms": 66.404
+    },
+    {
+      "label": "support_replay",
+      "status": 200,
+      "duration_ms": 104.003
+    },
+    {
+      "label": "support_replay",
+      "status": 200,
+      "duration_ms": 65.805
+    },
+    {
+      "label": "support_replay",
+      "status": 200,
+      "duration_ms": 70.082
+    },
+    {
+      "label": "support_replay",
+      "status": 200,
+      "duration_ms": 62.616
+    },
+    {
+      "label": "support_replay",
+      "status": 200,
+      "duration_ms": 62.247
+    },
+    {
+      "label": "count",
+      "status": 200,
+      "duration_ms": 5.405
+    },
+    {
+      "label": "support_conflict",
+      "status": 409,
+      "duration_ms": 59.739
+    },
+    {
+      "label": "support_invalid",
+      "status": 422,
+      "duration_ms": 57.551
+    },
+    {
+      "label": "enrichment_poll",
+      "status": 200,
+      "duration_ms": 7.425
+    },
+    {
+      "label": "review",
+      "status": 200,
+      "duration_ms": 13.794
+    },
+    {
+      "label": "anonymous_decision",
+      "status": 401,
+      "duration_ms": 2.642
+    },
+    {
+      "label": "original",
+      "status": 200,
+      "duration_ms": 4.525
+    },
+    {
+      "label": "hostile_origin",
+      "status": 403,
+      "duration_ms": 4.766
+    },
+    {
+      "label": "human_approval",
+      "status": 200,
+      "duration_ms": 26.825
+    },
+    {
+      "label": "original",
+      "status": 200,
+      "duration_ms": 6.895
+    },
+    {
+      "label": "decision_replay",
+      "status": 200,
+      "duration_ms": 23.165
+    },
+    {
+      "label": "decision_audit",
+      "status": 200,
+      "duration_ms": 9.931
+    },
+    {
+      "label": "guarded_ticket",
+      "status": 201,
+      "duration_ms": 77.311
+    },
+    {
+      "label": "enrichment_poll",
+      "status": 404,
+      "duration_ms": 9.096
+    },
+    {
+      "label": "enrichment_poll",
+      "status": 200,
+      "duration_ms": 9.631
+    },
+    {
+      "label": "attention",
+      "status": 200,
+      "duration_ms": 8.435
+    },
+    {
+      "label": "attention_approval",
+      "status": 409,
+      "duration_ms": 7.176
+    },
+    {
+      "label": "lead_create",
+      "status": 201,
+      "duration_ms": 54.625
+    },
+    {
+      "label": "count",
+      "status": 200,
+      "duration_ms": 7.916
+    },
+    {
+      "label": "lead_replay",
+      "status": 200,
+      "duration_ms": 63.426
+    },
+    {
+      "label": "lead_replay",
+      "status": 200,
+      "duration_ms": 62.058
+    },
+    {
+      "label": "lead_replay",
+      "status": 200,
+      "duration_ms": 81.996
+    },
+    {
+      "label": "lead_replay",
+      "status": 200,
+      "duration_ms": 61.875
+    },
+    {
+      "label": "lead_replay",
+      "status": 200,
+      "duration_ms": 66.038
+    },
+    {
+      "label": "lead_replay",
+      "status": 200,
+      "duration_ms": 59.654
+    },
+    {
+      "label": "lead_replay",
+      "status": 200,
+      "duration_ms": 64.201
+    },
+    {
+      "label": "lead_replay",
+      "status": 200,
+      "duration_ms": 60.953
+    },
+    {
+      "label": "lead_replay",
+      "status": 200,
+      "duration_ms": 60.925
+    },
+    {
+      "label": "lead_replay",
+      "status": 200,
+      "duration_ms": 62.413
+    },
+    {
+      "label": "lead_replay",
+      "status": 200,
+      "duration_ms": 64.882
+    },
+    {
+      "label": "lead_replay",
+      "status": 200,
+      "duration_ms": 74.988
+    },
+    {
+      "label": "lead_replay",
+      "status": 200,
+      "duration_ms": 94.014
+    },
+    {
+      "label": "lead_replay",
+      "status": 200,
+      "duration_ms": 67.976
+    },
+    {
+      "label": "lead_replay",
+      "status": 200,
+      "duration_ms": 64.52
+    },
+    {
+      "label": "lead_replay",
+      "status": 200,
+      "duration_ms": 60.47
+    },
+    {
+      "label": "lead_replay",
+      "status": 200,
+      "duration_ms": 63.738
+    },
+    {
+      "label": "lead_replay",
+      "status": 200,
+      "duration_ms": 61.13
+    },
+    {
+      "label": "lead_replay",
+      "status": 200,
+      "duration_ms": 61.504
+    },
+    {
+      "label": "lead_replay",
+      "status": 200,
+      "duration_ms": 63.765
+    },
+    {
+      "label": "count",
+      "status": 200,
+      "duration_ms": 6.571
+    },
+    {
+      "label": "lead_email_match",
+      "status": 200,
+      "duration_ms": 62.101
+    },
+    {
+      "label": "lead_conflict",
+      "status": 409,
+      "duration_ms": 66.175
+    },
+    {
+      "label": "lead_invalid",
+      "status": 422,
+      "duration_ms": 52.236
+    },
+    {
+      "label": "model_invalid",
+      "status": 201,
+      "duration_ms": 67.876
+    },
+    {
+      "label": "enrichment_poll",
+      "status": 404,
+      "duration_ms": 7.862
+    },
+    {
+      "label": "enrichment_poll",
+      "status": 200,
+      "duration_ms": 10.302
+    },
+    {
+      "label": "persisted_after_fault",
+      "status": 200,
+      "duration_ms": 5.984
+    },
+    {
+      "label": "model_unavailable",
+      "status": 201,
+      "duration_ms": 98.77
+    },
+    {
+      "label": "enrichment_poll",
+      "status": 404,
+      "duration_ms": 11.103
+    },
+    {
+      "label": "enrichment_poll",
+      "status": 200,
+      "duration_ms": 6.613
+    },
+    {
+      "label": "persisted_after_fault",
+      "status": 200,
+      "duration_ms": 4.145
+    },
+    {
+      "label": "find_day",
+      "status": 200,
+      "duration_ms": 5.735
+    },
+    {
+      "label": "find_day",
+      "status": 200,
+      "duration_ms": 5.019
+    },
+    {
+      "label": "find_day",
+      "status": 200,
+      "duration_ms": 5.01
+    },
+    {
+      "label": "find_day",
+      "status": 200,
+      "duration_ms": 5.548
+    },
+    {
+      "label": "find_day",
+      "status": 200,
+      "duration_ms": 6.105
+    },
+    {
+      "label": "find_day",
+      "status": 200,
+      "duration_ms": 8.117
+    },
+    {
+      "label": "seed_ticket",
+      "status": 201,
+      "duration_ms": 19.901
+    },
+    {
+      "label": "seed_ticket",
+      "status": 201,
+      "duration_ms": 12.297
+    },
+    {
+      "label": "seed_lead",
+      "status": 201,
+      "duration_ms": 16.894
+    },
+    {
+      "label": "digest_generate",
+      "status": 201,
+      "duration_ms": 21.354
+    },
+    {
+      "label": "digest_replay",
+      "status": 200,
+      "duration_ms": 11.31
+    },
+    {
+      "label": "digest_page",
+      "status": 200,
+      "duration_ms": 18.649
+    },
+    {
+      "label": "digest_unauthorized",
+      "status": 401,
+      "duration_ms": 2.494
+    },
+    {
+      "label": "digest_invalid",
+      "status": 422,
+      "duration_ms": 3.127
+    }
+  ],
+  "fixture_ids": [
+    {
+      "kind": "support",
+      "id": "0193aa78-8fcf-4e19-b9bc-1ef27ddeec38",
+      "source_event_id": "portfolio-f36785c37478-1-support"
+    },
+    {
+      "kind": "lead",
+      "id": "01ddb2e3-87e8-4a95-9232-5ecf99cb711c",
+      "source_event_id": "portfolio-f36785c37478-1-lead"
+    },
+    {
+      "kind": "digest",
+      "id": "7a899415-1b1e-4701-b296-0c16d600e794",
+      "reporting_date": "2001-01-18",
+      "expected_tickets": 2,
+      "expected_canonical_leads": 1
+    },
+    {
+      "kind": "support",
+      "id": "a8149634-b3da-407c-991e-13f65bd140b0",
+      "source_event_id": "portfolio-f36785c37478-2-support"
+    },
+    {
+      "kind": "lead",
+      "id": "2e992339-3740-4ab9-b65f-e7046e018618",
+      "source_event_id": "portfolio-f36785c37478-2-lead"
+    },
+    {
+      "kind": "digest",
+      "id": "fb58c5ad-b69e-4f40-aec9-7fe190fa54db",
+      "reporting_date": "2001-01-19",
+      "expected_tickets": 2,
+      "expected_canonical_leads": 1
+    },
+    {
+      "kind": "support",
+      "id": "aa78a10a-1ed0-4ac1-a879-a084c91a21e6",
+      "source_event_id": "portfolio-f36785c37478-3-support"
+    },
+    {
+      "kind": "lead",
+      "id": "c98a8398-e341-4736-a9c9-9f57d66bcf5c",
+      "source_event_id": "portfolio-f36785c37478-3-lead"
+    },
+    {
+      "kind": "digest",
+      "id": "60ed6285-43b5-476d-b011-1f36efddafdd",
+      "reporting_date": "2001-01-20",
+      "expected_tickets": 2,
+      "expected_canonical_leads": 1
+    }
+  ],
+  "replay_deliveries": 120,
+  "duplicate_business_write_checks": [
+    {
+      "kind": "support",
+      "replays": 20,
+      "extra_business_rows": 0
+    },
+    {
+      "kind": "lead",
+      "replays": 20,
+      "extra_business_rows": 0
+    },
+    {
+      "kind": "support",
+      "replays": 20,
+      "extra_business_rows": 0
+    },
+    {
+      "kind": "lead",
+      "replays": 20,
+      "extra_business_rows": 0
+    },
+    {
+      "kind": "support",
+      "replays": 20,
+      "extra_business_rows": 0
+    },
+    {
+      "kind": "lead",
+      "replays": 20,
+      "extra_business_rows": 0
+    }
+  ],
+  "accepted_model_outputs": 3,
+  "schema_valid_accepted_outputs": 3,
+  "scripted_case_duration": {
+    "samples": 60,
+    "median_ms": 72.111,
+    "p95_ms_nearest_rank": 1461.627
+  },
+  "http_request_duration": {
+    "samples": 270,
+    "median_ms": 59.736,
+    "p95_ms_nearest_rank": 96.337
+  },
+  "support_initial_webhook_duration": {
+    "samples": 3,
+    "median_ms": 60.898,
+    "p95_ms_nearest_rank": 145.909
+  },
+  "outward_action_safety": {
+    "configured_customer_action_nodes": 0,
+    "delivery_runtime_metric": "Not applicable: no customer delivery/action implementation exists; this is a structural invariant, not an outbound-traffic measurement.",
+    "human_decision_authorization_tested": true
+  },
+  "model_quality_evaluation": false,
+  "cleanup": "Stop only the owned lab; volumes and synthetic records are retained."
+}

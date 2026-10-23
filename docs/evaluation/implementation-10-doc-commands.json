@@ -1,0 +1,26 @@
+{
+  "literal_manual_demo_commands": {
+    "exit_code": 0,
+    "statuses": [
+      "201",
+      "200",
+      "422",
+      "201",
+      "200",
+      "200",
+      "422"
+    ],
+    "expected_match": true
+  },
+  "fresh_template_exclusive_creation": {
+    "replaced_all_four_placeholders": true,
+    "mode": "0o600",
+    "compose_config_exit": 0,
+    "existing_env_overwrite_refused": true
+  },
+  "documented_script_help": {
+    "passed": 4,
+    "failed": 0
+  },
+  "lab_status_and_container_volume_ownership_checks": true
+}

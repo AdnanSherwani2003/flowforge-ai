@@ -1,0 +1,192 @@
+{
+  "local_date": "2026-10-24",
+  "containers": {
+    "/flowforge-ai-frontend-1": {
+      "identity_image_start_environment_unchanged": true,
+      "mounts_unchanged": true
+    },
+    "/flowforge-ai-backend-1": {
+      "identity_image_start_environment_unchanged": true,
+      "mounts_unchanged": true
+    },
+    "/flowforge-ai-n8n-1": {
+      "identity_image_start_environment_unchanged": true,
+      "mounts_unchanged": true
+    },
+    "/sentinel-publication-postgres-51e50f3643b0": {
+      "identity_image_start_environment_unchanged": true,
+      "mounts_unchanged": true
+    },
+    "/sentinel-publication-neo4j-51e50f3643b0": {
+      "identity_image_start_environment_unchanged": true,
+      "mounts_unchanged": true
+    },
+    "/sentinel-ci-fix-linux-792d2f256247": {
+      "identity_image_start_environment_unchanged": true,
+      "mounts_unchanged": true
+    },
+    "/sentinel-publication-postgres-d00bcd9b8bc7": {
+      "identity_image_start_environment_unchanged": true,
+      "mounts_unchanged": true
+    },
+    "/sentinel-publication-neo4j-d00bcd9b8bc7": {
+      "identity_image_start_environment_unchanged": true,
+      "mounts_unchanged": true
+    },
+    "/sentinel-package-prep-0e18f6c877f8": {
+      "identity_image_start_environment_unchanged": true,
+      "mounts_unchanged": true
+    },
+    "/sentinel-demo-i20-api-1": {
+      "identity_image_start_environment_unchanged": true,
+      "mounts_unchanged": true
+    },
+    "/sentinel-demo-i20-worker-1": {
+      "identity_image_start_environment_unchanged": true,
+      "mounts_unchanged": true
+    },
+    "/sentinel-demo-i20-worker-2": {
+      "identity_image_start_environment_unchanged": true,
+      "mounts_unchanged": true
+    },
+    "/sentinel-demo-i20-postgres-1": {
+      "identity_image_start_environment_unchanged": true,
+      "mounts_unchanged": true
+    },
+    "/sentinel-demo-i20-neo4j-1": {
+      "identity_image_start_environment_unchanged": true,
+      "mounts_unchanged": true
+    },
+    "/frosty_swartz": {
+      "identity_image_start_environment_unchanged": true,
+      "mounts_unchanged": true
+    },
+    "/hopeful_cohen": {
+      "identity_image_start_environment_unchanged": true,
+      "mounts_unchanged": true
+    },
+    "/flowforge-ai-postgres-1": {
+      "identity_image_start_environment_unchanged": true,
+      "mounts_unchanged": true
+    },
+    "/sentinel-neo4j": {
+      "identity_image_start_environment_unchanged": true,
+      "mounts_unchanged": true
+    },
+    "/n8n": {
+      "identity_image_start_environment_unchanged": true,
+      "mounts_unchanged": true
+    },
+    "/welcome-to-docker": {
+      "identity_image_start_environment_unchanged": true,
+      "mounts_unchanged": true
+    }
+  },
+  "business_tables": {
+    "tickets": {
+      "before": 543,
+      "after": 601,
+      "missing_or_changed_original_rows": 0
+    },
+    "audit_events": {
+      "before": 1465,
+      "after": 1708,
+      "missing_or_changed_original_rows": 0
+    },
+    "reviews": {
+      "before": 218,
+      "after": 264,
+      "missing_or_changed_original_rows": 0
+    },
+    "leads": {
+      "before": 62,
+      "after": 73,
+      "missing_or_changed_original_rows": 0
+    },
+    "lead_identities": {
+      "before": 45,
+      "after": 56,
+      "missing_or_changed_original_rows": 0
+    },
+    "lead_events": {
+      "before": 110,
+      "after": 135,
+      "missing_or_changed_original_rows": 0
+    },
+    "daily_digests": {
+      "before": 25,
+      "after": 34,
+      "missing_or_changed_original_rows": 0
+    },
+    "workflow_runs": {
+      "before": 1757,
+      "after": 2024,
+      "missing_or_changed_original_rows": 0
+    },
+    "ticket_enrichments": {
+      "before": 218,
+      "after": 264,
+      "missing_or_changed_original_rows": 0
+    }
+  },
+  "ignored_configuration_bytes_unchanged": true,
+  "workflow_files_unchanged": true,
+  "complete_seven_workflow_exports_unchanged": true,
+  "active_workflows": 3,
+  "inactive_workflows": 4,
+  "protected_history_archives": {
+    "retained07": {
+      "exists": true,
+      "sha256_unchanged": true,
+      "mode": "0o600"
+    },
+    "current09": {
+      "exists": true,
+      "sha256_unchanged": true,
+      "mode": "0o600"
+    }
+  },
+  "n8n_entity_comparison_to_current09": {
+    "credentialsentity.jsonl": {
+      "before": 1,
+      "after": 1,
+      "missing_or_changed": 0
+    },
+    "executionentity.jsonl": {
+      "before": 335,
+      "after": 335,
+      "missing_or_changed": 0
+    },
+    "executiondata.jsonl": {
+      "before": 335,
+      "after": 335,
+      "missing_or_changed": 0
+    },
+    "workflowhistory.jsonl": {
+      "before": 9,
+      "after": 9,
+      "missing_or_changed": 0
+    },
+    "workflowpublishhistory.jsonl": {
+      "before": 21,
+      "after": 21,
+      "missing_or_changed": 0
+    }
+  },
+  "current_encrypted_export": {
+    "private_path": "/home/adnan/.local/share/flowforge-ai/backups/implementation-10-encrypted-entities.zip",
+    "sha256": "1f05c9662c944e524a0f5656d3e851a332d1261a7c7f50e5875ca13e98ca2685",
+    "mode": "0600",
+    "comparison": "Decrypted in memory using installed n8n cipher; only canonical row hashes returned, no secret/plaintext exports"
+  },
+  "personal_n8n": {
+    "workflow_count_readonly_snapshot": 37,
+    "state": "Already stopped at baseline; never started or modified",
+    "method": "docker cp SQLite/WAL/SHM from stopped container into protected temp directory; readonly query on copy"
+  },
+  "limitations": [
+    "Five autosaves absent relative to older07 archive remain the accepted historical exception; comparison here uses retained current09 archive.",
+    "Normal integration suites create uniquely named synthetic records; zero missing/changed original rows is checked separately.",
+    "No full original-volume byte hashing; no Ollama model-file hashing or downloads."
+  ]
+}

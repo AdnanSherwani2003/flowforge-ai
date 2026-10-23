@@ -1,0 +1,30 @@
+{
+  "project": "ff-portfolio-e835c02164",
+  "lifecycle": [
+    {
+      "action": "stop",
+      "exit_code": 0,
+      "seconds": 10.682
+    },
+    {
+      "action": "start",
+      "exit_code": 0,
+      "seconds": 27.96
+    }
+  ],
+  "private_configuration_bytes_unchanged": true,
+  "post_review_owned_resume": {
+    "exit_code": 0,
+    "seconds": 1.662
+  },
+  "final_stop": {
+    "exit_code": 0,
+    "seconds": 10.688
+  },
+  "final_owned_containers_stopped": true,
+  "no_original_named_volumes_mounted": true,
+  "retained_volumes": [
+    "ff-portfolio-e835c02164_postgres_data",
+    "ff-portfolio-e835c02164_n8n_data"
+  ]
+}

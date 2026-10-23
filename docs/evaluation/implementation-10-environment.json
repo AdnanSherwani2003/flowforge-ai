@@ -1,0 +1,39 @@
+{
+  "original_flowforge_images": {
+    "/flowforge-ai-frontend-1": {
+      "image_id": "sha256:af6d0f3cef4a2308f66ea0f308322a2455c96748f24e0433d534523713133463",
+      "configured_image": "flowforge-ai-frontend"
+    },
+    "/flowforge-ai-backend-1": {
+      "image_id": "sha256:c4e99ef70a3c1733f29d17205a91c0ced80b38c5c6f80f30ca8e7d7b84d62962",
+      "configured_image": "flowforge-ai-backend"
+    },
+    "/flowforge-ai-n8n-1": {
+      "image_id": "sha256:a18edcf018198b33b5488fb47ededafe11e0b10d28f65b9535b7c447c9ce3b2c",
+      "configured_image": "n8nio/n8n:2.43.8"
+    },
+    "/flowforge-ai-postgres-1": {
+      "image_id": "sha256:b0f9560a2de083e2cc7382e75f808c7381a32852a7ec49117deedb300e552b24",
+      "configured_image": "postgres:17-alpine"
+    }
+  },
+  "host": {
+    "system": "Linux",
+    "kernel": "6.18.33.2-microsoft-standard-WSL2",
+    "python": "3.14.4",
+    "cpu_model": "13th Gen Intel(R) Core(TM) i5-13420H",
+    "logical_processors": 12
+  },
+  "compose_version": "5.3.1",
+  "real_ollama": {
+    "version": {
+      "version": "0.40.8"
+    },
+    "models": [
+      {
+        "name": "qwen2.5:3b-instruct",
+        "digest": "357c53fb659c5076de1d65ccb0b397446227b71a42be9d1603d46168015c9e4b"
+      }
+    ]
+  }
+}
