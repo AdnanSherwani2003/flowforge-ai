@@ -49,3 +49,11 @@ def client(db_session: Session) -> Generator[TestClient, None, None]:
     with TestClient(fastapi_app) as test_client:
         yield test_client
     fastapi_app.dependency_overrides.clear()
+
+
+def pytest_configure(config):
+    """Use a unique owner-only base instead of predictable /tmp/pytest-of-USER."""
+    if config.option.basetemp is None:
+        import tempfile
+        from pathlib import Path
+        config.option.basetemp = Path(tempfile.mkdtemp(prefix="flowforge-pytest-"))

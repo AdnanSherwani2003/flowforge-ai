@@ -15,7 +15,8 @@ Automate repetitive business operations while retaining human approval, auditabi
 5. **Implementation 05**: Authenticated human approval and Next.js dashboard (Complete; commit 7625989).
 6. **Implementation 06**: Deterministic lead intake and email deduplication (Complete and accepted for the local-first scope).
 7. **Implementation 07**: Deterministic daily operations digest (Accepted; local commit e746ff6).
-8. **Implementation 08**: Resilience and recovery (Implemented locally; awaiting acceptance).
+8. **Implementation 08**: Resilience and recovery (Accepted; local commit 973c408).
+9. **Implementation 09**: Integrated testing/security (Accepted with documented exceptions for trusted-local development; uncommitted).
 
 ## Technology Stack
 
@@ -39,7 +40,13 @@ human review only; no external action or ticket-state mutation follows.
 
 Implementations 01–06 are complete and published for the intended local-first scope.
 Implementation 07 is accepted and checkpointed locally at e746ff6; it has not been pushed or merged.
-Implementation 08 remains uncommitted on implementation-08-resilience-recovery.
+Implementation 08 is checkpointed locally at 973c408.
+Implementation 09 was accepted with documented exceptions on 2026-10-24 for trusted-local development only; it remains uncommitted and unstaged on implementation-09-testing-security.
+Main/origin main remain 29aa141; no new push or merge.
+See the [Implementation 09 acceptance report](docs/implementation-09.md) and
+[security assessment](docs/security-review.md). Functional checks pass; platform
+dependency findings, unauthenticated ingress and a five-autosave n8n history
+discrepancy remain explicit acceptance limitations.
 See [resilience evidence](docs/implementation-08.md) and the [local recovery runbook](docs/recovery-runbook.md).
 See [Implementation 07](docs/implementation-07.md) for authenticated daily reports,
 counting rules, the 09:00 schedule and missed-day recovery.
@@ -86,7 +93,7 @@ The reproducible workflow definition is version-controlled at:
 docker compose run --rm backend alembic upgrade head
 ```
 
-### 2. Backend Unit and Integration Tests (222 tests)
+### 2. Backend Unit and Integration Tests (233 tests)
 ```bash
 docker compose run --rm backend pytest -v
 ```
@@ -184,3 +191,48 @@ Completed execution data is configured not to be saved. Manual/debug retention w
 See [Implementation 03](docs/implementation-03.md) for contracts, privacy limits, fault coverage, and safe credential-rotation guidance. See [Implementation 04](docs/implementation-04.md) for current advisory AI behavior. See [Implementation 06](docs/implementation-06.md) for current lead behavior. See [Implementation 07](docs/implementation-07.md) for daily reporting. Implementation 08 adds bounded database waits, separate readiness, interrupted-enrichment recovery visibility and isolated restart tests. No Implementation 09 work has started.
 
 This is an engineering portfolio project, not a commercial SaaS platform.
+
+
+## Integrated verification and security review
+
+From Ubuntu WSL, with normal FlowForge services, Linux Node/npm and the existing
+Windows Ollama available, run sequentially without competing writers/inference:
+
+```bash
+python3 scripts/verify_system.py
+python3 scripts/audit_dependencies.py
+python3 scripts/audit_secrets.py
+```
+
+The verification command runs frontend tests/lint/types/build, existing backend
+and live acceptance suites, isolated fault/recovery checks, integrated security
+scenarios, published workflow parity and a disposable application restore.
+It creates synthetic records and a protected backup outside Git. Scans report
+findings separately; successful execution does not mean no vulnerabilities.
+The restore uses a network-isolated new PostgreSQL instance, never normal data.
+
+Request bodies are now bounded by actual bytes: backend 65,536; dashboard login
+and decisions 4096; digest generation 1024. Oversize returns 413; malformed JSON
+returns sanitized 422. Legacy unauthenticated ingestion remains a trusted-local
+limitation, including browser-form writes through n8n. AI stays advisory and human
+approval records a decision only.
+
+Execution pruning does not control workflow-version compaction. An older
+encrypted export has five autosaved versions absent from the current instance;
+current definitions/published versions and retained executions still match.
+See the report before changing retention or restoring history. Implementation 09
+requires separate explicit Git checkpoint authorization; Implementation 10 has not started.
+
+
+The [October 24 final exception investigation](docs/implementation-09-exception-review.md)
+records the investigation supporting the user's **2026-10-24 acceptance with
+documented exceptions**, strictly for trusted-local development. It
+distinguishes autosave compaction from Community age pruning, preserves encrypted
+evidence outside /tmp, enumerates each critical/high image finding and records
+the remaining ingress/runtime risks. Implementation 09 remains uncommitted.
+
+
+The three exceptions remain accepted risks, not resolved vulnerabilities.
+[Open security and maintenance follow-ups](docs/implementation-09.md#m-open-security-and-maintenance-follow-ups)
+carry the outstanding work forward. Acceptance does not authorize a Git commit,
+push, merge or public production deployment.

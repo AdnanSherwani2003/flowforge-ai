@@ -1,0 +1,29 @@
+{
+  "passed": 13,
+  "failed": 0,
+  "skipped": 0,
+  "restored_table_counts": {
+    "audit_events": 1459,
+    "daily_digests": 25,
+    "lead_events": 109,
+    "lead_identities": 44,
+    "leads": 61,
+    "reviews": 218,
+    "ticket_enrichments": 218,
+    "tickets": 542,
+    "workflow_runs": 1757
+  },
+  "migration": "007_daily_digests",
+  "api_readiness_and_ticket_read": "passed",
+  "normal_application_unchanged": true,
+  "backup_file": "/home/adnan/.local/share/flowforge-ai/backups/implementation-09-20261023T175541Z-b38dfe/flowforge.dump",
+  "backup_mode": "0600",
+  "directory_mode": "0700",
+  "backup_sha256": "ec3e0602e3176a5f85d9353d956d3c909825ee4d1c0edb2a11240b59cd34e32d",
+  "target": "Disposable network=none PostgreSQL 17 with tmpfs; no production mounts",
+  "limitations": [
+    "Ownership/ACL restoration not tested (--no-owner --no-privileges)",
+    "No normal database restore, reboot, host-loss recovery-time/RPO guarantee",
+    "No n8n database or volume restore performed"
+  ]
+}

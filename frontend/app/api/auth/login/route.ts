@@ -1,10 +1,10 @@
+import {readJsonBody, RequestBodyError} from "@/lib/request-body";
 import { NextResponse } from "next/server";
 import { backendUrl, cookieOptions, SESSION_COOKIE, trustedOrigin } from "@/lib/security";
 export async function POST(request: Request) {
  if (!trustedOrigin(request)) return NextResponse.json({detail:"Request origin rejected"}, {status:403});
- if (Number(request.headers.get("content-length") || 0) > 4096) return NextResponse.json({detail:"Request too large"}, {status:413});
  try {
-  const body = await request.json();
+  const body = await readJsonBody(request, 4096);
   if (typeof body.username !== "string" || typeof body.password !== "string" || body.username.length > 64 || body.password.length > 200)
    return NextResponse.json({detail:"Enter valid reviewer credentials"}, {status:400});
   const response = await fetch(backendUrl("/reviewer/login"), {method:"POST", headers:{"Content-Type":"application/json"},
@@ -14,5 +14,5 @@ export async function POST(request: Request) {
   const result = NextResponse.json({ok:true});
   result.cookies.set(SESSION_COOKIE, data.token, {...cookieOptions(), maxAge:data.expires_in});
   return result;
- } catch { return NextResponse.json({detail:"The sign-in service is unavailable. Please try again."},{status:503}); }
+ } catch (error) { if (error instanceof RequestBodyError) return NextResponse.json({detail:error.message},{status:error.status}); return NextResponse.json({detail:"The sign-in service is unavailable. Please try again."},{status:503}); }
 }

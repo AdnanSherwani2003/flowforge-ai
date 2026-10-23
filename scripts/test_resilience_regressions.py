@@ -12,7 +12,10 @@ ROOT = Path(__file__).resolve().parents[1]
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--resume", action="store_true", help="Reuse verified suites from this milestone report")
+    parser.add_argument("--milestone", type=int, choices=[8, 9], default=8)
+    parser.add_argument("--backend-count", type=int, default=222)
     args = parser.parse_args()
+    prefix = f"implementation-{args.milestone:02d}"
     commands = [
         ("backend", ["docker", "compose", "exec", "-T", "backend", "pytest", "-q"], 222, "222 passed"),
         ("lead", ["python3", "scripts/test_lead_workflow.py", "--output", "docs/evaluation/implementation-08-lead.json"], 358, "358 passed"),
@@ -25,7 +28,8 @@ def main():
         ("lead_faults", ["python3", "scripts/test_lead_faults.py"], 36, "36/36"),
         ("support_faults", ["python3", "scripts/test_workflow_faults.py"], 39, "39/39"),
     ]
-    report_path = ROOT / "docs/evaluation/implementation-08-regressions.json"
+    report_path = ROOT / ("docs/evaluation/" + prefix + "-regressions.json")
+    commands = [(n, [x.replace("implementation-08", prefix) for x in c], args.backend_count if n == "backend" else count, f"{args.backend_count} passed" if n == "backend" else marker) for n, c, count, marker in commands]
     results = json.loads(report_path.read_text()) if args.resume and report_path.exists() else {}
     for name, command, count, marker in commands:
         if results.get(name, {}).get("passed") == count and results[name].get("failed") == 0 and results[name].get("command") == command:
@@ -41,13 +45,13 @@ def main():
                 time.sleep(1)
             assert quiet == 3, "Inference did not settle within bound; inspect active claims"
         result = subprocess.run(command, cwd=ROOT, capture_output=True, text=True, timeout=300)
-        log = Path("/tmp/flowforge-08-" + name + ".log")
+        log = Path("/tmp/flowforge-" + str(args.milestone).zfill(2) + "-" + name + ".log")
         log.write_text(result.stdout + result.stderr)
         log.chmod(0o600)
         results[name] = {"passed": count if result.returncode == 0 and marker in result.stdout else 0,
                          "failed": int(result.returncode != 0 or marker not in result.stdout),
                          "skipped": 0, "command": command}
-        (ROOT / "docs/evaluation/implementation-08-regressions.json").write_text(json.dumps(results, indent=2) + "\n")
+        report_path.write_text(json.dumps(results, indent=2) + "\n")
         assert results[name]["failed"] == 0, name + " failed; inspect private log " + str(log)
         print(name + ": " + str(count) + " passed, 0 failed, 0 skipped", flush=True)
 

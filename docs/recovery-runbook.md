@@ -24,7 +24,7 @@ writes to n8n tables.
 
 **Evidence:** clean startup, migrations and individual component restarts tested
 in isolated infrastructure. A full Windows/Docker Desktop/WSL reboot was not
-performed in Implementation 08; the host startup sequence is documented.
+performed in Implementation 08 or 09; the host startup sequence is documented.
 
 Changed environment values require `docker compose up -d --no-deps --force-recreate backend`
 (or the specifically affected service). `restart` retains the existing environment.
@@ -176,8 +176,24 @@ docker compose exec -T postgres pg_restore --list < "$backup_dir/flowforge.dump"
 ```
 
 Verify exit status and protect both files (0600, directory 0700). A catalog check
-does not establish restorability. Existing Implementation 07 protected backup
-and catalog verification are documented; **restore has not been executed**.
+does not establish restorability. Implementation 07 verified a protected backup
+catalog. Implementation 09 actually restored a fresh application-only dump into
+a separate network=none PostgreSQL 17/tmpfs instance, without production mounts.
+All nine table row-value hash multisets, migration 007_daily_digests and backend
+readiness/ticket reads matched; normal application rows stayed unchanged.
+**13 check groups passed, 0 failed, 0 skipped**. Ownership/ACL recovery was not
+tested (--no-owner --no-privileges); neither n8n restoration nor a normal-data
+restore was performed. Latest protected path/hash: [restore evidence](evaluation/implementation-09-restore.json).
+
+To repeat the same isolated verification with no concurrent application writers:
+
+```bash
+python3 scripts/verify_backup_restore.py
+```
+
+It uses existing local images, creates a private 0700 backup directory/0600 files
+outside Git and removes only its labeled disposable container. A failed check
+must be investigated; do not assume normal recovery is proven by this drill.
 
 Restore only into a separately provisioned disposable PostgreSQL instance and
 new empty database, isolated from normal FlowForge. Supply the dump privately,
@@ -192,3 +208,59 @@ Implementation 08 has no migration. Reverting its application code is possible,
 but does not undo audit/review records produced by recovery. Never downgrade a
 database to match old code without assessing compatibility and preserving data.
 Application rollback is not data rollback. Restart policies are not backups.
+
+
+## Workflow version history: separate retention boundary
+
+Execution-data pruning is disabled, but n8n 2.43.8 independently optimizes/compacts
+autosaved workflow versions. Implementation 09 found 14 version rows in the
+retained Implementation 07 encrypted export versus nine currently. All five
+absent versions were autosaves; remaining rows/current definitions match. The
+fresh pre-09 baseline did not include version-history rows, so exact removal
+timing/cause is not established. Do not claim every historic version is preserved.
+
+The older encrypted export is retained outside Git. Do not directly write its
+rows, import it over current workflows or change the encryption key. Review
+supported retention controls and an isolated recovery/backup policy, then obtain
+approval for any normal-instance maintenance. See the
+[security review](security-review.md#workflow-security-and-retention).
+Application dump/restore verification does not cover n8n's separate database or
+volume. No historical version restoration was attempted.
+
+## Security maintenance boundary
+
+Current dependency evidence includes unresolved platform critical/high scanner
+matches. Keep services on loopback. Candidate n8n/PostgreSQL/base-image upgrades
+require isolated compatibility, migration, credential, history and publication
+checks followed by separately approved recreation with existing volumes.
+Do not run blind package overrides or replace normal database containers during
+testing. Changed environment needs recreation, never restart alone.
+
+
+Final 09 investigation (October24): replayed compaction selects four missing
+autosaves; Community's separate 24-hour age-pruning rule makes all four unpublished
+support versions eligible, including the 24-node draft that compaction retains.
+A finite Community/license limit still applies when pruneTime=-1. Exact historical
+task execution remains unproven. Both retained and fresh encrypted archives now
+have protected 0700/0600 copies outside /tmp, with paths/SHA256 in
+[evaluation/implementation-09-exception-review.json](evaluation/implementation-09-exception-review.json).
+Do not import an intermediate draft as the current workflow. Source/current/
+published parity and retained executions/credentials were verified again.
+
+Vendor n8n maintenance must also patch the bundled Node runtime (current26.7.0;
+October security fixed line26.12.1), not just APK Brotli. Keep the exact image/
+volume/key rollback plan and isolated compatibility tests as prerequisites to any
+approved normal-instance recreation. No such maintenance was executed in 09.
+
+
+## Acceptance and open recovery work — 2026-10-24
+
+Implementation 09 is accepted with documented exceptions for trusted-local
+development only. Acceptance does not resolve the history gap, authorize a
+restore/retention change or allow original-service recreation. Preserve both
+encrypted archives and the matching existing key/configuration.
+FF09-HIST-01 and FF09-REC-01 in the
+[open follow-up register](implementation-09.md#m-open-security-and-maintenance-follow-ups)
+track retention/backup policy and remaining recovery drills. Close them only
+after reviewed evidence. Git commit/push/merge and public production deployment
+remain unauthorized.

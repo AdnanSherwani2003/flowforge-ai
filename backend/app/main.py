@@ -4,6 +4,7 @@ from fastapi.responses import JSONResponse
 from fastapi.exceptions import RequestValidationError
 from sqlalchemy.exc import OperationalError, DBAPIError, TimeoutError as PoolTimeout
 from app.core.config import settings
+from app.core.request_limits import RequestLimits
 from app.api.tickets import router as tickets_router
 from app.api.mock_crm import router as mock_crm_router
 from app.api.workflow_runs import router as workflow_runs_router
@@ -19,6 +20,9 @@ app = FastAPI(
     description="Backend API and Data Contracts for FlowForge AI",
     version=settings.VERSION,
 )
+
+
+app.add_middleware(RequestLimits)
 
 
 @app.exception_handler(RequestValidationError)
@@ -83,7 +87,7 @@ app.include_router(digests_router, prefix="/api")
 @app.middleware("http")
 async def private_review_responses(request: Request, call_next):
     response = await call_next(request)
-    if request.url.path.startswith(("/api/reviews", "/api/reviewer", "/api/digests")):
+    if request.url.path.startswith("/api/"):
         response.headers["Cache-Control"] = "private, no-store"
         response.headers["Pragma"] = "no-cache"
     return response

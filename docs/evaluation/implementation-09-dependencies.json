@@ -1,0 +1,9 @@
+{
+  "scanner": "pip-audit 2.10.1 (isolated ephemeral auditor); npm audit",
+  "installed_package_count": 45,
+  "python_unique_advisories": 1,
+  "python_raw_entries": 2,
+  "npm_findings": 0,
+  "python_status": "findings remain",
+  "note": "Successful audit execution is not a vulnerability-free result"
+}

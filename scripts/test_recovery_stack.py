@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Live disposable restart tests. Ollama is a stub; production is untouched."""
+import argparse
 import concurrent.futures
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
@@ -19,6 +20,9 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--output", type=Path, default=ROOT / "docs/evaluation/implementation-08-recovery.json")
+    args = parser.parse_args()
     tag = "ff-recovery-" + uuid.uuid4().hex[:10]
     names = {s: tag + "-" + s for s in ("postgres", "backend", "n8n", "frontend", "ollama")}
     started, checks = [], []
@@ -100,7 +104,8 @@ def main():
         service("postgres", "--env-file", str(pg_env), "--mount",
                 f"type=bind,src={folder / 'pg'},dst=/var/lib/postgresql/data", "postgres:17-alpine")
         for _ in range(100):
-            if docker("exec", names["postgres"], "pg_isready", "-U", "fixture", check=False).returncode == 0:
+            if (docker("exec", names["postgres"], "cat", "/proc/1/comm", check=False).stdout.strip() == "postgres"
+                    and docker("exec", names["postgres"], "pg_isready", "-U", "fixture", check=False).returncode == 0):
                 break
             time.sleep(.3)
         check(docker("exec", names["postgres"], "pg_isready", "-U", "fixture").returncode == 0,
@@ -352,7 +357,7 @@ print('mid_transaction_recovered')
                   "duration_seconds": round(time.monotonic() - began, 2),
                   "infrastructure": "Live isolated PostgreSQL/FastAPI/n8n/Next.js; Ollama HTTP stub",
                   "production_resources_modified": False, "lease_expiry": "actual 120 seconds; no clock or row manipulation"}
-        (ROOT / "docs/evaluation/implementation-08-recovery.json").write_text(json.dumps(report, indent=2) + "\n")
+        args.output.write_text(json.dumps(report, indent=2) + "\n")
         print(json.dumps({k: v for k, v in report.items() if k != "checks"}), flush=True)
     finally:
         # Only uniquely named containers with this exact harness ownership label.

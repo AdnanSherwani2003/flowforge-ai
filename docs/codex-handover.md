@@ -11,7 +11,7 @@ FlowForge AI is a **local-first AI workflow automation platform** designed to au
 Core Architectural Principles:
 1. **Local-First & Zero Paid Cloud Dependencies**: Uses Docker Desktop for application services and an existing native Windows Ollama for local inference; no paid inference dependency.
 2. **FastAPI & PostgreSQL as the Source of Truth**: n8n serves exclusively as an orchestrator and integration router. All schema validation, idempotency checks, conflict resolution, and data persistence reside firmly in FastAPI and PostgreSQL.
-3. **Data Minimization & Privacy**: Ticket content is intentionally stored in business tables and passes through n8n memory. Validation errors omit raw inputs; audit/telemetry use bounded identifiers and allowlisted metadata. New completed workflow payloads are not retained under the configured no-save policy, but historical/crashed executions and backups can contain raw content. Periodic pruning is disabled to preserve historical records.
+3. **Data Minimization & Privacy**: Ticket content is intentionally stored in business tables and passes through n8n memory. Validation errors omit raw inputs; audit/telemetry use bounded identifiers and allowlisted metadata. New completed workflow payloads are not retained under the configured no-save policy, but historical/crashed executions and backups can contain raw content. Execution-data pruning is disabled; independent workflow-version compaction is a separate unresolved preservation exception documented in Implementation 09.
 4. **Resilient Failure Recovery**: Webhook routes cleanly handle upstream outages (503), bounded timeouts (5s), connection drops, and retries distinguishing pre-persistence failures from post-persistence client timeouts.
 
 ---
@@ -31,7 +31,7 @@ Core Architectural Principles:
 - **Repository Location**: `/home/adnan/projects/flowforge-ai`
 - **Operating Environment**: Ubuntu WSL2 on Windows 11 with Docker Desktop
 - **GitHub Remote**: `https://github.com/AdnanSherwani2003/flowforge-ai.git`
-- **Active Branch**: `implementation-05-human-approval-dashboard` (uncommitted; do not commit/push without approval)
+- **Active Branch**: `implementation-09-testing-security` (09 uncommitted and unstaged; no push/merge)
 
 ---
 
@@ -50,19 +50,30 @@ Core Architectural Principles:
 
 ## 4. Current Implementation Status & Roadmap
 
-**2026-10-23 current status:** Implementation 03 was fast-forward merged and pushed to main at 1489752 after regression verification. Implementation 04 is committed locally as 491b719. Implementation 05 is verified locally and awaiting review, with no push or merge. Migration 005_reviews and the unchanged 13-node workflow are live. Dashboard: http://localhost:3000. Published version: 4a1f9756-89ab-488c-9348-f9fb51e0966e. Failure simulation remains false.
-
-See [Implementation 05](implementation-05.md) for current review contracts and [Implementation 04](implementation-04.md) for inference measurements.
-The [Implementation 03 maintenance report](implementation-03-review.md) remains historical evidence of completed rotation; no credentials or keys changed during Implementation 04.
+**Current status:** Implementations 01–06 are published on main/origin main at
+29aa141. Implementation 07 is locally committed as e746ff6; accepted Implementation
+08 is locally committed as 973c408d4c6893edae8a558774d3362bd1957f61.
+Implementation 09 remains uncommitted on implementation-09-testing-security.
+Latest applied migration is 007_daily_digests; 08/09 add no migration.
+Three published support/lead/digest workflows have 13/11/5 nodes; four drafts stay
+inactive. Failure simulation is false. No push or merge during 08/09.
+Read [Implementation 09](implementation-09.md), [security review](security-review.md)
+and [recovery runbook](recovery-runbook.md) before further work. Implementation
+09 is accepted with documented exceptions for trusted-local development only.
+The platform findings, unauthenticated ingress and history-version gap remain
+open risks, not resolved vulnerabilities. Git commit/push/merge and public
+production deployment are explicitly unauthorized.
 
 ### Official Implementation Roadmap
 1. [x] **Implementation 01**: Local infrastructure setup (Docker Compose, networking, multi-role PostgreSQL).
 2. [x] **Implementation 02**: Data contracts, idempotent ticket ingestion, safe audit logging, and mock CRM APIs.
 3. [x] **Implementation 03**: Deterministic n8n support-ticket workflow orchestration (Complete for the documented local scope).
 4. [x] **Implementation 04**: Bounded local advisory enrichment using Ollama (local commit 491b719).
-5. [x] **Implementation 05**: Authenticated human approval dashboard (verified, uncommitted).
-6. [ ] **Implementation 06**: Lead intake and deduplication.
-7. [ ] **Implementation 07**: Daily operations digest.
+5. [x] **Implementation 05**: Authenticated human approval dashboard (published).
+6. [x] **Implementation 06**: Lead intake and deduplication.
+7. [x] **Implementation 07**: Daily operations digest (local e746ff6).
+8. [x] **Implementation 08**: Resilience/recovery (local 973c408).
+9. [x] **Implementation 09**: Testing/security; accepted with documented exceptions for trusted-local development, uncommitted.
 
 ---
 
@@ -84,7 +95,7 @@ docker compose ps
 docker compose exec -T backend alembic upgrade head
 ```
 
-### Run Backend Unit and Integration Test Suite (159 Tests)
+### Run Backend Unit and Integration Test Suite (233 Tests)
 ```bash
 docker compose exec -T backend pytest -v
 ```
@@ -190,21 +201,70 @@ provisioning, timezone alignment, offline recovery and retention observations.
 
 Existing reviewer credentials/encryption keys are preserved. Only a new narrowly
 scoped generation key and encrypted n8n header credential were added.
-### E. Implementation 08 acceptance pending
+### E. Implementation 08 checkpoint and Implementation 09 review
 
-Current branch: implementation-08-resilience-recovery, based on local checkpoint
-e746ff6. Implementation 08 remains uncommitted and unstaged pending review.
-Main/origin main remain 29aa141. No push or merge was authorized.
+Implementation 08 was accepted and locally committed as 973c408 after its
+24-file manifest, whitespace and staged secret review. A clean tree was verified
+before creating implementation-09-testing-security. Implementation 09 is
+uncommitted/unstaged. Main/origin main remain 29aa141. Do not push/merge or begin 10.
 
-Read [Implementation 08](implementation-08.md) and [recovery runbook](recovery-runbook.md).
-/health is process liveness; /ready checks the required DB. Optional Ollama metadata
-is checked only through authenticated /api/reviewer/dependencies and never gates
-readiness. Database connect/pool/SQL/lock waits are bounded. Expired enrichment
-claims reconcile on explicit POST and now create attention reviews and safe audits.
-There is no background sweeper/outbox, automatic backfill or automatic write retry.
+Implementation 09 adds bounded actual-byte request parsing, safe malformed JSON
+errors, no-store legacy responses, the SQLite pool compatibility correction,
+private pytest temp roots and reproducible security/restore/scanner procedures.
+Runtime pip/npm installers were removed; existing app package versions remain.
 
-All original business rows, seven workflow definitions, 335 retained execution
-entities/data rows and the existing credential were verified preserved. Only the
-normal backend was recreated. Interruptions were confined to a disposable stack.
-Do not commit Implementation 08, push, merge or begin Implementation 09 without
-new authorization.
+The final sequential system command passed backend 233, frontend 44, recovery 49,
+support 192, lead 358, enrichment 21, review 29, smoke 8, digest 28, digest faults 44,
+lead faults 36, support faults 39, integrated security 43 and restore 13 check groups;
+each has zero failures/skips. Lint/typecheck/build/runtime parity passed.
+Dependency scans still report pytest plus platform image findings; no clean
+security sign-off. See full evidence/commands in Implementation 09.
+
+All original app row hashes match except the user's explicitly confirmed
+approval of review ca7a03ff-1540-4e72-95cf-a6fb3364d660 during testing.
+Do not undo it. Current seven workflow definitions and retained executions/
+credential match; five autosaved workflow-history versions are absent relative
+to the older encrypted export. Independent n8n compaction is consistent with this,
+but timing/cause is unproven. Preserve the prior export and resolve the retention
+exception through approved maintenance, never direct table writes.
+
+Only normal backend/frontend were recreated. Other 18 original containers,
+all mounts/.env bytes and personal n8n's 37 workflows were verified unchanged.
+A fresh application-only backup was restored into a disposable isolated instance;
+normal restore/n8n restore/full Windows reboot/ownership recovery are untested.
+
+
+### F. Implementation 09 final exception investigation
+
+October24 final decision: **ACCEPTED WITH DOCUMENTED EXCEPTIONS** by the user,
+strictly for trusted-local development. The three exceptions remain accepted
+risks, not resolved vulnerabilities. No commit/push/merge is authorized. Read
+[the final exception report](implementation-09-exception-review.md) and its
+92-row critical/high catalog before maintenance. All original41 files were
+reviewed; total proposal is44 after three new report/evidence files.
+
+Offline compaction selects four missing versions. Community's separate24-hour
+pruning rule makes all four support autosaves eligible, including the24-node
+intermediate draft; no log proves the exact historical task. Protected encrypted
+archive copies now preserve old/current evidence outside /tmp. Do not modify
+original history or restore an old draft over the published13-node workflow.
+
+n8n Node26.7.0 remains below fixed26.12.1; bundled runtime patch qualification is
+a High priority. Most native/feature/tooling preconditions are absent from the
+current fixed workflows; do not extend that conclusion to arbitrary editor use.
+Frontend Node22.23.4 already includes the Brotli backport.
+Unauthenticated local ingress remains Medium; current approval enforcement stays.
+Backend233/frontend44/smoke8/ingress17 and runtime parity passed again. Other
+full suites remain the previous evidence, not newly executed claims.
+
+
+### G. Carry-forward work after Implementation 09 acceptance
+
+Use the stable IDs in the
+[open follow-up register](implementation-09.md#m-open-security-and-maintenance-follow-ups):
+FF09-SEC-01 (platform/runtime patches), FF09-HIST-01 (history retention/backup),
+FF09-INGRESS-01 (sender authentication/resource limits), FF09-TEST-01 (pytest),
+FF09-AUTH-01 (session/TLS/identities), FF09-REC-01 (remaining recovery drills) and
+FF09-BUILD-01 (build reproducibility). All remain open. No maintenance, feature
+work, public deployment or Git operation is implied by acceptance.
+Retain all investigation evidence and encrypted history backups.

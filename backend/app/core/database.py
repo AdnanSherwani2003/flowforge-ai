@@ -17,7 +17,7 @@ engine = create_engine(
     settings.sync_database_url,
     connect_args=connect_args,
     pool_pre_ping=True,
-    pool_timeout=2,
+    **({} if settings.sync_database_url.startswith("sqlite") else {"pool_timeout": 2}),
 )
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)

@@ -1,0 +1,250 @@
+{
+  "reviewed_at": "2026-10-23T18:13:00.688903+00:00",
+  "implementation08_commit": "973c408d4c6893edae8a558774d3362bd1957f61",
+  "branch": "implementation-09-testing-security",
+  "main_and_origin_main": "29aa141eb69466f2bfa7869c64ccd4922fa4f31c",
+  "status": "ACCEPTED WITH DOCUMENTED EXCEPTIONS for trusted-local development only",
+  "implementation09_staged": false,
+  "implementation09_committed": false,
+  "pushed_or_merged": false,
+  "implementation10_started": false,
+  "tests": {
+    "backend": {
+      "passed": 233,
+      "failed": 0,
+      "skipped": 0
+    },
+    "lead": {
+      "passed": 358,
+      "failed": 0,
+      "skipped": 0
+    },
+    "support": {
+      "passed": 192,
+      "failed": 0,
+      "skipped": 0
+    },
+    "enrichment": {
+      "passed": 21,
+      "failed": 0,
+      "skipped": 0
+    },
+    "reviews": {
+      "passed": 29,
+      "failed": 0,
+      "skipped": 0
+    },
+    "smoke": {
+      "passed": 8,
+      "failed": 0,
+      "skipped": 0
+    },
+    "digest": {
+      "passed": 28,
+      "failed": 0,
+      "skipped": 0
+    },
+    "digest_faults": {
+      "passed": 44,
+      "failed": 0,
+      "skipped": 0
+    },
+    "lead_faults": {
+      "passed": 36,
+      "failed": 0,
+      "skipped": 0
+    },
+    "support_faults": {
+      "passed": 39,
+      "failed": 0,
+      "skipped": 0
+    },
+    "frontend": {
+      "passed": 44,
+      "failed": 0,
+      "skipped": 0
+    },
+    "isolated_recovery": {
+      "passed": 49,
+      "failed": 0,
+      "skipped": 0
+    },
+    "security_system": {
+      "passed": 43,
+      "failed": 0,
+      "skipped": 0
+    },
+    "restore_check_groups": {
+      "passed": 13,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "frontend_lint_typecheck_build": "passed",
+  "application_docker_builds": "passed",
+  "published_workflow_parity": "passed; unchanged 13/11/5 nodes and four inactive drafts",
+  "migration_head": "007_daily_digests",
+  "final_sequential_command": "python3 -u scripts/verify_system.py",
+  "final_command_exit_code": 0,
+  "private_log_path": "/tmp/flowforge-09-final-system.log",
+  "private_log_sha256": "f39018600055b6fe4d26166b724c19d5252d023940c6aab9c259bfe129406078",
+  "git_diff_check": "passed",
+  "changed_files": [
+    "README.md",
+    "backend/Dockerfile",
+    "backend/app/core/database.py",
+    "backend/app/core/request_limits.py",
+    "backend/app/main.py",
+    "backend/constraints.txt",
+    "backend/tests/conftest.py",
+    "backend/tests/test_security.py",
+    "docs/codex-handover.md",
+    "docs/evaluation/implementation-09-acceptance.json",
+    "docs/evaluation/implementation-09-dependencies.json",
+    "docs/evaluation/implementation-09-digest-faults.json",
+    "docs/evaluation/implementation-09-digest.json",
+    "docs/evaluation/implementation-09-exception-review.json",
+    "docs/evaluation/implementation-09-images.json",
+    "docs/evaluation/implementation-09-lead.json",
+    "docs/evaluation/implementation-09-npm-audit.json",
+    "docs/evaluation/implementation-09-preservation.json",
+    "docs/evaluation/implementation-09-python-audit-before.json",
+    "docs/evaluation/implementation-09-python-audit.json",
+    "docs/evaluation/implementation-09-recovery.json",
+    "docs/evaluation/implementation-09-regressions.json",
+    "docs/evaluation/implementation-09-restore.json",
+    "docs/evaluation/implementation-09-review.json",
+    "docs/evaluation/implementation-09-secrets.json",
+    "docs/evaluation/implementation-09-system.json",
+    "docs/evaluation/implementation-09-vulnerability-triage.json",
+    "docs/implementation-09-exception-review.md",
+    "docs/implementation-09.md",
+    "docs/recovery-runbook.md",
+    "docs/security-review.md",
+    "frontend/Dockerfile",
+    "frontend/app/api/auth/login/route.ts",
+    "frontend/app/api/digests/generate/route.ts",
+    "frontend/app/api/reviews/[id]/[decision]/route.ts",
+    "frontend/lib/request-body.ts",
+    "frontend/tests/request-body.test.ts",
+    "scripts/audit_dependencies.py",
+    "scripts/audit_secrets.py",
+    "scripts/test_recovery_stack.py",
+    "scripts/test_resilience_regressions.py",
+    "scripts/test_security_system.py",
+    "scripts/verify_backup_restore.py",
+    "scripts/verify_system.py"
+  ],
+  "changed_file_count": 44,
+  "secret_evidence": "implementation-09-secrets.json",
+  "dependency_evidence": [
+    "implementation-09-dependencies.json",
+    "implementation-09-images.json"
+  ],
+  "preservation_evidence": "implementation-09-preservation.json",
+  "restore_evidence": "implementation-09-restore.json",
+  "acceptance_exceptions": [
+    "Platform image critical/high scanner findings remain; reachability partly unresolved.",
+    "pytest 8.4.2 advisory remains, locally mitigated with private random temp root.",
+    "Five autosaved workflow-history versions absent relative to old retained export; exact timing/cause unproven.",
+    "Unauthenticated legacy local ingress and browser-form write path, no global rate/storage quotas."
+  ],
+  "user_confirmed_review_approval_preserved": true,
+  "proposed_commit_message": "fix: harden request boundaries and verify system security",
+  "requires_user_review_before09_commit": false,
+  "final_exception_review": "implementation-09-exception-review.json",
+  "final_exception_review_local_date": "2026-10-24",
+  "final_exception_report": "../implementation-09-exception-review.md",
+  "runtime_changes_during_final_exception_review": false,
+  "full_system_suite_rerun_during_final_exception_review": false,
+  "final_acceptance": {
+    "decision": "ACCEPTED WITH DOCUMENTED EXCEPTIONS",
+    "accepted_local_date": "2026-10-24",
+    "timezone": "Asia/Kolkata",
+    "approval_source": "Explicit user approval in this chat",
+    "scope": "Existing trusted-local FlowForge AI development environment only",
+    "three_exceptions": [
+      "Historical workflow-version preservation gap",
+      "Outstanding image/platform vulnerabilities",
+      "Unauthenticated local ingress"
+    ],
+    "exceptions_are_accepted_risks_not_resolved_vulnerabilities": true,
+    "public_production_deployment_authorized": false,
+    "git_commit_authorized": false,
+    "git_push_authorized": false,
+    "git_merge_authorized": false,
+    "additional_features_or_refactoring_authorized": false
+  },
+  "follow_ups": [
+    {
+      "id": "FF09-SEC-01",
+      "severity": "High",
+      "status": "Open \u2014 accepted documented risk",
+      "work": "Qualify vendor-supported n8n/runtime/native-library patches and remaining image findings; include the WSL development Node patch. Retain all scanner findings and verify exact image digests, workflows, credentials, migrations and rollback in isolation.",
+      "completion_evidence": "Compatible candidate test results and fresh per-finding scan/triage; separately approved maintenance before any original-service recreation."
+    },
+    {
+      "id": "FF09-HIST-01",
+      "severity": "Medium operational",
+      "status": "Open \u2014 accepted documented risk",
+      "work": "Define protected workflow-version export/backup policy and qualify supported retention controls and isolated recovery. Preserve both encrypted archives; retain the five-version live-database gap and unproven historical cause.",
+      "completion_evidence": "Documented backup/retention policy and isolated recovery evidence; no direct n8n table writes or original workflow/history changes without a separately reviewed plan."
+    },
+    {
+      "id": "FF09-INGRESS-01",
+      "severity": "Medium",
+      "status": "Open \u2014 accepted documented risk",
+      "work": "Qualify scoped sender authentication across n8n/backend plus appropriate body, Origin, rate and resource limits before untrusted or broader use. Maintain loopback and current webhook contracts meanwhile.",
+      "completion_evidence": "Authorized coordinated configuration/workflow change, published/export parity and regression evidence; no public deployment authorization."
+    },
+    {
+      "id": "FF09-TEST-01",
+      "severity": "Moderate upstream",
+      "status": "Open \u2014 deferred maintenance",
+      "work": "Assess a compatible pytest/pytest-asyncio upgrade for the retained advisory; preserve the random owner-only temporary-root mitigation.",
+      "completion_evidence": "Compatibility tests and updated audit; no claim that the mitigation fixes the affected package."
+    },
+    {
+      "id": "FF09-AUTH-01",
+      "severity": "Low in trusted-local scope",
+      "status": "Open \u2014 deferred hardening",
+      "work": "Reassess TLS/Secure cookies, copied-session revocation and distinct reviewer identities before any broader deployment.",
+      "completion_evidence": "Separately approved scope and authentication/session tests; broader deployment remains unapproved."
+    },
+    {
+      "id": "FF09-REC-01",
+      "severity": "Medium operational",
+      "status": "Open \u2014 recovery verification limitation",
+      "work": "Qualify isolated n8n recovery, ownership/ACL restoration and host-loss RPO/RTO; full Windows reboot remains unverified.",
+      "completion_evidence": "Recorded isolated drills and a separately approved plan for any normal-data restore; never overwrite existing storage as a test."
+    },
+    {
+      "id": "FF09-BUILD-01",
+      "severity": "Low",
+      "status": "Open \u2014 reproducibility maintenance",
+      "work": "Review immutable base-image references and Python artifact hash locking during dependency maintenance.",
+      "completion_evidence": "Reproducible reviewed builds and preserved dependency/compatibility evidence."
+    }
+  ],
+  "user_final_review_completed": true,
+  "requires_explicit09_commit_authorization": true,
+  "acceptance_recording_files": [
+    "README.md",
+    "docs/codex-handover.md",
+    "docs/evaluation/implementation-09-acceptance.json",
+    "docs/evaluation/implementation-09-exception-review.json",
+    "docs/implementation-09-exception-review.md",
+    "docs/implementation-09.md",
+    "docs/recovery-runbook.md",
+    "docs/security-review.md"
+  ],
+  "acceptance_recording_verification": {
+    "scope": "Documentation/status only",
+    "runtime_files_unchanged": true,
+    "encrypted_history_backup_hashes_and_private_permissions_verified": true,
+    "env_bytes_unchanged": true,
+    "git_index_empty": true,
+    "git_head_unchanged": "973c408d4c6893edae8a558774d3362bd1957f61",
+    "test_suites_rerun_for_documentation_only_update": false
+  }
+}

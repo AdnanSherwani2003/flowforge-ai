@@ -1,0 +1,2538 @@
+{
+  "scanner": "Docker Scout 1.23.1",
+  "scope": "Four local runtime images; scanner package matches, not demonstrated service exploits",
+  "images": {
+    "backend": {
+      "reference": "flowforge-ai-backend",
+      "image_id": "sha256:c4e99ef70a3c1733f29d17205a91c0ced80b38c5c6f80f30ca8e7d7b84d62962",
+      "scanner_rules": 29,
+      "result_occurrences": 29,
+      "severity_counts": {
+        "LOW": 26,
+        "MEDIUM": 2,
+        "HIGH": 1
+      },
+      "raw_report": "/tmp/flowforge-09-backend-scout-final.json",
+      "raw_sha256": "0e003fcad0acb2a5b88424de35776f35597c9b1b369caec0d783d4a1d2758963",
+      "findings": [
+        {
+          "id": "CVE-2005-2541",
+          "severity": "LOW",
+          "score": "3.1",
+          "packages": [
+            "pkg:deb/debian/tar@1.35%2Bdfsg-3.1?os_distro=trixie&os_name=debian&os_version=13"
+          ],
+          "fixed_version": "not fixed",
+          "reference": "https://scout.docker.com/v/CVE-2005-2541?s=debian&n=tar&ns=debian&t=deb&osn=debian&osv=13&vr=%3E0"
+        },
+        {
+          "id": "CVE-2007-5686",
+          "severity": "LOW",
+          "score": "3.1",
+          "packages": [
+            "pkg:deb/debian/shadow@1%3A4.17.4-2?os_distro=trixie&os_name=debian&os_version=13"
+          ],
+          "fixed_version": "not fixed",
+          "reference": "https://scout.docker.com/v/CVE-2007-5686?s=debian&n=shadow&ns=debian&t=deb&osn=debian&osv=13&vr=%3E0"
+        },
+        {
+          "id": "CVE-2010-0928",
+          "severity": "LOW",
+          "score": "3.1",
+          "packages": [
+            "pkg:deb/debian/openssl@3.5.7-1~deb13u3?os_distro=trixie&os_name=debian&os_version=13"
+          ],
+          "fixed_version": "not fixed",
+          "reference": "https://scout.docker.com/v/CVE-2010-0928?s=debian&n=openssl&ns=debian&t=deb&osn=debian&osv=13&vr=%3E%3D3.2.1-3"
+        },
+        {
+          "id": "CVE-2010-4756",
+          "severity": "LOW",
+          "score": "3.1",
+          "packages": [
+            "pkg:deb/debian/glibc@2.41-12%2Bdeb13u4?os_distro=trixie&os_name=debian&os_version=13"
+          ],
+          "fixed_version": "not fixed",
+          "reference": "https://scout.docker.com/v/CVE-2010-4756?s=debian&n=glibc&ns=debian&t=deb&osn=debian&osv=13&vr=%3E0"
+        },
+        {
+          "id": "CVE-2011-3374",
+          "severity": "LOW",
+          "score": "3.1",
+          "packages": [
+            "pkg:deb/debian/apt@3.0.3?os_distro=trixie&os_name=debian&os_version=13"
+          ],
+          "fixed_version": "not fixed",
+          "reference": "https://scout.docker.com/v/CVE-2011-3374?s=debian&n=apt&ns=debian&t=deb&osn=debian&osv=13&vr=%3E0"
+        },
+        {
+          "id": "CVE-2011-4116",
+          "severity": "LOW",
+          "score": "3.1",
+          "packages": [
+            "pkg:deb/debian/perl@5.40.1-6%2Bdeb13u1?os_distro=trixie&os_name=debian&os_version=13"
+          ],
+          "fixed_version": "not fixed",
+          "reference": "https://scout.docker.com/v/CVE-2011-4116?s=debian&n=perl&ns=debian&t=deb&osn=debian&osv=13&vr=%3E0"
+        },
+        {
+          "id": "CVE-2013-4392",
+          "severity": "LOW",
+          "score": "3.1",
+          "packages": [
+            "pkg:deb/debian/systemd@257.13-1~deb13u1?os_distro=trixie&os_name=debian&os_version=13"
+          ],
+          "fixed_version": "not fixed",
+          "reference": "https://scout.docker.com/v/CVE-2013-4392?s=debian&n=systemd&ns=debian&t=deb&osn=debian&osv=13&vr=%3E0"
+        },
+        {
+          "id": "CVE-2017-18018",
+          "severity": "LOW",
+          "score": "3.1",
+          "packages": [
+            "pkg:deb/debian/coreutils@9.7-3?os_distro=trixie&os_name=debian&os_version=13"
+          ],
+          "fixed_version": "not fixed",
+          "reference": "https://scout.docker.com/v/CVE-2017-18018?s=debian&n=coreutils&ns=debian&t=deb&osn=debian&osv=13&vr=%3E0"
+        },
+        {
+          "id": "CVE-2018-20796",
+          "severity": "LOW",
+          "score": "3.1",
+          "packages": [
+            "pkg:deb/debian/glibc@2.41-12%2Bdeb13u4?os_distro=trixie&os_name=debian&os_version=13"
+          ],
+          "fixed_version": "not fixed",
+          "reference": "https://scout.docker.com/v/CVE-2018-20796?s=debian&n=glibc&ns=debian&t=deb&osn=debian&osv=13&vr=%3E0"
+        },
+        {
+          "id": "CVE-2019-1010022",
+          "severity": "LOW",
+          "score": "3.1",
+          "packages": [
+            "pkg:deb/debian/glibc@2.41-12%2Bdeb13u4?os_distro=trixie&os_name=debian&os_version=13"
+          ],
+          "fixed_version": "not fixed",
+          "reference": "https://scout.docker.com/v/CVE-2019-1010022?s=debian&n=glibc&ns=debian&t=deb&osn=debian&osv=13&vr=%3E0"
+        },
+        {
+          "id": "CVE-2019-1010023",
+          "severity": "LOW",
+          "score": "3.1",
+          "packages": [
+            "pkg:deb/debian/glibc@2.41-12%2Bdeb13u4?os_distro=trixie&os_name=debian&os_version=13"
+          ],
+          "fixed_version": "not fixed",
+          "reference": "https://scout.docker.com/v/CVE-2019-1010023?s=debian&n=glibc&ns=debian&t=deb&osn=debian&osv=13&vr=%3E0"
+        },
+        {
+          "id": "CVE-2019-1010024",
+          "severity": "LOW",
+          "score": "3.1",
+          "packages": [
+            "pkg:deb/debian/glibc@2.41-12%2Bdeb13u4?os_distro=trixie&os_name=debian&os_version=13"
+          ],
+          "fixed_version": "not fixed",
+          "reference": "https://scout.docker.com/v/CVE-2019-1010024?s=debian&n=glibc&ns=debian&t=deb&osn=debian&osv=13&vr=%3E0"
+        },
+        {
+          "id": "CVE-2019-1010025",
+          "severity": "LOW",
+          "score": "3.1",
+          "packages": [
+            "pkg:deb/debian/glibc@2.41-12%2Bdeb13u4?os_distro=trixie&os_name=debian&os_version=13"
+          ],
+          "fixed_version": "not fixed",
+          "reference": "https://scout.docker.com/v/CVE-2019-1010025?s=debian&n=glibc&ns=debian&t=deb&osn=debian&osv=13&vr=%3E0"
+        },
+        {
+          "id": "CVE-2019-9192",
+          "severity": "LOW",
+          "score": "3.1",
+          "packages": [
+            "pkg:deb/debian/glibc@2.41-12%2Bdeb13u4?os_distro=trixie&os_name=debian&os_version=13"
+          ],
+          "fixed_version": "not fixed",
+          "reference": "https://scout.docker.com/v/CVE-2019-9192?s=debian&n=glibc&ns=debian&t=deb&osn=debian&osv=13&vr=%3E0"
+        },
+        {
+          "id": "CVE-2021-45346",
+          "severity": "LOW",
+          "score": "3.1",
+          "packages": [
+            "pkg:deb/debian/sqlite3@3.46.1-7%2Bdeb13u2?os_distro=trixie&os_name=debian&os_version=13"
+          ],
+          "fixed_version": "not fixed",
+          "reference": "https://scout.docker.com/v/CVE-2021-45346?s=debian&n=sqlite3&ns=debian&t=deb&osn=debian&osv=13&vr=%3E0"
+        },
+        {
+          "id": "CVE-2022-0563",
+          "severity": "LOW",
+          "score": "3.1",
+          "packages": [
+            "pkg:deb/debian/util-linux@2.41.5-0%2Bdeb13u1?os_distro=trixie&os_name=debian&os_version=13"
+          ],
+          "fixed_version": "not fixed",
+          "reference": "https://scout.docker.com/v/CVE-2022-0563?s=debian&n=util-linux&ns=debian&t=deb&osn=debian&osv=13&vr=%3E0"
+        },
+        {
+          "id": "CVE-2023-31437",
+          "severity": "LOW",
+          "score": "3.1",
+          "packages": [
+            "pkg:deb/debian/systemd@257.13-1~deb13u1?os_distro=trixie&os_name=debian&os_version=13"
+          ],
+          "fixed_version": "not fixed",
+          "reference": "https://scout.docker.com/v/CVE-2023-31437?s=debian&n=systemd&ns=debian&t=deb&osn=debian&osv=13&vr=%3E0"
+        },
+        {
+          "id": "CVE-2023-31438",
+          "severity": "LOW",
+          "score": "3.1",
+          "packages": [
+            "pkg:deb/debian/systemd@257.13-1~deb13u1?os_distro=trixie&os_name=debian&os_version=13"
+          ],
+          "fixed_version": "not fixed",
+          "reference": "https://scout.docker.com/v/CVE-2023-31438?s=debian&n=systemd&ns=debian&t=deb&osn=debian&osv=13&vr=%3E0"
+        },
+        {
+          "id": "CVE-2023-31439",
+          "severity": "LOW",
+          "score": "3.1",
+          "packages": [
+            "pkg:deb/debian/systemd@257.13-1~deb13u1?os_distro=trixie&os_name=debian&os_version=13"
+          ],
+          "fixed_version": "not fixed",
+          "reference": "https://scout.docker.com/v/CVE-2023-31439?s=debian&n=systemd&ns=debian&t=deb&osn=debian&osv=13&vr=%3E0"
+        },
+        {
+          "id": "CVE-2025-5278",
+          "severity": "LOW",
+          "score": "3.1",
+          "packages": [
+            "pkg:deb/debian/coreutils@9.7-3?os_distro=trixie&os_name=debian&os_version=13"
+          ],
+          "fixed_version": "not fixed",
+          "reference": "https://scout.docker.com/v/CVE-2025-5278?s=debian&n=coreutils&ns=debian&t=deb&osn=debian&osv=13&vr=%3E0"
+        },
+        {
+          "id": "CVE-2025-70873",
+          "severity": "LOW",
+          "score": "3.1",
+          "packages": [
+            "pkg:deb/debian/sqlite3@3.46.1-7%2Bdeb13u2?os_distro=trixie&os_name=debian&os_version=13"
+          ],
+          "fixed_version": "not fixed",
+          "reference": "https://scout.docker.com/v/CVE-2025-70873?s=debian&n=sqlite3&ns=debian&t=deb&osn=debian&osv=13&vr=%3E0"
+        },
+        {
+          "id": "CVE-2026-102473",
+          "severity": "LOW",
+          "score": "3.1",
+          "packages": [
+            "pkg:deb/debian/dash@0.5.12-12?os_distro=trixie&os_name=debian&os_version=13"
+          ],
+          "fixed_version": "not fixed",
+          "reference": "https://scout.docker.com/v/CVE-2026-102473?s=debian&n=dash&ns=debian&t=deb&osn=debian&osv=13&vr=%3E0"
+        },
+        {
+          "id": "CVE-2026-102474",
+          "severity": "LOW",
+          "score": "3.1",
+          "packages": [
+            "pkg:deb/debian/dash@0.5.12-12?os_distro=trixie&os_name=debian&os_version=13"
+          ],
+          "fixed_version": "not fixed",
+          "reference": "https://scout.docker.com/v/CVE-2026-102474?s=debian&n=dash&ns=debian&t=deb&osn=debian&osv=13&vr=%3E0"
+        },
+        {
+          "id": "CVE-2026-53910",
+          "severity": "LOW",
+          "score": "3.1",
+          "packages": [
+            "pkg:deb/debian/diffutils@1%3A3.10-4?os_distro=trixie&os_name=debian&os_version=13"
+          ],
+          "fixed_version": "not fixed",
+          "reference": "https://scout.docker.com/v/CVE-2026-53910?s=debian&n=diffutils&ns=debian&t=deb&osn=debian&osv=13&vr=%3E0"
+        },
+        {
+          "id": "CVE-2026-56391",
+          "severity": "LOW",
+          "score": "3.1",
+          "packages": [
+            "pkg:deb/debian/coreutils@9.7-3?os_distro=trixie&os_name=debian&os_version=13"
+          ],
+          "fixed_version": "not fixed",
+          "reference": "https://scout.docker.com/v/CVE-2026-56391?s=debian&n=coreutils&ns=debian&t=deb&osn=debian&osv=13&vr=%3E0"
+        },
+        {
+          "id": "CVE-2026-56392",
+          "severity": "LOW",
+          "score": "3.1",
+          "packages": [
+            "pkg:deb/debian/coreutils@9.7-3?os_distro=trixie&os_name=debian&os_version=13"
+          ],
+          "fixed_version": "not fixed",
+          "reference": "https://scout.docker.com/v/CVE-2026-56392?s=debian&n=coreutils&ns=debian&t=deb&osn=debian&osv=13&vr=%3E0"
+        },
+        {
+          "id": "CVE-2025-45582",
+          "severity": "MEDIUM",
+          "score": "4.1",
+          "packages": [
+            "pkg:deb/debian/tar@1.35%2Bdfsg-3.1?os_distro=trixie&os_name=debian&os_version=13"
+          ],
+          "fixed_version": "not fixed",
+          "reference": "https://scout.docker.com/v/CVE-2025-45582?s=debian&n=tar&ns=debian&t=deb&osn=debian&osv=13&vr=%3E%3D1.35%2Bdfsg-3.1"
+        },
+        {
+          "id": "CVE-2025-71176",
+          "severity": "MEDIUM",
+          "score": "6.8",
+          "packages": [
+            "pkg:pypi/pytest@8.4.2"
+          ],
+          "fixed_version": "9.0.3",
+          "reference": "https://scout.docker.com/v/CVE-2025-71176?s=github&n=pytest&t=pypi&vr=%3C9.0.3"
+        },
+        {
+          "id": "CVE-2026-85091",
+          "severity": "HIGH",
+          "score": "8.3",
+          "packages": [
+            "pkg:deb/debian/zlib@1%3A1.3.dfsg%2Breally1.3.1-1?os_distro=trixie&os_name=debian&os_version=13"
+          ],
+          "fixed_version": "not fixed",
+          "reference": "https://scout.docker.com/v/CVE-2026-85091?s=debian&n=zlib&ns=debian&t=deb&osn=debian&osv=13&vr=%3E0"
+        }
+      ],
+      "before_runtime_installer_removal": {
+        "LOW": 26,
+        "MEDIUM": 4,
+        "HIGH": 6
+      }
+    },
+    "frontend": {
+      "reference": "flowforge-ai-frontend",
+      "image_id": "sha256:af6d0f3cef4a2308f66ea0f308322a2455c96748f24e0433d534523713133463",
+      "scanner_rules": 1,
+      "result_occurrences": 1,
+      "severity_counts": {
+        "UNSPECIFIED": 1
+      },
+      "raw_report": "/tmp/flowforge-09-frontend-scout-final.json",
+      "raw_sha256": "8ac5a42514a09e52e1682c7e147778e7c49afd1663572dc2c43df4b8dfa2cfa1",
+      "findings": [
+        {
+          "id": "CVE-2026-107891",
+          "severity": "UNSPECIFIED",
+          "score": "3.1",
+          "packages": [
+            "pkg:apk/alpine/musl@1.2.6-r3?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "1.2.6-r6",
+          "reference": "https://scout.docker.com/v/CVE-2026-107891?s=alpine&n=musl&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C1.2.6-r6"
+        }
+      ],
+      "before_runtime_installer_removal": {
+        "UNSPECIFIED": 1,
+        "LOW": 1,
+        "MEDIUM": 10,
+        "HIGH": 10
+      }
+    },
+    "n8n": {
+      "reference": "n8nio/n8n:2.43.8",
+      "image_id": "sha256:a18edcf018198b33b5488fb47ededafe11e0b10d28f65b9535b7c447c9ce3b2c",
+      "scanner_rules": 141,
+      "result_occurrences": 143,
+      "severity_counts": {
+        "UNSPECIFIED": 31,
+        "LOW": 8,
+        "MEDIUM": 47,
+        "HIGH": 46,
+        "CRITICAL": 9
+      },
+      "raw_report": "/tmp/flowforge-09-n8n-scout.json",
+      "raw_sha256": "23f3079b3296dc32e82177fc11b956ebf0cde98d190fb359b0de65b95c9e3a67",
+      "findings": [
+        {
+          "id": "CVE-2026-107891",
+          "severity": "UNSPECIFIED",
+          "score": "3.1",
+          "packages": [
+            "pkg:apk/alpine/musl@1.2.6-r2?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "1.2.6-r6",
+          "reference": "https://scout.docker.com/v/CVE-2026-107891?s=alpine&n=musl&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C1.2.6-r6"
+        },
+        {
+          "id": "CVE-2026-107928",
+          "severity": "UNSPECIFIED",
+          "score": "3.1",
+          "packages": [
+            "pkg:apk/alpine/curl@8.21.0-r0?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "8.23.0-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-107928?s=alpine&n=curl&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C8.23.0-r0"
+        },
+        {
+          "id": "CVE-2026-107929",
+          "severity": "UNSPECIFIED",
+          "score": "3.1",
+          "packages": [
+            "pkg:apk/alpine/curl@8.21.0-r0?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "8.23.0-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-107929?s=alpine&n=curl&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C8.23.0-r0"
+        },
+        {
+          "id": "CVE-2026-45382",
+          "severity": "UNSPECIFIED",
+          "score": "3.1",
+          "packages": [
+            "pkg:apk/alpine/libde265@1.0.18-r0?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "1.1.1-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-45382?s=alpine&n=libde265&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C1.1.1-r0"
+        },
+        {
+          "id": "CVE-2026-45383",
+          "severity": "UNSPECIFIED",
+          "score": "3.1",
+          "packages": [
+            "pkg:apk/alpine/libde265@1.0.18-r0?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "1.1.1-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-45383?s=alpine&n=libde265&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C1.1.1-r0"
+        },
+        {
+          "id": "CVE-2026-46675",
+          "severity": "UNSPECIFIED",
+          "score": "3.1",
+          "packages": [
+            "pkg:apk/alpine/libpng@1.6.58-r1?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "1.6.59-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-46675?s=alpine&n=libpng&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C1.6.59-r0"
+        },
+        {
+          "id": "CVE-2026-49295",
+          "severity": "UNSPECIFIED",
+          "score": "3.1",
+          "packages": [
+            "pkg:apk/alpine/libde265@1.0.18-r0?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "1.1.1-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-49295?s=alpine&n=libde265&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C1.1.1-r0"
+        },
+        {
+          "id": "CVE-2026-49337",
+          "severity": "UNSPECIFIED",
+          "score": "3.1",
+          "packages": [
+            "pkg:apk/alpine/libde265@1.0.18-r0?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "1.1.1-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-49337?s=alpine&n=libde265&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C1.1.1-r0"
+        },
+        {
+          "id": "CVE-2026-49346",
+          "severity": "UNSPECIFIED",
+          "score": "3.1",
+          "packages": [
+            "pkg:apk/alpine/libde265@1.0.18-r0?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "1.1.1-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-49346?s=alpine&n=libde265&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C1.1.1-r0"
+        },
+        {
+          "id": "CVE-2026-80256",
+          "severity": "UNSPECIFIED",
+          "score": "3.1",
+          "packages": [
+            "pkg:apk/alpine/curl@8.21.0-r0?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "8.22.0-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-80256?s=alpine&n=curl&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C8.22.0-r0"
+        },
+        {
+          "id": "CVE-2026-86409",
+          "severity": "UNSPECIFIED",
+          "score": "3.1",
+          "packages": [
+            "pkg:apk/alpine/curl@8.21.0-r0?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "8.23.0-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-86409?s=alpine&n=curl&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C8.23.0-r0"
+        },
+        {
+          "id": "CVE-2026-86410",
+          "severity": "UNSPECIFIED",
+          "score": "3.1",
+          "packages": [
+            "pkg:apk/alpine/curl@8.21.0-r0?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "8.23.0-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-86410?s=alpine&n=curl&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C8.23.0-r0"
+        },
+        {
+          "id": "CVE-2026-86411",
+          "severity": "UNSPECIFIED",
+          "score": "3.1",
+          "packages": [
+            "pkg:apk/alpine/curl@8.21.0-r0?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "8.23.0-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-86411?s=alpine&n=curl&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C8.23.0-r0"
+        },
+        {
+          "id": "CVE-2026-86412",
+          "severity": "UNSPECIFIED",
+          "score": "3.1",
+          "packages": [
+            "pkg:apk/alpine/curl@8.21.0-r0?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "8.23.0-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-86412?s=alpine&n=curl&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C8.23.0-r0"
+        },
+        {
+          "id": "CVE-2026-86413",
+          "severity": "UNSPECIFIED",
+          "score": "3.1",
+          "packages": [
+            "pkg:apk/alpine/curl@8.21.0-r0?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "8.23.0-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-86413?s=alpine&n=curl&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C8.23.0-r0"
+        },
+        {
+          "id": "CVE-2026-86414",
+          "severity": "UNSPECIFIED",
+          "score": "3.1",
+          "packages": [
+            "pkg:apk/alpine/curl@8.21.0-r0?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "8.23.0-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-86414?s=alpine&n=curl&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C8.23.0-r0"
+        },
+        {
+          "id": "CVE-2026-86415",
+          "severity": "UNSPECIFIED",
+          "score": "3.1",
+          "packages": [
+            "pkg:apk/alpine/curl@8.21.0-r0?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "8.23.0-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-86415?s=alpine&n=curl&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C8.23.0-r0"
+        },
+        {
+          "id": "CVE-2026-87861",
+          "severity": "UNSPECIFIED",
+          "score": "3.1",
+          "packages": [
+            "pkg:apk/alpine/curl@8.21.0-r0?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "8.23.0-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-87861?s=alpine&n=curl&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C8.23.0-r0"
+        },
+        {
+          "id": "CVE-2026-87862",
+          "severity": "UNSPECIFIED",
+          "score": "3.1",
+          "packages": [
+            "pkg:apk/alpine/curl@8.21.0-r0?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "8.23.0-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-87862?s=alpine&n=curl&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C8.23.0-r0"
+        },
+        {
+          "id": "CVE-2026-87863",
+          "severity": "UNSPECIFIED",
+          "score": "3.1",
+          "packages": [
+            "pkg:apk/alpine/curl@8.21.0-r0?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "8.23.0-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-87863?s=alpine&n=curl&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C8.23.0-r0"
+        },
+        {
+          "id": "CVE-2026-87864",
+          "severity": "UNSPECIFIED",
+          "score": "3.1",
+          "packages": [
+            "pkg:apk/alpine/curl@8.21.0-r0?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "8.23.0-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-87864?s=alpine&n=curl&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C8.23.0-r0"
+        },
+        {
+          "id": "CVE-2026-87865",
+          "severity": "UNSPECIFIED",
+          "score": "3.1",
+          "packages": [
+            "pkg:apk/alpine/curl@8.21.0-r0?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "8.23.0-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-87865?s=alpine&n=curl&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C8.23.0-r0"
+        },
+        {
+          "id": "CVE-2026-87866",
+          "severity": "UNSPECIFIED",
+          "score": "3.1",
+          "packages": [
+            "pkg:apk/alpine/curl@8.21.0-r0?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "8.23.0-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-87866?s=alpine&n=curl&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C8.23.0-r0"
+        },
+        {
+          "id": "CVE-2026-92386",
+          "severity": "UNSPECIFIED",
+          "score": "3.1",
+          "packages": [
+            "pkg:apk/alpine/curl@8.21.0-r0?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "8.23.0-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-92386?s=alpine&n=curl&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C8.23.0-r0"
+        },
+        {
+          "id": "CVE-2026-92387",
+          "severity": "UNSPECIFIED",
+          "score": "3.1",
+          "packages": [
+            "pkg:apk/alpine/curl@8.21.0-r0?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "8.23.0-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-92387?s=alpine&n=curl&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C8.23.0-r0"
+        },
+        {
+          "id": "CVE-2026-92388",
+          "severity": "UNSPECIFIED",
+          "score": "3.1",
+          "packages": [
+            "pkg:apk/alpine/curl@8.21.0-r0?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "8.23.0-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-92388?s=alpine&n=curl&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C8.23.0-r0"
+        },
+        {
+          "id": "CVE-2026-92389",
+          "severity": "UNSPECIFIED",
+          "score": "3.1",
+          "packages": [
+            "pkg:apk/alpine/curl@8.21.0-r0?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "8.23.0-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-92389?s=alpine&n=curl&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C8.23.0-r0"
+        },
+        {
+          "id": "CVE-2026-92390",
+          "severity": "UNSPECIFIED",
+          "score": "3.1",
+          "packages": [
+            "pkg:apk/alpine/curl@8.21.0-r0?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "8.23.0-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-92390?s=alpine&n=curl&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C8.23.0-r0"
+        },
+        {
+          "id": "CVE-2026-92391",
+          "severity": "UNSPECIFIED",
+          "score": "3.1",
+          "packages": [
+            "pkg:apk/alpine/curl@8.21.0-r0?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "8.23.0-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-92391?s=alpine&n=curl&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C8.23.0-r0"
+        },
+        {
+          "id": "CVE-2026-94265",
+          "severity": "UNSPECIFIED",
+          "score": "3.1",
+          "packages": [
+            "pkg:apk/alpine/curl@8.21.0-r0?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "8.23.0-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-94265?s=alpine&n=curl&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C8.23.0-r0"
+        },
+        {
+          "id": "CVE-2026-94266",
+          "severity": "UNSPECIFIED",
+          "score": "3.1",
+          "packages": [
+            "pkg:apk/alpine/curl@8.21.0-r0?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "8.23.0-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-94266?s=alpine&n=curl&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C8.23.0-r0"
+        },
+        {
+          "id": "CVE-2026-56392",
+          "severity": "LOW",
+          "score": "1.8",
+          "packages": [
+            "pkg:apk/alpine/coreutils@9.11-r0?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "not fixed",
+          "reference": "https://scout.docker.com/v/CVE-2026-56392?s=alpine&n=coreutils&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C%3D9.11-r0"
+        },
+        {
+          "id": "CVE-2026-105799",
+          "severity": "LOW",
+          "score": "2.3",
+          "packages": [
+            "pkg:npm/%40langchain/redis@1.0.1"
+          ],
+          "fixed_version": "1.1.1",
+          "reference": "https://scout.docker.com/v/CVE-2026-105799?s=github&n=redis&ns=%40langchain&t=npm&vr=%3C%3D1.1.0"
+        },
+        {
+          "id": "CVE-2026-89156",
+          "severity": "LOW",
+          "score": "2.9",
+          "packages": [
+            "pkg:apk/alpine/pcre2@10.47-r1?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "10.48-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-89156?s=alpine&n=pcre2&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C10.48-r0"
+        },
+        {
+          "id": "CVE-2026-89162",
+          "severity": "LOW",
+          "score": "2.9",
+          "packages": [
+            "pkg:apk/alpine/pcre2@10.47-r1?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "10.48-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-89162?s=alpine&n=pcre2&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C10.48-r0"
+        },
+        {
+          "id": "CVE-2026-111766",
+          "severity": "LOW",
+          "score": "3.7",
+          "packages": [
+            "pkg:npm/markdown-it@13.0.2"
+          ],
+          "fixed_version": "14.3.3",
+          "reference": "https://scout.docker.com/v/CVE-2026-111766?s=github&n=markdown-it&t=npm&vr=%3C14.3.3"
+        },
+        {
+          "id": "CVE-2026-113657",
+          "severity": "LOW",
+          "score": "3.7",
+          "packages": [
+            "pkg:npm/sanitize-html@2.17.7"
+          ],
+          "fixed_version": "2.18.0",
+          "reference": "https://scout.docker.com/v/CVE-2026-113657?s=github&n=sanitize-html&t=npm&vr=%3E%3D2.17.7%2C%3C2.18.0"
+        },
+        {
+          "id": "CVE-2026-18540",
+          "severity": "LOW",
+          "score": "3.7",
+          "packages": [
+            "pkg:npm/undici@6.28.0"
+          ],
+          "fixed_version": "6.28.1",
+          "reference": "https://scout.docker.com/v/CVE-2026-18540?s=github&n=undici&t=npm&vr=%3C6.28.1"
+        },
+        {
+          "id": "CVE-2026-89160",
+          "severity": "LOW",
+          "score": "3.7",
+          "packages": [
+            "pkg:apk/alpine/pcre2@10.47-r1?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "10.48-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-89160?s=alpine&n=pcre2&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C10.48-r0"
+        },
+        {
+          "id": "CVE-2025-32460",
+          "severity": "MEDIUM",
+          "score": "4.0",
+          "packages": [
+            "pkg:apk/alpine/graphicsmagick@1.3.47-r0?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "not fixed",
+          "reference": "https://scout.docker.com/v/CVE-2025-32460?s=alpine&n=graphicsmagick&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C%3D1.3.47-r0"
+        },
+        {
+          "id": "CVE-2016-2781",
+          "severity": "MEDIUM",
+          "score": "4.6",
+          "packages": [
+            "pkg:apk/alpine/coreutils@9.11-r0?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "not fixed",
+          "reference": "https://scout.docker.com/v/CVE-2016-2781?s=alpine&n=coreutils&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C%3D9.11-r0"
+        },
+        {
+          "id": "CVE-2026-56391",
+          "severity": "MEDIUM",
+          "score": "4.6",
+          "packages": [
+            "pkg:apk/alpine/coreutils@9.11-r0?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "not fixed",
+          "reference": "https://scout.docker.com/v/CVE-2026-56391?s=alpine&n=coreutils&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C%3D9.11-r0"
+        },
+        {
+          "id": "CVE-2026-106444",
+          "severity": "MEDIUM",
+          "score": "4.7",
+          "packages": [
+            "pkg:npm/handlebars@4.7.9"
+          ],
+          "fixed_version": "4.7.10",
+          "reference": "https://scout.docker.com/v/CVE-2026-106444?s=github&n=handlebars&t=npm&vr=%3E%3D4.0.0%2C%3C%3D4.7.9"
+        },
+        {
+          "id": "CVE-2026-93981",
+          "severity": "MEDIUM",
+          "score": "4.7",
+          "packages": [
+            "pkg:npm/hono@4.12.34"
+          ],
+          "fixed_version": "4.13.7",
+          "reference": "https://scout.docker.com/v/CVE-2026-93981?s=github&n=hono&t=npm&vr=%3C4.13.7"
+        },
+        {
+          "id": "CVE-2026-76957",
+          "severity": "MEDIUM",
+          "score": "4.9",
+          "packages": [
+            "pkg:apk/alpine/expat@2.8.3-r1?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "2.8.4-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-76957?s=alpine&n=expat&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C2.8.4-r0"
+        },
+        {
+          "id": "CVE-2026-104183",
+          "severity": "MEDIUM",
+          "score": "5.1",
+          "packages": [
+            "pkg:npm/stream-json@1.9.1"
+          ],
+          "fixed_version": "3.6.0",
+          "reference": "https://scout.docker.com/v/CVE-2026-104183?s=github&n=stream-json&t=npm&vr=%3C3.6.0"
+        },
+        {
+          "id": "CVE-2024-1899",
+          "severity": "MEDIUM",
+          "score": "5.3",
+          "packages": [
+            "pkg:npm/showdown@2.1.0"
+          ],
+          "fixed_version": "not fixed",
+          "reference": "https://scout.docker.com/v/CVE-2024-1899?s=github&n=showdown&t=npm&vr=%3C%3D2.1.0"
+        },
+        {
+          "id": "CVE-2026-102277",
+          "severity": "MEDIUM",
+          "score": "5.3",
+          "packages": [
+            "pkg:npm/brace-expansion@5.0.9"
+          ],
+          "fixed_version": "5.0.12",
+          "reference": "https://scout.docker.com/v/CVE-2026-102277?s=github&n=brace-expansion&t=npm&vr=%3E%3D4.0.0%2C%3C5.0.12"
+        },
+        {
+          "id": "CVE-2026-111757",
+          "severity": "MEDIUM",
+          "score": "5.3",
+          "packages": [
+            "pkg:npm/hono@4.12.34"
+          ],
+          "fixed_version": "4.13.11",
+          "reference": "https://scout.docker.com/v/CVE-2026-111757?s=github&n=hono&t=npm&vr=%3E%3D4.12.4%2C%3C4.13.11"
+        },
+        {
+          "id": "CVE-2026-113654",
+          "severity": "MEDIUM",
+          "score": "5.3",
+          "packages": [
+            "pkg:npm/sanitize-html@2.17.7"
+          ],
+          "fixed_version": "2.18.0",
+          "reference": "https://scout.docker.com/v/CVE-2026-113654?s=github&n=sanitize-html&t=npm&vr=%3C2.18.0"
+        },
+        {
+          "id": "CVE-2026-48988",
+          "severity": "MEDIUM",
+          "score": "5.3",
+          "packages": [
+            "pkg:npm/markdown-it@13.0.2"
+          ],
+          "fixed_version": "14.2.0",
+          "reference": "https://scout.docker.com/v/CVE-2026-48988?s=github&n=markdown-it&t=npm&vr=%3C%3D14.1.1"
+        },
+        {
+          "id": "CVE-2026-59710",
+          "severity": "MEDIUM",
+          "score": "5.3",
+          "packages": [
+            "pkg:npm/showdown@2.1.0"
+          ],
+          "fixed_version": "not fixed",
+          "reference": "https://scout.docker.com/v/CVE-2026-59710?s=github&n=showdown&t=npm&vr=%3C%3D2.1.0"
+        },
+        {
+          "id": "CVE-2026-59711",
+          "severity": "MEDIUM",
+          "score": "5.3",
+          "packages": [
+            "pkg:npm/showdown@2.1.0"
+          ],
+          "fixed_version": "not fixed",
+          "reference": "https://scout.docker.com/v/CVE-2026-59711?s=github&n=showdown&t=npm&vr=%3C%3D2.1.0"
+        },
+        {
+          "id": "CVE-2026-84364",
+          "severity": "MEDIUM",
+          "score": "5.3",
+          "packages": [
+            "pkg:npm/hono@4.12.34"
+          ],
+          "fixed_version": "4.13.5",
+          "reference": "https://scout.docker.com/v/CVE-2026-84364?s=github&n=hono&t=npm&vr=%3C4.13.5"
+        },
+        {
+          "id": "CVE-2026-88932",
+          "severity": "MEDIUM",
+          "score": "5.3",
+          "packages": [
+            "pkg:npm/multer@2.3.0"
+          ],
+          "fixed_version": "2.4.0",
+          "reference": "https://scout.docker.com/v/CVE-2026-88932?s=github&n=multer&t=npm&vr=%3E%3D2.2.0%2C%3C2.4.0"
+        },
+        {
+          "id": "CVE-2026-113661",
+          "severity": "MEDIUM",
+          "score": "5.4",
+          "packages": [
+            "pkg:npm/sanitize-html@2.17.7"
+          ],
+          "fixed_version": "2.18.0",
+          "reference": "https://scout.docker.com/v/CVE-2026-113661?s=github&n=sanitize-html&t=npm&vr=%3C2.18.0"
+        },
+        {
+          "id": "CVE-2026-2327",
+          "severity": "MEDIUM",
+          "score": "5.5",
+          "packages": [
+            "pkg:npm/markdown-it@13.0.2"
+          ],
+          "fixed_version": "14.1.1",
+          "reference": "https://scout.docker.com/v/CVE-2026-2327?s=github&n=markdown-it&t=npm&vr=%3E%3D13.0.0%2C%3C14.1.1"
+        },
+        {
+          "id": "CVE-2026-89157",
+          "severity": "MEDIUM",
+          "score": "5.7",
+          "packages": [
+            "pkg:apk/alpine/pcre2@10.47-r1?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "10.48-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-89157?s=alpine&n=pcre2&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C10.48-r0"
+        },
+        {
+          "id": "CVE-2026-104844",
+          "severity": "MEDIUM",
+          "score": "5.9",
+          "packages": [
+            "pkg:npm/postcss-selector-parser@7.1.4"
+          ],
+          "fixed_version": "7.1.6",
+          "reference": "https://scout.docker.com/v/CVE-2026-104844?s=github&n=postcss-selector-parser&t=npm&vr=%3C7.1.6"
+        },
+        {
+          "id": "CVE-2026-17495",
+          "severity": "MEDIUM",
+          "score": "5.9",
+          "packages": [
+            "pkg:npm/moment@2.30.1"
+          ],
+          "fixed_version": "2.31.0",
+          "reference": "https://scout.docker.com/v/CVE-2026-17495?s=github&n=moment&t=npm&vr=%3E%3D2.29.2%2C%3C2.31.0"
+        },
+        {
+          "id": "CVE-2026-63074",
+          "severity": "MEDIUM",
+          "score": "5.9",
+          "packages": [
+            "pkg:apk/alpine/openssl@3.5.7-r1?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "3.5.8-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-63074?s=alpine&n=openssl&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C3.5.8-r0"
+        },
+        {
+          "id": "CVE-2026-76956",
+          "severity": "MEDIUM",
+          "score": "5.9",
+          "packages": [
+            "pkg:apk/alpine/expat@2.8.3-r1?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "2.8.4-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-76956?s=alpine&n=expat&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C2.8.4-r0"
+        },
+        {
+          "id": "CVE-2026-84363",
+          "severity": "MEDIUM",
+          "score": "5.9",
+          "packages": [
+            "pkg:npm/hono@4.12.34"
+          ],
+          "fixed_version": "4.13.5",
+          "reference": "https://scout.docker.com/v/CVE-2026-84363?s=github&n=hono&t=npm&vr=%3C4.13.5"
+        },
+        {
+          "id": "CVE-2026-85024",
+          "severity": "MEDIUM",
+          "score": "5.9",
+          "packages": [
+            "pkg:npm/undici@6.28.0"
+          ],
+          "fixed_version": "6.28.1",
+          "reference": "https://scout.docker.com/v/CVE-2026-85024?s=github&n=undici&t=npm&vr=%3E%3D6.25.0%2C%3C6.28.1"
+        },
+        {
+          "id": "GHSA-6vj9-mwq6-2f5v",
+          "severity": "MEDIUM",
+          "score": "5.9",
+          "packages": [
+            "pkg:npm/nodemailer@8.0.10"
+          ],
+          "fixed_version": "10.0.2",
+          "reference": "https://scout.docker.com/v/GHSA-6vj9-mwq6-2f5v?s=github&n=nodemailer&t=npm&vr=%3E%3D5.0.0%2C%3C10.0.2"
+        },
+        {
+          "id": "GHSA-8m3c-c648-2xjj",
+          "severity": "MEDIUM",
+          "score": "5.9",
+          "packages": [
+            "pkg:npm/nodemailer@8.0.10"
+          ],
+          "fixed_version": "9.1.1",
+          "reference": "https://scout.docker.com/v/GHSA-8m3c-c648-2xjj?s=github&n=nodemailer&t=npm&vr=%3C%3D9.1.0"
+        },
+        {
+          "id": "GHSA-8vvx-rff5-p5rq",
+          "severity": "MEDIUM",
+          "score": "5.9",
+          "packages": [
+            "pkg:npm/nodemailer@8.0.10"
+          ],
+          "fixed_version": "10.0.2",
+          "reference": "https://scout.docker.com/v/GHSA-8vvx-rff5-p5rq?s=github&n=nodemailer&t=npm&vr=%3C10.0.2"
+        },
+        {
+          "id": "CVE-2026-106119",
+          "severity": "MEDIUM",
+          "score": "6.0",
+          "packages": [
+            "pkg:npm/%40langchain/mongodb@1.0.1"
+          ],
+          "fixed_version": "1.3.1",
+          "reference": "https://scout.docker.com/v/CVE-2026-106119?s=github&n=mongodb&ns=%40langchain&t=npm&vr=%3C%3D1.3.0"
+        },
+        {
+          "id": "CVE-2026-104182",
+          "severity": "MEDIUM",
+          "score": "6.2",
+          "packages": [
+            "pkg:npm/stream-json@1.9.1"
+          ],
+          "fixed_version": "3.6.0",
+          "reference": "https://scout.docker.com/v/CVE-2026-104182?s=github&n=stream-json&t=npm&vr=%3C%3D3.5.0"
+        },
+        {
+          "id": "CVE-2026-71429",
+          "severity": "MEDIUM",
+          "score": "6.2",
+          "packages": [
+            "pkg:npm/stream-json@1.9.1"
+          ],
+          "fixed_version": "3.5.0",
+          "reference": "https://scout.docker.com/v/CVE-2026-71429?s=github&n=stream-json&t=npm&vr=%3C%3D3.4.0"
+        },
+        {
+          "id": "CVE-2026-101911",
+          "severity": "MEDIUM",
+          "score": "6.3",
+          "packages": [
+            "pkg:npm/ip-address@10.3.1"
+          ],
+          "fixed_version": "10.7.1",
+          "reference": "https://scout.docker.com/v/CVE-2026-101911?s=github&n=ip-address&t=npm&vr=%3C%3D10.7.0"
+        },
+        {
+          "id": "CVE-2026-101912",
+          "severity": "MEDIUM",
+          "score": "6.3",
+          "packages": [
+            "pkg:npm/ip-address@10.3.1"
+          ],
+          "fixed_version": "10.7.1",
+          "reference": "https://scout.docker.com/v/CVE-2026-101912?s=github&n=ip-address&t=npm&vr=%3C%3D10.7.0"
+        },
+        {
+          "id": "CVE-2026-101913",
+          "severity": "MEDIUM",
+          "score": "6.3",
+          "packages": [
+            "pkg:npm/ip-address@10.3.1"
+          ],
+          "fixed_version": "10.5.1",
+          "reference": "https://scout.docker.com/v/CVE-2026-101913?s=github&n=ip-address&t=npm&vr=%3C%3D10.5.0"
+        },
+        {
+          "id": "CVE-2026-111997",
+          "severity": "MEDIUM",
+          "score": "6.3",
+          "packages": [
+            "pkg:npm/ip-address@10.3.1"
+          ],
+          "fixed_version": "10.7.4",
+          "reference": "https://scout.docker.com/v/CVE-2026-111997?s=github&n=ip-address&t=npm&vr=%3C%3D10.7.3"
+        },
+        {
+          "id": "CVE-2026-82417",
+          "severity": "MEDIUM",
+          "score": "6.3",
+          "packages": [
+            "pkg:npm/qs@6.15.2"
+          ],
+          "fixed_version": "6.16.0",
+          "reference": "https://scout.docker.com/v/CVE-2026-82417?s=github&n=qs&t=npm&vr=%3E%3D2.2.5%2C%3C6.16.0"
+        },
+        {
+          "id": "CVE-2026-82562",
+          "severity": "MEDIUM",
+          "score": "6.3",
+          "packages": [
+            "pkg:npm/qs@6.15.2"
+          ],
+          "fixed_version": "6.16.0",
+          "reference": "https://scout.docker.com/v/CVE-2026-82562?s=github&n=qs&t=npm&vr=%3E%3D6.14.2%2C%3C%3D6.15.3"
+        },
+        {
+          "id": "GHSA-253c-mchw-3w2r",
+          "severity": "MEDIUM",
+          "score": "6.3",
+          "packages": [
+            "pkg:npm/markdown-it@13.0.2"
+          ],
+          "fixed_version": "14.3.1",
+          "reference": "https://scout.docker.com/v/GHSA-253c-mchw-3w2r?s=github&n=markdown-it&t=npm&vr=%3C14.3.1"
+        },
+        {
+          "id": "CVE-2026-110871",
+          "severity": "MEDIUM",
+          "score": "6.5",
+          "packages": [
+            "pkg:npm/nodemailer@8.0.10"
+          ],
+          "fixed_version": "10.0.10",
+          "reference": "https://scout.docker.com/v/CVE-2026-110871?s=github&n=nodemailer&t=npm&vr=%3E%3D3.0.0%2C%3C%3D10.0.9"
+        },
+        {
+          "id": "CVE-2026-111769",
+          "severity": "MEDIUM",
+          "score": "6.5",
+          "packages": [
+            "pkg:npm/%40modelcontextprotocol/sdk@1.31.0"
+          ],
+          "fixed_version": "1.32.0",
+          "reference": "https://scout.docker.com/v/CVE-2026-111769?s=github&n=sdk&ns=%40modelcontextprotocol&t=npm&vr=%3C1.32.0"
+        },
+        {
+          "id": "CVE-2026-84365",
+          "severity": "MEDIUM",
+          "score": "6.5",
+          "packages": [
+            "pkg:npm/hono@4.12.34"
+          ],
+          "fixed_version": "4.13.5",
+          "reference": "https://scout.docker.com/v/CVE-2026-84365?s=github&n=hono&t=npm&vr=%3C4.13.5"
+        },
+        {
+          "id": "CVE-2026-89158",
+          "severity": "MEDIUM",
+          "score": "6.5",
+          "packages": [
+            "pkg:apk/alpine/pcre2@10.47-r1?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "10.48-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-89158?s=alpine&n=pcre2&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C10.48-r0"
+        },
+        {
+          "id": "GHSA-cc9r-2j5m-2m83",
+          "severity": "MEDIUM",
+          "score": "6.5",
+          "packages": [
+            "pkg:npm/nodemailer@8.0.10"
+          ],
+          "fixed_version": "9.1.0",
+          "reference": "https://scout.docker.com/v/GHSA-cc9r-2j5m-2m83?s=github&n=nodemailer&t=npm&vr=%3E%3D6.9.16%2C%3C9.1.0"
+        },
+        {
+          "id": "GHSA-wmmp-3585-3rmp",
+          "severity": "MEDIUM",
+          "score": "6.5",
+          "packages": [
+            "pkg:npm/nodemailer@8.0.10"
+          ],
+          "fixed_version": "9.1.0",
+          "reference": "https://scout.docker.com/v/GHSA-wmmp-3585-3rmp?s=github&n=nodemailer&t=npm&vr=%3C9.1.0"
+        },
+        {
+          "id": "CVE-2025-57665",
+          "severity": "MEDIUM",
+          "score": "6.6",
+          "packages": [
+            "pkg:npm/element-plus@2.4.3"
+          ],
+          "fixed_version": "not fixed",
+          "reference": "https://scout.docker.com/v/CVE-2025-57665?s=github&n=element-plus&t=npm&vr=%3C%3D2.11.0"
+        },
+        {
+          "id": "CVE-2026-111771",
+          "severity": "MEDIUM",
+          "score": "6.8",
+          "packages": [
+            "pkg:npm/%40modelcontextprotocol/sdk@1.31.0",
+            "pkg:npm/%40modelcontextprotocol/server@2.0.0"
+          ],
+          "fixed_version": "2.3.0",
+          "reference": "https://scout.docker.com/v/CVE-2026-111771?s=github&n=sdk&ns=%40modelcontextprotocol&t=npm&vr=%3E%3D1.6.0%2C%3C1.32.0"
+        },
+        {
+          "id": "CVE-2026-101910",
+          "severity": "MEDIUM",
+          "score": "6.9",
+          "packages": [
+            "pkg:npm/ip-address@10.3.1"
+          ],
+          "fixed_version": "10.5.1",
+          "reference": "https://scout.docker.com/v/CVE-2026-101910?s=github&n=ip-address&t=npm&vr=%3E%3D10.2.0%2C%3C%3D10.5.0"
+        },
+        {
+          "id": "CVE-2026-82659",
+          "severity": "HIGH",
+          "score": "7.1",
+          "packages": [
+            "pkg:npm/nodemailer@8.0.10"
+          ],
+          "fixed_version": "9.0.1",
+          "reference": "https://scout.docker.com/v/CVE-2026-82659?s=github&n=nodemailer&t=npm&vr=%3C%3D9.0.0"
+        },
+        {
+          "id": "CVE-2026-13608",
+          "severity": "HIGH",
+          "score": "7.4",
+          "packages": [
+            "pkg:apk/alpine/curl@8.21.0-r0?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "8.22.0-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-13608?s=alpine&n=curl&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C8.22.0-r0"
+        },
+        {
+          "id": "CVE-2026-54240",
+          "severity": "HIGH",
+          "score": "7.4",
+          "packages": [
+            "pkg:apk/alpine/libde265@1.0.18-r0?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "1.1.1-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-54240?s=alpine&n=libde265&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C1.1.1-r0"
+        },
+        {
+          "id": "CVE-2026-54241",
+          "severity": "HIGH",
+          "score": "7.4",
+          "packages": [
+            "pkg:apk/alpine/libde265@1.0.18-r0?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "1.1.1-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-54241?s=alpine&n=libde265&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C1.1.1-r0"
+        },
+        {
+          "id": "CVE-2026-89161",
+          "severity": "HIGH",
+          "score": "7.4",
+          "packages": [
+            "pkg:apk/alpine/pcre2@10.47-r1?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "10.48-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-89161?s=alpine&n=pcre2&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C10.48-r0"
+        },
+        {
+          "id": "CVE-2026-102276",
+          "severity": "HIGH",
+          "score": "7.5",
+          "packages": [
+            "pkg:npm/brace-expansion@5.0.9"
+          ],
+          "fixed_version": "5.0.10",
+          "reference": "https://scout.docker.com/v/CVE-2026-102276?s=github&n=brace-expansion&t=npm&vr=%3E%3D4.0.0%2C%3C5.0.10"
+        },
+        {
+          "id": "CVE-2026-102278",
+          "severity": "HIGH",
+          "score": "7.5",
+          "packages": [
+            "pkg:npm/brace-expansion@5.0.9"
+          ],
+          "fixed_version": "5.0.11",
+          "reference": "https://scout.docker.com/v/CVE-2026-102278?s=github&n=brace-expansion&t=npm&vr=%3E%3D4.0.0%2C%3C5.0.11"
+        },
+        {
+          "id": "CVE-2026-111759",
+          "severity": "HIGH",
+          "score": "7.5",
+          "packages": [
+            "pkg:npm/markdown-it@13.0.2"
+          ],
+          "fixed_version": "14.3.2",
+          "reference": "https://scout.docker.com/v/CVE-2026-111759?s=github&n=markdown-it&t=npm&vr=%3C14.3.2"
+        },
+        {
+          "id": "CVE-2026-111768",
+          "severity": "HIGH",
+          "score": "7.5",
+          "packages": [
+            "pkg:npm/%40modelcontextprotocol/sdk@1.31.0",
+            "pkg:npm/%40modelcontextprotocol/server@2.0.0"
+          ],
+          "fixed_version": "2.3.0",
+          "reference": "https://scout.docker.com/v/CVE-2026-111768?s=github&n=sdk&ns=%40modelcontextprotocol&t=npm&vr=%3E%3D1.3.0%2C%3C1.32.0"
+        },
+        {
+          "id": "CVE-2026-114144",
+          "severity": "HIGH",
+          "score": "7.5",
+          "packages": [
+            "pkg:npm/toml@3.0.0"
+          ],
+          "fixed_version": "5.0.1",
+          "reference": "https://scout.docker.com/v/CVE-2026-114144?s=github&n=toml&t=npm&vr=%3C%3D5.0.0"
+        },
+        {
+          "id": "CVE-2026-14456",
+          "severity": "HIGH",
+          "score": "7.5",
+          "packages": [
+            "pkg:apk/alpine/openssl@3.5.7-r1?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "3.5.8-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-14456?s=alpine&n=openssl&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C3.5.8-r0"
+        },
+        {
+          "id": "CVE-2026-14457",
+          "severity": "HIGH",
+          "score": "7.5",
+          "packages": [
+            "pkg:apk/alpine/openssl@3.5.7-r1?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "3.5.8-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-14457?s=alpine&n=openssl&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C3.5.8-r0"
+        },
+        {
+          "id": "CVE-2026-18798",
+          "severity": "HIGH",
+          "score": "7.5",
+          "packages": [
+            "pkg:apk/alpine/openssl@3.5.7-r1?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "3.5.8-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-18798?s=alpine&n=openssl&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C3.5.8-r0"
+        },
+        {
+          "id": "CVE-2026-19534",
+          "severity": "HIGH",
+          "score": "7.5",
+          "packages": [
+            "pkg:npm/undici@6.28.0"
+          ],
+          "fixed_version": "6.28.1",
+          "reference": "https://scout.docker.com/v/CVE-2026-19534?s=github&n=undici&t=npm&vr=%3E%3D6.7.0%2C%3C6.28.1"
+        },
+        {
+          "id": "CVE-2026-54874",
+          "severity": "HIGH",
+          "score": "7.5",
+          "packages": [
+            "pkg:apk/alpine/openssl@3.5.7-r1?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "3.5.8-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-54874?s=alpine&n=openssl&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C3.5.8-r0"
+        },
+        {
+          "id": "CVE-2026-63072",
+          "severity": "HIGH",
+          "score": "7.5",
+          "packages": [
+            "pkg:apk/alpine/openssl@3.5.7-r1?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "3.5.8-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-63072?s=alpine&n=openssl&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C3.5.8-r0"
+        },
+        {
+          "id": "CVE-2026-63075",
+          "severity": "HIGH",
+          "score": "7.5",
+          "packages": [
+            "pkg:apk/alpine/openssl@3.5.7-r1?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "3.5.8-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-63075?s=alpine&n=openssl&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C3.5.8-r0"
+        },
+        {
+          "id": "CVE-2026-63076",
+          "severity": "HIGH",
+          "score": "7.5",
+          "packages": [
+            "pkg:apk/alpine/openssl@3.5.7-r1?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "3.5.8-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-63076?s=alpine&n=openssl&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C3.5.8-r0"
+        },
+        {
+          "id": "CVE-2026-77465",
+          "severity": "HIGH",
+          "score": "7.5",
+          "packages": [
+            "pkg:npm/toml@3.0.0"
+          ],
+          "fixed_version": "4.2.0",
+          "reference": "https://scout.docker.com/v/CVE-2026-77465?s=github&n=toml&t=npm&vr=%3C4.2.0"
+        },
+        {
+          "id": "CVE-2026-80229",
+          "severity": "HIGH",
+          "score": "7.5",
+          "packages": [
+            "pkg:apk/alpine/curl@8.21.0-r0?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "8.22.0-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-80229?s=alpine&n=curl&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C8.22.0-r0"
+        },
+        {
+          "id": "CVE-2026-80230",
+          "severity": "HIGH",
+          "score": "7.5",
+          "packages": [
+            "pkg:apk/alpine/curl@8.21.0-r0?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "8.22.0-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-80230?s=alpine&n=curl&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C8.22.0-r0"
+        },
+        {
+          "id": "CVE-2026-80231",
+          "severity": "HIGH",
+          "score": "7.5",
+          "packages": [
+            "pkg:apk/alpine/curl@8.21.0-r0?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "8.22.0-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-80231?s=alpine&n=curl&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C8.22.0-r0"
+        },
+        {
+          "id": "CVE-2026-80255",
+          "severity": "HIGH",
+          "score": "7.5",
+          "packages": [
+            "pkg:apk/alpine/curl@8.21.0-r0?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "8.22.0-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-80255?s=alpine&n=curl&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C8.22.0-r0"
+        },
+        {
+          "id": "CVE-2026-82208",
+          "severity": "HIGH",
+          "score": "7.5",
+          "packages": [
+            "pkg:apk/alpine/curl@8.21.0-r0?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "8.22.0-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-82208?s=alpine&n=curl&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C8.22.0-r0"
+        },
+        {
+          "id": "GHSA-2x7j-588g-ccc2",
+          "severity": "HIGH",
+          "score": "7.5",
+          "packages": [
+            "pkg:npm/nodemailer@8.0.10"
+          ],
+          "fixed_version": "9.1.0",
+          "reference": "https://scout.docker.com/v/GHSA-2x7j-588g-ccc2?s=github&n=nodemailer&t=npm&vr=%3C9.1.0"
+        },
+        {
+          "id": "GHSA-v53p-9fqp-m79j",
+          "severity": "HIGH",
+          "score": "7.5",
+          "packages": [
+            "pkg:npm/nodemailer@8.0.10"
+          ],
+          "fixed_version": "10.0.6",
+          "reference": "https://scout.docker.com/v/GHSA-v53p-9fqp-m79j?s=github&n=nodemailer&t=npm&vr=%3C%3D10.0.5"
+        },
+        {
+          "id": "CVE-2026-103111",
+          "severity": "HIGH",
+          "score": "7.6",
+          "packages": [
+            "pkg:apk/alpine/pcre2@10.47-r1?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "10.49-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-103111?s=alpine&n=pcre2&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C10.49-r0"
+        },
+        {
+          "id": "CVE-2026-111770",
+          "severity": "HIGH",
+          "score": "7.7",
+          "packages": [
+            "pkg:npm/%40modelcontextprotocol/server@2.0.0"
+          ],
+          "fixed_version": "2.3.0",
+          "reference": "https://scout.docker.com/v/CVE-2026-111770?s=github&n=server&ns=%40modelcontextprotocol&t=npm&vr=%3E%3D2.0.0%2C%3C2.3.0"
+        },
+        {
+          "id": "CVE-2026-102826",
+          "severity": "HIGH",
+          "score": "8.1",
+          "packages": [
+            "pkg:npm/simple-git@3.36.0"
+          ],
+          "fixed_version": "4.0.0",
+          "reference": "https://scout.docker.com/v/CVE-2026-102826?s=github&n=simple-git&t=npm&vr=%3C%3D3.36.0"
+        },
+        {
+          "id": "CVE-2026-102827",
+          "severity": "HIGH",
+          "score": "8.1",
+          "packages": [
+            "pkg:npm/simple-git@3.36.0"
+          ],
+          "fixed_version": "4.0.0",
+          "reference": "https://scout.docker.com/v/CVE-2026-102827?s=github&n=simple-git&t=npm&vr=%3C%3D3.36.0"
+        },
+        {
+          "id": "CVE-2026-92392",
+          "severity": "HIGH",
+          "score": "8.1",
+          "packages": [
+            "pkg:apk/alpine/curl@8.21.0-r0?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "8.23.0-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-92392?s=alpine&n=curl&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C8.23.0-r0"
+        },
+        {
+          "id": "CVE-2026-102633",
+          "severity": "HIGH",
+          "score": "8.2",
+          "packages": [
+            "pkg:apk/alpine/expat@2.8.3-r1?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "2.9.0-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-102633?s=alpine&n=expat&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C2.9.0-r0"
+        },
+        {
+          "id": "CVE-2026-111755",
+          "severity": "HIGH",
+          "score": "8.2",
+          "packages": [
+            "pkg:npm/follow-redirects@1.16.0"
+          ],
+          "fixed_version": "1.16.1",
+          "reference": "https://scout.docker.com/v/CVE-2026-111755?s=github&n=follow-redirects&t=npm&vr=%3E%3D1.16.0%2C%3C1.16.1"
+        },
+        {
+          "id": "CVE-2026-111756",
+          "severity": "HIGH",
+          "score": "8.2",
+          "packages": [
+            "pkg:npm/follow-redirects@1.16.0"
+          ],
+          "fixed_version": "1.16.1",
+          "reference": "https://scout.docker.com/v/CVE-2026-111756?s=github&n=follow-redirects&t=npm&vr=%3E%3D1.16.0%2C%3C1.16.1"
+        },
+        {
+          "id": "CVE-2026-63376",
+          "severity": "HIGH",
+          "score": "8.2",
+          "packages": [
+            "pkg:npm/toml@3.0.0"
+          ],
+          "fixed_version": "4.1.2",
+          "reference": "https://scout.docker.com/v/CVE-2026-63376?s=github&n=toml&t=npm&vr=%3C4.1.2"
+        },
+        {
+          "id": "CVE-2026-82209",
+          "severity": "HIGH",
+          "score": "8.2",
+          "packages": [
+            "pkg:apk/alpine/curl@8.21.0-r0?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "8.22.0-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-82209?s=alpine&n=curl&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C8.22.0-r0"
+        },
+        {
+          "id": "CVE-2026-86145",
+          "severity": "HIGH",
+          "score": "8.2",
+          "packages": [
+            "pkg:apk/alpine/pcre2@10.47-r1?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "10.48-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-86145?s=alpine&n=pcre2&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C10.48-r0"
+        },
+        {
+          "id": "CVE-2026-77214",
+          "severity": "HIGH",
+          "score": "8.3",
+          "packages": [
+            "pkg:apk/alpine/expat@2.8.3-r1?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "2.9.0-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-77214?s=alpine&n=expat&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C2.9.0-r0"
+        },
+        {
+          "id": "CVE-2026-85091",
+          "severity": "HIGH",
+          "score": "8.3",
+          "packages": [
+            "pkg:apk/alpine/zlib@1.3.2-r0?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "1.3.2-r1",
+          "reference": "https://scout.docker.com/v/CVE-2026-85091?s=alpine&n=zlib&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C1.3.2-r1"
+        },
+        {
+          "id": "CVE-2026-111767",
+          "severity": "HIGH",
+          "score": "8.6",
+          "packages": [
+            "pkg:npm/%40modelcontextprotocol/sdk@1.31.0"
+          ],
+          "fixed_version": "1.32.0",
+          "reference": "https://scout.docker.com/v/CVE-2026-111767?s=github&n=sdk&ns=%40modelcontextprotocol&t=npm&vr=%3E%3D1.24.0%2C%3C1.32.0"
+        },
+        {
+          "id": "CVE-2026-114141",
+          "severity": "HIGH",
+          "score": "8.7",
+          "packages": [
+            "pkg:npm/toml@3.0.0"
+          ],
+          "fixed_version": "5.0.1",
+          "reference": "https://scout.docker.com/v/CVE-2026-114141?s=github&n=toml&t=npm&vr=%3C%3D5.0.0"
+        },
+        {
+          "id": "CVE-2026-114143",
+          "severity": "HIGH",
+          "score": "8.7",
+          "packages": [
+            "pkg:npm/toml@3.0.0"
+          ],
+          "fixed_version": "5.0.1",
+          "reference": "https://scout.docker.com/v/CVE-2026-114143?s=github&n=toml&t=npm&vr=%3C%3D5.0.0"
+        },
+        {
+          "id": "CVE-2026-66046",
+          "severity": "HIGH",
+          "score": "8.7",
+          "packages": [
+            "pkg:apk/alpine/expat@2.8.3-r1?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "2.8.4-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-66046?s=alpine&n=expat&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C2.8.4-r0"
+        },
+        {
+          "id": "CVE-2026-76641",
+          "severity": "HIGH",
+          "score": "8.7",
+          "packages": [
+            "pkg:apk/alpine/expat@2.8.3-r1?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "2.8.4-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-76641?s=alpine&n=expat&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C2.8.4-r0"
+        },
+        {
+          "id": "CVE-2026-93748",
+          "severity": "HIGH",
+          "score": "8.7",
+          "packages": [
+            "pkg:npm/http-cache-semantics@4.2.0"
+          ],
+          "fixed_version": "not fixed",
+          "reference": "https://scout.docker.com/v/CVE-2026-93748?s=github&n=http-cache-semantics&t=npm&vr=%3C%3D4.2.0"
+        },
+        {
+          "id": "CVE-2026-93990",
+          "severity": "HIGH",
+          "score": "8.7",
+          "packages": [
+            "pkg:apk/alpine/expat@2.8.3-r1?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "2.8.5-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-93990?s=alpine&n=expat&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C2.8.5-r0"
+        },
+        {
+          "id": "CVE-2026-18924",
+          "severity": "CRITICAL",
+          "score": "9.1",
+          "packages": [
+            "pkg:apk/alpine/curl@8.21.0-r0?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "8.22.0-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-18924?s=alpine&n=curl&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C8.22.0-r0"
+        },
+        {
+          "id": "CVE-2026-75803",
+          "severity": "CRITICAL",
+          "score": "9.1",
+          "packages": [
+            "pkg:apk/alpine/openssl@3.5.7-r1?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "3.5.8-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-75803?s=alpine&n=openssl&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C3.5.8-r0"
+        },
+        {
+          "id": "CVE-2026-102828",
+          "severity": "CRITICAL",
+          "score": "9.2",
+          "packages": [
+            "pkg:npm/simple-git@3.36.0"
+          ],
+          "fixed_version": "4.0.1",
+          "reference": "https://scout.docker.com/v/CVE-2026-102828?s=github&n=simple-git&t=npm&vr=%3E%3D3.15.0%2C%3C4.0.1"
+        },
+        {
+          "id": "CVE-2026-102829",
+          "severity": "CRITICAL",
+          "score": "9.2",
+          "packages": [
+            "pkg:npm/%40simple-git/argv-parser@1.1.1"
+          ],
+          "fixed_version": "2.0.1",
+          "reference": "https://scout.docker.com/v/CVE-2026-102829?s=github&n=argv-parser&ns=%40simple-git&t=npm&vr=%3C2.0.1"
+        },
+        {
+          "id": "CVE-2026-106445",
+          "severity": "CRITICAL",
+          "score": "9.2",
+          "packages": [
+            "pkg:npm/handlebars@4.7.9"
+          ],
+          "fixed_version": "4.7.10",
+          "reference": "https://scout.docker.com/v/CVE-2026-106445?s=github&n=handlebars&t=npm&vr=%3E%3D3.0.0%2C%3C%3D4.7.9"
+        },
+        {
+          "id": "CVE-2026-111497",
+          "severity": "CRITICAL",
+          "score": "9.2",
+          "packages": [
+            "pkg:apk/alpine/brotli@1.2.0-r1?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "1.2.1-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-111497?s=alpine&n=brotli&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C1.2.1-r0"
+        },
+        {
+          "id": "CVE-2026-106446",
+          "severity": "CRITICAL",
+          "score": "9.8",
+          "packages": [
+            "pkg:npm/handlebars@4.7.9"
+          ],
+          "fixed_version": "4.7.10",
+          "reference": "https://scout.docker.com/v/CVE-2026-106446?s=github&n=handlebars&t=npm&vr=%3E%3D4.0.0%2C%3C%3D4.7.9"
+        },
+        {
+          "id": "CVE-2026-19931",
+          "severity": "CRITICAL",
+          "score": "9.8",
+          "packages": [
+            "pkg:apk/alpine/curl@8.21.0-r0?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "8.22.0-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-19931?s=alpine&n=curl&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C8.22.0-r0"
+        },
+        {
+          "id": "CVE-2026-63073",
+          "severity": "CRITICAL",
+          "score": "9.8",
+          "packages": [
+            "pkg:apk/alpine/openssl@3.5.7-r1?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "3.5.8-r0",
+          "reference": "https://scout.docker.com/v/CVE-2026-63073?s=alpine&n=openssl&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C3.5.8-r0"
+        }
+      ]
+    },
+    "postgres": {
+      "reference": "postgres:17-alpine",
+      "image_id": "sha256:b0f9560a2de083e2cc7382e75f808c7381a32852a7ec49117deedb300e552b24",
+      "scanner_rules": 74,
+      "result_occurrences": 74,
+      "severity_counts": {
+        "UNSPECIFIED": 2,
+        "LOW": 7,
+        "MEDIUM": 29,
+        "HIGH": 32,
+        "CRITICAL": 4
+      },
+      "raw_report": "/tmp/flowforge-09-postgres-scout.json",
+      "raw_sha256": "330bf876a58ad305a50faba5f21d46038537baa1e465924f571e38aad7b280d6",
+      "findings": [
+        {
+          "id": "CVE-2026-107891",
+          "severity": "UNSPECIFIED",
+          "score": "3.1",
+          "packages": [
+            "pkg:apk/alpine/musl@1.2.6-r2?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "1.2.6-r6",
+          "reference": "https://scout.docker.com/v/CVE-2026-107891?s=alpine&n=musl&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C1.2.6-r6"
+        },
+        {
+          "id": "CVE-2026-111943",
+          "severity": "UNSPECIFIED",
+          "score": "3.1",
+          "packages": [
+            "pkg:golang/stdlib@1.24.6"
+          ],
+          "fixed_version": "1.26.10",
+          "reference": "https://scout.docker.com/v/CVE-2026-111943?s=golang&n=stdlib&t=golang&vr=%3C1.26.10"
+        },
+        {
+          "id": "CVE-2026-11979",
+          "severity": "LOW",
+          "score": "1.8",
+          "packages": [
+            "pkg:apk/alpine/libxml2@2.13.9-r2?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "not fixed",
+          "reference": "https://scout.docker.com/v/CVE-2026-11979?s=alpine&n=libxml2&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C%3D2.13.9-r2"
+        },
+        {
+          "id": "CVE-2025-8732",
+          "severity": "LOW",
+          "score": "1.9",
+          "packages": [
+            "pkg:apk/alpine/libxml2@2.13.9-r2?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "not fixed",
+          "reference": "https://scout.docker.com/v/CVE-2025-8732?s=alpine&n=libxml2&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C%3D2.13.9-r2"
+        },
+        {
+          "id": "CVE-2026-27139",
+          "severity": "LOW",
+          "score": "2.5",
+          "packages": [
+            "pkg:golang/stdlib@1.24.6"
+          ],
+          "fixed_version": "1.25.8",
+          "reference": "https://scout.docker.com/v/CVE-2026-27139?s=golang&n=stdlib&t=golang&vr=%3C1.25.8"
+        },
+        {
+          "id": "CVE-2026-86137",
+          "severity": "LOW",
+          "score": "2.9",
+          "packages": [
+            "pkg:apk/alpine/libxml2@2.13.9-r2?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "not fixed",
+          "reference": "https://scout.docker.com/v/CVE-2026-86137?s=alpine&n=libxml2&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C%3D2.13.9-r2"
+        },
+        {
+          "id": "CVE-2026-86141",
+          "severity": "LOW",
+          "score": "2.9",
+          "packages": [
+            "pkg:apk/alpine/libxml2@2.13.9-r2?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "not fixed",
+          "reference": "https://scout.docker.com/v/CVE-2026-86141?s=alpine&n=libxml2&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C%3D2.13.9-r2"
+        },
+        {
+          "id": "CVE-2026-39824",
+          "severity": "LOW",
+          "score": "3.3",
+          "packages": [
+            "pkg:golang/golang.org/x/sys@0.1.0"
+          ],
+          "fixed_version": "0.44.0",
+          "reference": "https://scout.docker.com/v/CVE-2026-39824?s=golang&n=sys&ns=golang.org%2Fx&t=golang&vr=%3C0.44.0"
+        },
+        {
+          "id": "CVE-2026-0989",
+          "severity": "LOW",
+          "score": "3.7",
+          "packages": [
+            "pkg:apk/alpine/libxml2@2.13.9-r2?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "not fixed",
+          "reference": "https://scout.docker.com/v/CVE-2026-0989?s=alpine&n=libxml2&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C%3D2.13.9-r2"
+        },
+        {
+          "id": "CVE-2025-58183",
+          "severity": "MEDIUM",
+          "score": "4.3",
+          "packages": [
+            "pkg:golang/stdlib@1.24.6"
+          ],
+          "fixed_version": "1.24.8",
+          "reference": "https://scout.docker.com/v/CVE-2025-58183?s=golang&n=stdlib&t=golang&vr=%3C1.24.8"
+        },
+        {
+          "id": "CVE-2025-47912",
+          "severity": "MEDIUM",
+          "score": "5.3",
+          "packages": [
+            "pkg:golang/stdlib@1.24.6"
+          ],
+          "fixed_version": "1.24.8",
+          "reference": "https://scout.docker.com/v/CVE-2025-47912?s=golang&n=stdlib&t=golang&vr=%3C1.24.8"
+        },
+        {
+          "id": "CVE-2025-58185",
+          "severity": "MEDIUM",
+          "score": "5.3",
+          "packages": [
+            "pkg:golang/stdlib@1.24.6"
+          ],
+          "fixed_version": "1.24.8",
+          "reference": "https://scout.docker.com/v/CVE-2025-58185?s=golang&n=stdlib&t=golang&vr=%3C1.24.8"
+        },
+        {
+          "id": "CVE-2025-58186",
+          "severity": "MEDIUM",
+          "score": "5.3",
+          "packages": [
+            "pkg:golang/stdlib@1.24.6"
+          ],
+          "fixed_version": "1.24.8",
+          "reference": "https://scout.docker.com/v/CVE-2025-58186?s=golang&n=stdlib&t=golang&vr=%3C1.24.8"
+        },
+        {
+          "id": "CVE-2025-58189",
+          "severity": "MEDIUM",
+          "score": "5.3",
+          "packages": [
+            "pkg:golang/stdlib@1.24.6"
+          ],
+          "fixed_version": "1.24.8",
+          "reference": "https://scout.docker.com/v/CVE-2025-58189?s=golang&n=stdlib&t=golang&vr=%3C1.24.8"
+        },
+        {
+          "id": "CVE-2025-61724",
+          "severity": "MEDIUM",
+          "score": "5.3",
+          "packages": [
+            "pkg:golang/stdlib@1.24.6"
+          ],
+          "fixed_version": "1.24.8",
+          "reference": "https://scout.docker.com/v/CVE-2025-61724?s=golang&n=stdlib&t=golang&vr=%3C1.24.8"
+        },
+        {
+          "id": "CVE-2025-61730",
+          "severity": "MEDIUM",
+          "score": "5.3",
+          "packages": [
+            "pkg:golang/stdlib@1.24.6"
+          ],
+          "fixed_version": "1.24.12",
+          "reference": "https://scout.docker.com/v/CVE-2025-61730?s=golang&n=stdlib&t=golang&vr=%3C1.24.12"
+        },
+        {
+          "id": "CVE-2026-39825",
+          "severity": "MEDIUM",
+          "score": "5.3",
+          "packages": [
+            "pkg:golang/stdlib@1.24.6"
+          ],
+          "fixed_version": "1.25.10",
+          "reference": "https://scout.docker.com/v/CVE-2026-39825?s=golang&n=stdlib&t=golang&vr=%3C1.25.10"
+        },
+        {
+          "id": "CVE-2026-42505",
+          "severity": "MEDIUM",
+          "score": "5.3",
+          "packages": [
+            "pkg:golang/stdlib@1.24.6"
+          ],
+          "fixed_version": "1.25.12",
+          "reference": "https://scout.docker.com/v/CVE-2026-42505?s=golang&n=stdlib&t=golang&vr=%3C1.25.12"
+        },
+        {
+          "id": "CVE-2026-42507",
+          "severity": "MEDIUM",
+          "score": "5.3",
+          "packages": [
+            "pkg:golang/stdlib@1.24.6"
+          ],
+          "fixed_version": "1.25.11",
+          "reference": "https://scout.docker.com/v/CVE-2026-42507?s=golang&n=stdlib&t=golang&vr=%3C1.25.11"
+        },
+        {
+          "id": "CVE-2026-32288",
+          "severity": "MEDIUM",
+          "score": "5.5",
+          "packages": [
+            "pkg:golang/stdlib@1.24.6"
+          ],
+          "fixed_version": "1.25.9",
+          "reference": "https://scout.docker.com/v/CVE-2026-32288?s=golang&n=stdlib&t=golang&vr=%3C1.25.9"
+        },
+        {
+          "id": "CVE-2026-61801",
+          "severity": "MEDIUM",
+          "score": "5.5",
+          "packages": [
+            "pkg:golang/github.com/moby/sys@0.1.0#user"
+          ],
+          "fixed_version": "0.4.1",
+          "reference": "https://scout.docker.com/v/CVE-2026-61801?s=github&n=user&ns=github.com%2Fmoby%2Fsys&t=golang&vr=%3C%3D0.4.0"
+        },
+        {
+          "id": "CVE-2026-86144",
+          "severity": "MEDIUM",
+          "score": "5.6",
+          "packages": [
+            "pkg:apk/alpine/libxml2@2.13.9-r2?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "not fixed",
+          "reference": "https://scout.docker.com/v/CVE-2026-86144?s=alpine&n=libxml2&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C%3D2.13.9-r2"
+        },
+        {
+          "id": "CVE-2026-56860",
+          "severity": "MEDIUM",
+          "score": "5.9",
+          "packages": [
+            "pkg:golang/stdlib@1.24.6"
+          ],
+          "fixed_version": "1.25.13",
+          "reference": "https://scout.docker.com/v/CVE-2026-56860?s=golang&n=stdlib&t=golang&vr=%3C1.25.13"
+        },
+        {
+          "id": "CVE-2026-27142",
+          "severity": "MEDIUM",
+          "score": "6.1",
+          "packages": [
+            "pkg:golang/stdlib@1.24.6"
+          ],
+          "fixed_version": "1.25.8",
+          "reference": "https://scout.docker.com/v/CVE-2026-27142?s=golang&n=stdlib&t=golang&vr=%3C1.25.8"
+        },
+        {
+          "id": "CVE-2026-32289",
+          "severity": "MEDIUM",
+          "score": "6.1",
+          "packages": [
+            "pkg:golang/stdlib@1.24.6"
+          ],
+          "fixed_version": "1.25.9",
+          "reference": "https://scout.docker.com/v/CVE-2026-32289?s=golang&n=stdlib&t=golang&vr=%3C1.25.9"
+        },
+        {
+          "id": "CVE-2026-39823",
+          "severity": "MEDIUM",
+          "score": "6.1",
+          "packages": [
+            "pkg:golang/stdlib@1.24.6"
+          ],
+          "fixed_version": "1.25.10",
+          "reference": "https://scout.docker.com/v/CVE-2026-39823?s=golang&n=stdlib&t=golang&vr=%3C1.25.10"
+        },
+        {
+          "id": "CVE-2026-39826",
+          "severity": "MEDIUM",
+          "score": "6.1",
+          "packages": [
+            "pkg:golang/stdlib@1.24.6"
+          ],
+          "fixed_version": "1.25.10",
+          "reference": "https://scout.docker.com/v/CVE-2026-39826?s=golang&n=stdlib&t=golang&vr=%3C1.25.10"
+        },
+        {
+          "id": "CVE-2026-56858",
+          "severity": "MEDIUM",
+          "score": "6.1",
+          "packages": [
+            "pkg:golang/stdlib@1.24.6"
+          ],
+          "fixed_version": "1.25.13",
+          "reference": "https://scout.docker.com/v/CVE-2026-56858?s=golang&n=stdlib&t=golang&vr=%3C1.25.13"
+        },
+        {
+          "id": "CVE-2026-94448",
+          "severity": "MEDIUM",
+          "score": "6.1",
+          "packages": [
+            "pkg:golang/stdlib@1.24.6"
+          ],
+          "fixed_version": "1.26.9",
+          "reference": "https://scout.docker.com/v/CVE-2026-94448?s=golang&n=stdlib&t=golang&vr=%3C1.26.9"
+        },
+        {
+          "id": "CVE-2026-97030",
+          "severity": "MEDIUM",
+          "score": "6.1",
+          "packages": [
+            "pkg:golang/stdlib@1.24.6"
+          ],
+          "fixed_version": "1.26.9",
+          "reference": "https://scout.docker.com/v/CVE-2026-97030?s=golang&n=stdlib&t=golang&vr=%3C1.26.9"
+        },
+        {
+          "id": "CVE-2026-32282",
+          "severity": "MEDIUM",
+          "score": "6.4",
+          "packages": [
+            "pkg:golang/stdlib@1.24.6"
+          ],
+          "fixed_version": "1.25.9",
+          "reference": "https://scout.docker.com/v/CVE-2026-32282?s=golang&n=stdlib&t=golang&vr=%3C1.25.9"
+        },
+        {
+          "id": "CVE-2025-61727",
+          "severity": "MEDIUM",
+          "score": "6.5",
+          "packages": [
+            "pkg:golang/stdlib@1.24.6"
+          ],
+          "fixed_version": "1.24.11",
+          "reference": "https://scout.docker.com/v/CVE-2025-61727?s=golang&n=stdlib&t=golang&vr=%3C1.24.11"
+        },
+        {
+          "id": "CVE-2025-61728",
+          "severity": "MEDIUM",
+          "score": "6.5",
+          "packages": [
+            "pkg:golang/stdlib@1.24.6"
+          ],
+          "fixed_version": "1.24.12",
+          "reference": "https://scout.docker.com/v/CVE-2025-61728?s=golang&n=stdlib&t=golang&vr=%3C1.24.12"
+        },
+        {
+          "id": "CVE-2026-27145",
+          "severity": "MEDIUM",
+          "score": "6.5",
+          "packages": [
+            "pkg:golang/stdlib@1.24.6"
+          ],
+          "fixed_version": "1.25.11",
+          "reference": "https://scout.docker.com/v/CVE-2026-27145?s=golang&n=stdlib&t=golang&vr=%3C1.25.11"
+        },
+        {
+          "id": "CVE-2026-86138",
+          "severity": "MEDIUM",
+          "score": "6.9",
+          "packages": [
+            "pkg:apk/alpine/libxml2@2.13.9-r2?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "not fixed",
+          "reference": "https://scout.docker.com/v/CVE-2026-86138?s=alpine&n=libxml2&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C%3D2.13.9-r2"
+        },
+        {
+          "id": "CVE-2026-86139",
+          "severity": "MEDIUM",
+          "score": "6.9",
+          "packages": [
+            "pkg:apk/alpine/libxml2@2.13.9-r2?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "not fixed",
+          "reference": "https://scout.docker.com/v/CVE-2026-86139?s=alpine&n=libxml2&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C%3D2.13.9-r2"
+        },
+        {
+          "id": "CVE-2026-86142",
+          "severity": "MEDIUM",
+          "score": "6.9",
+          "packages": [
+            "pkg:apk/alpine/libxml2@2.13.9-r2?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "not fixed",
+          "reference": "https://scout.docker.com/v/CVE-2026-86142?s=alpine&n=libxml2&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C%3D2.13.9-r2"
+        },
+        {
+          "id": "CVE-2026-86143",
+          "severity": "MEDIUM",
+          "score": "6.9",
+          "packages": [
+            "pkg:apk/alpine/libxml2@2.13.9-r2?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "not fixed",
+          "reference": "https://scout.docker.com/v/CVE-2026-86143?s=alpine&n=libxml2&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C%3D2.13.9-r2"
+        },
+        {
+          "id": "CVE-2025-58187",
+          "severity": "HIGH",
+          "score": "7.5",
+          "packages": [
+            "pkg:golang/stdlib@1.24.6"
+          ],
+          "fixed_version": "1.24.9",
+          "reference": "https://scout.docker.com/v/CVE-2025-58187?s=golang&n=stdlib&t=golang&vr=%3C1.24.9"
+        },
+        {
+          "id": "CVE-2025-58188",
+          "severity": "HIGH",
+          "score": "7.5",
+          "packages": [
+            "pkg:golang/stdlib@1.24.6"
+          ],
+          "fixed_version": "1.24.8",
+          "reference": "https://scout.docker.com/v/CVE-2025-58188?s=golang&n=stdlib&t=golang&vr=%3C1.24.8"
+        },
+        {
+          "id": "CVE-2025-61723",
+          "severity": "HIGH",
+          "score": "7.5",
+          "packages": [
+            "pkg:golang/stdlib@1.24.6"
+          ],
+          "fixed_version": "1.24.8",
+          "reference": "https://scout.docker.com/v/CVE-2025-61723?s=golang&n=stdlib&t=golang&vr=%3C1.24.8"
+        },
+        {
+          "id": "CVE-2025-61725",
+          "severity": "HIGH",
+          "score": "7.5",
+          "packages": [
+            "pkg:golang/stdlib@1.24.6"
+          ],
+          "fixed_version": "1.24.8",
+          "reference": "https://scout.docker.com/v/CVE-2025-61725?s=golang&n=stdlib&t=golang&vr=%3C1.24.8"
+        },
+        {
+          "id": "CVE-2025-61726",
+          "severity": "HIGH",
+          "score": "7.5",
+          "packages": [
+            "pkg:golang/stdlib@1.24.6"
+          ],
+          "fixed_version": "1.24.12",
+          "reference": "https://scout.docker.com/v/CVE-2025-61726?s=golang&n=stdlib&t=golang&vr=%3C1.24.12"
+        },
+        {
+          "id": "CVE-2025-61729",
+          "severity": "HIGH",
+          "score": "7.5",
+          "packages": [
+            "pkg:golang/stdlib@1.24.6"
+          ],
+          "fixed_version": "1.24.11",
+          "reference": "https://scout.docker.com/v/CVE-2025-61729?s=golang&n=stdlib&t=golang&vr=%3C1.24.11"
+        },
+        {
+          "id": "CVE-2026-25679",
+          "severity": "HIGH",
+          "score": "7.5",
+          "packages": [
+            "pkg:golang/stdlib@1.24.6"
+          ],
+          "fixed_version": "1.25.8",
+          "reference": "https://scout.docker.com/v/CVE-2026-25679?s=golang&n=stdlib&t=golang&vr=%3C1.25.8"
+        },
+        {
+          "id": "CVE-2026-32280",
+          "severity": "HIGH",
+          "score": "7.5",
+          "packages": [
+            "pkg:golang/stdlib@1.24.6"
+          ],
+          "fixed_version": "1.25.9",
+          "reference": "https://scout.docker.com/v/CVE-2026-32280?s=golang&n=stdlib&t=golang&vr=%3C1.25.9"
+        },
+        {
+          "id": "CVE-2026-32281",
+          "severity": "HIGH",
+          "score": "7.5",
+          "packages": [
+            "pkg:golang/stdlib@1.24.6"
+          ],
+          "fixed_version": "1.25.9",
+          "reference": "https://scout.docker.com/v/CVE-2026-32281?s=golang&n=stdlib&t=golang&vr=%3C1.25.9"
+        },
+        {
+          "id": "CVE-2026-32283",
+          "severity": "HIGH",
+          "score": "7.5",
+          "packages": [
+            "pkg:golang/stdlib@1.24.6"
+          ],
+          "fixed_version": "1.25.9",
+          "reference": "https://scout.docker.com/v/CVE-2026-32283?s=golang&n=stdlib&t=golang&vr=%3C1.25.9"
+        },
+        {
+          "id": "CVE-2026-33811",
+          "severity": "HIGH",
+          "score": "7.5",
+          "packages": [
+            "pkg:golang/stdlib@1.24.6"
+          ],
+          "fixed_version": "1.25.10",
+          "reference": "https://scout.docker.com/v/CVE-2026-33811?s=golang&n=stdlib&t=golang&vr=%3C1.25.10"
+        },
+        {
+          "id": "CVE-2026-33814",
+          "severity": "HIGH",
+          "score": "7.5",
+          "packages": [
+            "pkg:golang/stdlib@1.24.6"
+          ],
+          "fixed_version": "1.25.10",
+          "reference": "https://scout.docker.com/v/CVE-2026-33814?s=golang&n=stdlib&t=golang&vr=%3C1.25.10"
+        },
+        {
+          "id": "CVE-2026-33818",
+          "severity": "HIGH",
+          "score": "7.5",
+          "packages": [
+            "pkg:golang/stdlib@1.24.6"
+          ],
+          "fixed_version": "1.25.13",
+          "reference": "https://scout.docker.com/v/CVE-2026-33818?s=golang&n=stdlib&t=golang&vr=%3C1.25.13"
+        },
+        {
+          "id": "CVE-2026-39820",
+          "severity": "HIGH",
+          "score": "7.5",
+          "packages": [
+            "pkg:golang/stdlib@1.24.6"
+          ],
+          "fixed_version": "1.25.10",
+          "reference": "https://scout.docker.com/v/CVE-2026-39820?s=golang&n=stdlib&t=golang&vr=%3C1.25.10"
+        },
+        {
+          "id": "CVE-2026-39836",
+          "severity": "HIGH",
+          "score": "7.5",
+          "packages": [
+            "pkg:golang/stdlib@1.24.6"
+          ],
+          "fixed_version": "1.25.10",
+          "reference": "https://scout.docker.com/v/CVE-2026-39836?s=golang&n=stdlib&t=golang&vr=%3C1.25.10"
+        },
+        {
+          "id": "CVE-2026-42499",
+          "severity": "HIGH",
+          "score": "7.5",
+          "packages": [
+            "pkg:golang/stdlib@1.24.6"
+          ],
+          "fixed_version": "1.25.10",
+          "reference": "https://scout.docker.com/v/CVE-2026-42499?s=golang&n=stdlib&t=golang&vr=%3C1.25.10"
+        },
+        {
+          "id": "CVE-2026-42504",
+          "severity": "HIGH",
+          "score": "7.5",
+          "packages": [
+            "pkg:golang/stdlib@1.24.6"
+          ],
+          "fixed_version": "1.25.11",
+          "reference": "https://scout.docker.com/v/CVE-2026-42504?s=golang&n=stdlib&t=golang&vr=%3C1.25.11"
+        },
+        {
+          "id": "CVE-2026-56853",
+          "severity": "HIGH",
+          "score": "7.5",
+          "packages": [
+            "pkg:golang/stdlib@1.24.6"
+          ],
+          "fixed_version": "1.25.13",
+          "reference": "https://scout.docker.com/v/CVE-2026-56853?s=golang&n=stdlib&t=golang&vr=%3C1.25.13"
+        },
+        {
+          "id": "CVE-2026-56859",
+          "severity": "HIGH",
+          "score": "7.5",
+          "packages": [
+            "pkg:golang/stdlib@1.24.6"
+          ],
+          "fixed_version": "1.25.13",
+          "reference": "https://scout.docker.com/v/CVE-2026-56859?s=golang&n=stdlib&t=golang&vr=%3C1.25.13"
+        },
+        {
+          "id": "CVE-2026-56862",
+          "severity": "HIGH",
+          "score": "7.5",
+          "packages": [
+            "pkg:golang/stdlib@1.24.6"
+          ],
+          "fixed_version": "1.25.13",
+          "reference": "https://scout.docker.com/v/CVE-2026-56862?s=golang&n=stdlib&t=golang&vr=%3C1.25.13"
+        },
+        {
+          "id": "CVE-2026-56866",
+          "severity": "HIGH",
+          "score": "7.5",
+          "packages": [
+            "pkg:golang/stdlib@1.24.6"
+          ],
+          "fixed_version": "1.26.9",
+          "reference": "https://scout.docker.com/v/CVE-2026-56866?s=golang&n=stdlib&t=golang&vr=%3C1.26.9"
+        },
+        {
+          "id": "CVE-2026-78659",
+          "severity": "HIGH",
+          "score": "7.5",
+          "packages": [
+            "pkg:golang/stdlib@1.24.6"
+          ],
+          "fixed_version": "1.26.9",
+          "reference": "https://scout.docker.com/v/CVE-2026-78659?s=golang&n=stdlib&t=golang&vr=%3C1.26.9"
+        },
+        {
+          "id": "CVE-2026-78660",
+          "severity": "HIGH",
+          "score": "7.5",
+          "packages": [
+            "pkg:golang/stdlib@1.24.6"
+          ],
+          "fixed_version": "1.26.9",
+          "reference": "https://scout.docker.com/v/CVE-2026-78660?s=golang&n=stdlib&t=golang&vr=%3C1.26.9"
+        },
+        {
+          "id": "CVE-2026-78667",
+          "severity": "HIGH",
+          "score": "7.5",
+          "packages": [
+            "pkg:golang/stdlib@1.24.6"
+          ],
+          "fixed_version": "1.26.9",
+          "reference": "https://scout.docker.com/v/CVE-2026-78667?s=golang&n=stdlib&t=golang&vr=%3C1.26.9"
+        },
+        {
+          "id": "CVE-2026-78669",
+          "severity": "HIGH",
+          "score": "7.5",
+          "packages": [
+            "pkg:golang/stdlib@1.24.6"
+          ],
+          "fixed_version": "1.26.9",
+          "reference": "https://scout.docker.com/v/CVE-2026-78669?s=golang&n=stdlib&t=golang&vr=%3C1.26.9"
+        },
+        {
+          "id": "CVE-2026-94439",
+          "severity": "HIGH",
+          "score": "7.5",
+          "packages": [
+            "pkg:golang/stdlib@1.24.6"
+          ],
+          "fixed_version": "1.26.9",
+          "reference": "https://scout.docker.com/v/CVE-2026-94439?s=golang&n=stdlib&t=golang&vr=%3C1.26.9"
+        },
+        {
+          "id": "CVE-2026-94440",
+          "severity": "HIGH",
+          "score": "7.5",
+          "packages": [
+            "pkg:golang/stdlib@1.24.6"
+          ],
+          "fixed_version": "1.26.9",
+          "reference": "https://scout.docker.com/v/CVE-2026-94440?s=golang&n=stdlib&t=golang&vr=%3C1.26.9"
+        },
+        {
+          "id": "CVE-2026-97031",
+          "severity": "HIGH",
+          "score": "7.5",
+          "packages": [
+            "pkg:golang/stdlib@1.24.6"
+          ],
+          "fixed_version": "1.26.9",
+          "reference": "https://scout.docker.com/v/CVE-2026-97031?s=golang&n=stdlib&t=golang&vr=%3C1.26.9"
+        },
+        {
+          "id": "CVE-2026-97032",
+          "severity": "HIGH",
+          "score": "7.5",
+          "packages": [
+            "pkg:golang/stdlib@1.24.6"
+          ],
+          "fixed_version": "1.26.9",
+          "reference": "https://scout.docker.com/v/CVE-2026-97032?s=golang&n=stdlib&t=golang&vr=%3C1.26.9"
+        },
+        {
+          "id": "CVE-2026-39822",
+          "severity": "HIGH",
+          "score": "7.8",
+          "packages": [
+            "pkg:golang/stdlib@1.24.6"
+          ],
+          "fixed_version": "1.25.12",
+          "reference": "https://scout.docker.com/v/CVE-2026-39822?s=golang&n=stdlib&t=golang&vr=%3C1.25.12"
+        },
+        {
+          "id": "CVE-2026-86140",
+          "severity": "HIGH",
+          "score": "8.0",
+          "packages": [
+            "pkg:apk/alpine/libxml2@2.13.9-r2?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "not fixed",
+          "reference": "https://scout.docker.com/v/CVE-2026-86140?s=alpine&n=libxml2&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C%3D2.13.9-r2"
+        },
+        {
+          "id": "CVE-2026-85091",
+          "severity": "HIGH",
+          "score": "8.3",
+          "packages": [
+            "pkg:apk/alpine/zlib@1.3.2-r0?os_name=alpine&os_version=3.24"
+          ],
+          "fixed_version": "1.3.2-r1",
+          "reference": "https://scout.docker.com/v/CVE-2026-85091?s=alpine&n=zlib&ns=alpine&t=apk&osn=alpine&osv=3.24&vr=%3C1.3.2-r1"
+        },
+        {
+          "id": "CVE-2026-78663",
+          "severity": "CRITICAL",
+          "score": "9.1",
+          "packages": [
+            "pkg:golang/stdlib@1.24.6"
+          ],
+          "fixed_version": "1.26.9",
+          "reference": "https://scout.docker.com/v/CVE-2026-78663?s=golang&n=stdlib&t=golang&vr=%3C1.26.9"
+        },
+        {
+          "id": "CVE-2026-39821",
+          "severity": "CRITICAL",
+          "score": "9.6",
+          "packages": [
+            "pkg:golang/stdlib@1.24.6"
+          ],
+          "fixed_version": "1.25.13",
+          "reference": "https://scout.docker.com/v/CVE-2026-39821?s=golang&n=stdlib&t=golang&vr=%3C1.25.13"
+        },
+        {
+          "id": "CVE-2026-56857",
+          "severity": "CRITICAL",
+          "score": "9.8",
+          "packages": [
+            "pkg:golang/stdlib@1.24.6"
+          ],
+          "fixed_version": "1.26.9",
+          "reference": "https://scout.docker.com/v/CVE-2026-56857?s=golang&n=stdlib&t=golang&vr=%3C1.26.9"
+        },
+        {
+          "id": "CVE-2025-68121",
+          "severity": "CRITICAL",
+          "score": "10.0",
+          "packages": [
+            "pkg:golang/stdlib@1.24.6"
+          ],
+          "fixed_version": "1.24.13",
+          "reference": "https://scout.docker.com/v/CVE-2025-68121?s=golang&n=stdlib&t=golang&vr=%3C1.24.13"
+        }
+      ]
+    }
+  },
+  "interpretation": [
+    "High/critical matches require reachability and platform maintenance review; no clean-image claim",
+    "PostgreSQL Go standard-library matches occur in gosu entrypoint helper, not a Go database network server",
+    "No Git, Handlebars, email or MCP nodes in the three published workflows; this does not prove the whole n8n runtime unaffected",
+    "Backend remaining high zlib advisory is reported not fixed by scanner; frontend remaining one match has unspecified severity",
+    "No protected database or n8n image was replaced"
+  ]
+}

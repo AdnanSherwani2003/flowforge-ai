@@ -1,0 +1,810 @@
+{
+  "reviewed_local_date": "2026-10-24",
+  "recommendation": "ACCEPT WITH DOCUMENTED EXCEPTIONS",
+  "scope": "Existing trusted-local FlowForge AI development environment only; no public production deployment or Git commit/push/merge authorization",
+  "history": {
+    "workflowhistory.jsonl": {
+      "before": 14,
+      "current": 9,
+      "missing_or_changed": 5
+    },
+    "executionentity.jsonl": {
+      "before": 335,
+      "current": 335,
+      "missing_or_changed": 0
+    },
+    "executiondata.jsonl": {
+      "before": 335,
+      "current": 335,
+      "missing_or_changed": 0
+    },
+    "credentialsentity.jsonl": {
+      "before": 1,
+      "current": 1,
+      "missing_or_changed": 0
+    },
+    "workflowpublishhistory.jsonl": {
+      "before": 21,
+      "current": 21,
+      "missing_or_changed": 0
+    },
+    "missing_versions": [
+      {
+        "version_id": "0af19eca-793b-45ec-bb0e-e936e11b3824",
+        "workflow_id": "FlowForgeSupportIntake01",
+        "created_at": "2026-10-22T14:56:59.757Z",
+        "autosaved": true,
+        "nodes": 24,
+        "connections": 22,
+        "published_in_retained_publication_history": false
+      },
+      {
+        "version_id": "99e612d2-7ebb-40b4-9de2-0f059155f188",
+        "workflow_id": "FlowForgeSupportIntake01",
+        "created_at": "2026-10-22T14:57:06.038Z",
+        "autosaved": true,
+        "nodes": 11,
+        "connections": 10,
+        "published_in_retained_publication_history": false
+      },
+      {
+        "version_id": "7873bb0c-b7a0-4cc0-a347-10f218f135aa",
+        "workflow_id": "FlowForgeSupportIntake01",
+        "created_at": "2026-10-22T14:57:34.608Z",
+        "autosaved": true,
+        "nodes": 13,
+        "connections": 11,
+        "published_in_retained_publication_history": false
+      },
+      {
+        "version_id": "f4b701da-a9f1-40e2-a52b-6db91f3e9bec",
+        "workflow_id": "FlowForgeSupportIntake01",
+        "created_at": "2026-10-22T14:57:50.202Z",
+        "autosaved": true,
+        "nodes": 13,
+        "connections": 12,
+        "published_in_retained_publication_history": false
+      },
+      {
+        "version_id": "ef9cdd3c-c544-43d4-93a8-27f7abdf550a",
+        "workflow_id": "FlowForgeDailyDigest01",
+        "created_at": "2026-10-23T14:24:08.013Z",
+        "autosaved": true,
+        "nodes": 5,
+        "connections": 4,
+        "published_in_retained_publication_history": false
+      }
+    ],
+    "published_ids": [
+      "4a1f9756-89ab-488c-9348-f9fb51e0966e",
+      "10e6555a-6c4f-44a5-bb37-1d82c0fa2df6",
+      "48e665c8-072e-4187-a0c3-6d00c0cdb7cf",
+      "fb70fcbf-92b9-4cd8-b5b1-0fe2aa71ec99"
+    ],
+    "offline_compaction": {
+      "MWeQoRSWGXVBxbBP": {
+        "removed": [],
+        "remaining": [
+          "98b98f09-6e2f-46e4-acc3-204ec35f3a6b"
+        ]
+      },
+      "DKrWyiNmb2ph8c6w": {
+        "removed": [],
+        "remaining": [
+          "ae898883-8990-401e-be83-95976532a3ef"
+        ]
+      },
+      "4i5roR0oitA1bfbc": {
+        "removed": [],
+        "remaining": [
+          "79538349-bd02-4e73-8d72-bc0ea29a3a2c"
+        ]
+      },
+      "wWjX3Bi5uRDyLzGu": {
+        "removed": [],
+        "remaining": [
+          "586a14ef-9673-4125-b48f-bf236b1d95d5"
+        ]
+      },
+      "FlowForgeSupportIntake01": {
+        "removed": [
+          "f4b701da-a9f1-40e2-a52b-6db91f3e9bec",
+          "7873bb0c-b7a0-4cc0-a347-10f218f135aa",
+          "99e612d2-7ebb-40b4-9de2-0f059155f188"
+        ],
+        "remaining": [
+          "0af19eca-793b-45ec-bb0e-e936e11b3824",
+          "4a1f9756-89ab-488c-9348-f9fb51e0966e"
+        ]
+      },
+      "FlowForgeLeadIntake01": {
+        "removed": [],
+        "remaining": [
+          "10e6555a-6c4f-44a5-bb37-1d82c0fa2df6"
+        ]
+      },
+      "FlowForgeDailyDigest01": {
+        "removed": [
+          "ef9cdd3c-c544-43d4-93a8-27f7abdf550a"
+        ],
+        "remaining": [
+          "48e665c8-072e-4187-a0c3-6d00c0cdb7cf",
+          "7f89126c-1a15-4c9a-84ff-db8a55df1deb",
+          "fb70fcbf-92b9-4cd8-b5b1-0fe2aa71ec99"
+        ]
+      }
+    },
+    "source_hashes": {
+      "dist/services/pruning/workflow-history-compaction.service.js": "a82544686a886967b3a2a886daee347185a84d9ec047e73016dfb2a38d27ec51",
+      "dist/services/pruning/workflow-history-compaction-optimize.task.js": "e5b3562ee284d8c80b1ffa376656ab71a3a908c10c49fefbe76d23edb8ad5fe3",
+      "dist/services/pruning/workflow-history-pruning.task.js": "1579469056bdf7de775ddc27bb85deee3b1c002e5fe2dcfd57b35bb3357ca0d3",
+      "dist/workflows/workflow-history/workflow-history-manager.js": "e03923072532c5b851d84e3d1b5a7208367250e01eaccc093f8a7a391ef6562c",
+      "dist/workflows/workflow-history/workflow-history-helper.js": "60a48f4b6e73463a2ddd1ea6feca664965ad97e38ea751bd280ed016626a7670",
+      "node_modules/@n8n/db/dist/repositories/workflow-history.repository.js": "b186d30ff264de03b744fcee3e0642548d222c89a29823e70742a424cd5cb04a",
+      "node_modules/@n8n/config/dist/configs/workflow-history.config.js": "d63a9a6046a48a43530a4568e3b69cf3636e392941ae77d0ab5442d06cd40107",
+      "node_modules/@n8n/config/dist/configs/workflow-history-compaction.config.js": "640b1b4475db0e8dffb8477e8d677c809f9143f91de6ddeffd0e8ccc3c93bb9c",
+      "dist/middlewares/body-parser.js": "2807162af0c990ada3cc029d167aac157781596448c9339347a9ff5929f3f203",
+      "dist/modules/mcp/mcp.controller.js": "a11b59592fbe500b0ac7681c59ce097c84fcf4121b12759797fe0bf32b64c9b7"
+    },
+    "supported_export": true,
+    "source_image": "sha256:a18edcf018198b33b5488fb47ededafe11e0b10d28f65b9535b7c447c9ce3b2c",
+    "retained_archive_mtime_utc": "2026-10-23T14:43:15+00:00",
+    "archive_mtime_is_not_an_authenticated_event_timestamp": true,
+    "community_age_prune_hours": 24,
+    "license_certificate_present": false,
+    "execution_pruning_controls_workflow_version_history": false,
+    "offline_compaction_only_explains_missing_count": 4,
+    "additional_age_prune_eligible_missing": [
+      "0af19eca-793b-45ec-bb0e-e936e11b3824",
+      "99e612d2-7ebb-40b4-9de2-0f059155f188",
+      "7873bb0c-b7a0-4cc0-a347-10f218f135aa",
+      "f4b701da-a9f1-40e2-a52b-6db91f3e9bec"
+    ],
+    "exact_historical_cause": "not proven: no matching compaction/pruning events in retained standard/event logs, no pre09 version-row baseline",
+    "strong_inference": "Installed automatic compaction plus 24-hour Community age pruning account for eligibility of all five missing versions. Offline compaction alone leaves the 24-node support autosave.",
+    "writes_to_original_n8n_history_workflows_credentials_or_volumes": false,
+    "protected_encrypted_copies": {
+      "retained07": {
+        "path": "/home/adnan/.local/share/flowforge-ai/backups/implementation-09-history-evidence-20261023T184330Z/retained07-encrypted-entities.zip",
+        "sha256": "bc678a47c3661af90f88544fcaac53ea8861019910f2e2619774993ed1f267dc",
+        "mode": "0600"
+      },
+      "current09": {
+        "path": "/home/adnan/.local/share/flowforge-ai/backups/implementation-09-history-evidence-20261023T184330Z/current09-encrypted-entities.zip",
+        "sha256": "6156e0e3a807d44448787395a3ce7ca647ff3aeeaa7bf7857e71c5b2c7222b40",
+        "mode": "0600"
+      }
+    },
+    "reviewed_on_local_date": "2026-10-24",
+    "offline_age_prune": {
+      "simulated_time": "2026-10-23T17:25:08.398Z",
+      "hours": 24,
+      "eligible": [
+        "0af19eca-793b-45ec-bb0e-e936e11b3824",
+        "99e612d2-7ebb-40b4-9de2-0f059155f188",
+        "7873bb0c-b7a0-4cc0-a347-10f218f135aa",
+        "f4b701da-a9f1-40e2-a52b-6db91f3e9bec"
+      ],
+      "protected_current_and_published_version_count": 9
+    }
+  },
+  "vulnerability_catalog": "implementation-09-vulnerability-triage.json",
+  "critical_high_rule_rows": 92,
+  "unique_critical_high_rule_ids": 90,
+  "scanner_findings_removed_or_suppressed": false,
+  "current_image_ids_and_prior_scan_hashes_verified": true,
+  "additional_Node_high_advisories_recorded": true,
+  "ingress_probes": [
+    {
+      "method": "GET",
+      "path": "/health",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "method": "GET",
+      "path": "/ready",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/tickets?limit=1",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/tickets/not-a-ticket",
+      "expected": 404,
+      "actual": 404
+    },
+    {
+      "method": "GET",
+      "path": "/api/tickets/not-a-ticket/audit",
+      "expected": 404,
+      "actual": 404
+    },
+    {
+      "method": "POST",
+      "path": "/api/tickets/not-a-ticket/enrich",
+      "expected": 404,
+      "actual": 404
+    },
+    {
+      "method": "GET",
+      "path": "/api/tickets/not-a-ticket/enrichment",
+      "expected": 404,
+      "actual": 404
+    },
+    {
+      "method": "GET",
+      "path": "/api/mock-crm/leads?limit=1",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/workflow-runs?limit=1",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/tickets",
+      "expected": 422,
+      "actual": 422
+    },
+    {
+      "method": "POST",
+      "path": "/api/mock-crm/leads",
+      "expected": 422,
+      "actual": 422
+    },
+    {
+      "method": "POST",
+      "path": "/api/workflow-runs",
+      "expected": 422,
+      "actual": 422
+    },
+    {
+      "method": "GET",
+      "path": "/api/reviews",
+      "expected": 401,
+      "actual": 401
+    },
+    {
+      "method": "GET",
+      "path": "/api/reviewer/session",
+      "expected": 401,
+      "actual": 401
+    },
+    {
+      "method": "GET",
+      "path": "/api/reviewer/dependencies",
+      "expected": 401,
+      "actual": 401
+    },
+    {
+      "method": "GET",
+      "path": "/api/digests",
+      "expected": 401,
+      "actual": 401
+    },
+    {
+      "method": "POST",
+      "path": "/api/digests/generate",
+      "expected": 401,
+      "actual": 401
+    }
+  ],
+  "ingress_probe_results": {
+    "passed": 17,
+    "failed": 0,
+    "skipped": 0
+  },
+  "rechecks": {
+    "backend": {
+      "exit_code": 0,
+      "command": [
+        "docker",
+        "compose",
+        "exec",
+        "-T",
+        "backend",
+        "pytest",
+        "-q"
+      ],
+      "private_log": "/tmp/flowforge-09-final-investigation/backend-recheck.log",
+      "passed": 233,
+      "failed": 0,
+      "skipped": 0,
+      "private_log_sha256": "8c2cacc884987d2a103544190a412e552fd3fe59f6e75ef59ea9863535a046a7"
+    },
+    "frontend": {
+      "exit_code": 0,
+      "command": [
+        "npm",
+        "test"
+      ],
+      "private_log": "/tmp/flowforge-09-final-investigation/frontend-recheck.log",
+      "passed": 44,
+      "failed": 0,
+      "skipped": 0,
+      "private_log_sha256": "ea44e18c04c448ea1263ea60e4118b55f0f985aa716350b04ddfb44ab94a00b3"
+    },
+    "runtime": {
+      "exit_code": 0,
+      "command": [
+        "python3",
+        "scripts/verify_workflow_runtime.py"
+      ],
+      "private_log": "/tmp/flowforge-09-final-investigation/runtime-recheck.log",
+      "private_log_sha256": "1fdc87c7ba42f5d13587c20642cfe6b98b6941692f2908f26e5b82364ae259f6"
+    },
+    "smoke": {
+      "exit_code": 0,
+      "command": [
+        "python3",
+        "scripts/smoke_test.py"
+      ],
+      "private_log": "/tmp/flowforge-09-final-investigation/smoke-recheck.log",
+      "passed": 8,
+      "failed": 0,
+      "skipped": 0,
+      "private_log_sha256": "e0adf8e5088a2943d890e19f592da2043640e46d6d53c976df00caf46e397af5"
+    }
+  },
+  "prior_full_system_suites_rerun_this_investigation": false,
+  "prior_full_system_evidence": "implementation-09-acceptance.json",
+  "preservation": {
+    "original_41_file_review": {
+      "README.md": {
+        "sha256_at_start": "e0ed308434adfe563362a47ee36b6ff42dfa5fefada47d36fab6627f2aea0cc6",
+        "sha256_now": "e0ed308434adfe563362a47ee36b6ff42dfa5fefada47d36fab6627f2aea0cc6",
+        "unchanged_before_documentation": true
+      },
+      "backend/Dockerfile": {
+        "sha256_at_start": "9fa1af06b7f14d6edac9479d8f12f99c3f1d2e73ac0da716dae47ea5a83c80ec",
+        "sha256_now": "9fa1af06b7f14d6edac9479d8f12f99c3f1d2e73ac0da716dae47ea5a83c80ec",
+        "unchanged_before_documentation": true
+      },
+      "backend/app/core/database.py": {
+        "sha256_at_start": "b88d04092c65fb3c3d16dfb6515476a0d2c348b7b0b0c7d9c00300b93d6caaa9",
+        "sha256_now": "b88d04092c65fb3c3d16dfb6515476a0d2c348b7b0b0c7d9c00300b93d6caaa9",
+        "unchanged_before_documentation": true
+      },
+      "backend/app/core/request_limits.py": {
+        "sha256_at_start": "13a475cc1bab33571d5f724a7b23475ea613da4e0c52a3ed47c35eb787904529",
+        "sha256_now": "13a475cc1bab33571d5f724a7b23475ea613da4e0c52a3ed47c35eb787904529",
+        "unchanged_before_documentation": true
+      },
+      "backend/app/main.py": {
+        "sha256_at_start": "a6f369322bc0061ffd3877af1e6ad74952b0ab989fe41b525cd9caa559281b91",
+        "sha256_now": "a6f369322bc0061ffd3877af1e6ad74952b0ab989fe41b525cd9caa559281b91",
+        "unchanged_before_documentation": true
+      },
+      "backend/constraints.txt": {
+        "sha256_at_start": "d518f91022d2da50f294b7ad5fbbfe0a6f412c8a2d4c92ee396ab4be3bd7b070",
+        "sha256_now": "d518f91022d2da50f294b7ad5fbbfe0a6f412c8a2d4c92ee396ab4be3bd7b070",
+        "unchanged_before_documentation": true
+      },
+      "backend/tests/conftest.py": {
+        "sha256_at_start": "eef4f66b3bce673aca564939b2270b50f3055f2234c64fc4e626de246cc8a5eb",
+        "sha256_now": "eef4f66b3bce673aca564939b2270b50f3055f2234c64fc4e626de246cc8a5eb",
+        "unchanged_before_documentation": true
+      },
+      "backend/tests/test_security.py": {
+        "sha256_at_start": "47a60fda19b06657689b4dbbe46aba52ee46daa1bce86e6862e232df6bb7087f",
+        "sha256_now": "47a60fda19b06657689b4dbbe46aba52ee46daa1bce86e6862e232df6bb7087f",
+        "unchanged_before_documentation": true
+      },
+      "docs/codex-handover.md": {
+        "sha256_at_start": "6f554f28777ba328a8fa99ebee4c259fb4efda1c6cd7ef35135622839a26e3dc",
+        "sha256_now": "6f554f28777ba328a8fa99ebee4c259fb4efda1c6cd7ef35135622839a26e3dc",
+        "unchanged_before_documentation": true
+      },
+      "docs/evaluation/implementation-09-acceptance.json": {
+        "sha256_at_start": "1c12f5e9703663b66f0e63887e66ad16f48aa95af5aac845febf7bcdf33c038e",
+        "sha256_now": "1c12f5e9703663b66f0e63887e66ad16f48aa95af5aac845febf7bcdf33c038e",
+        "unchanged_before_documentation": true
+      },
+      "docs/evaluation/implementation-09-dependencies.json": {
+        "sha256_at_start": "bc24485d7b097a6537bc8a46a9a37ae35f95de81f82bdf604e2c984e02d0db2f",
+        "sha256_now": "bc24485d7b097a6537bc8a46a9a37ae35f95de81f82bdf604e2c984e02d0db2f",
+        "unchanged_before_documentation": true
+      },
+      "docs/evaluation/implementation-09-digest-faults.json": {
+        "sha256_at_start": "d37ea51d4a9c34713cf03cbf0c0a1a95e20377dca0669643f79d64d824b59231",
+        "sha256_now": "d37ea51d4a9c34713cf03cbf0c0a1a95e20377dca0669643f79d64d824b59231",
+        "unchanged_before_documentation": true
+      },
+      "docs/evaluation/implementation-09-digest.json": {
+        "sha256_at_start": "ca559cdba667f2946f3b6a5f289dfa210bb92834d4ad654fa6c905244f63c8a4",
+        "sha256_now": "ca559cdba667f2946f3b6a5f289dfa210bb92834d4ad654fa6c905244f63c8a4",
+        "unchanged_before_documentation": true
+      },
+      "docs/evaluation/implementation-09-images.json": {
+        "sha256_at_start": "9479136226f11aee25a5bd6161d82afa36da4b77cadd709905cac7d8b3718241",
+        "sha256_now": "9479136226f11aee25a5bd6161d82afa36da4b77cadd709905cac7d8b3718241",
+        "unchanged_before_documentation": true
+      },
+      "docs/evaluation/implementation-09-lead.json": {
+        "sha256_at_start": "09fe9bb1d43b06c190930de2b46ea8c96d79e450a3e3f5d0d84f3ab07838539c",
+        "sha256_now": "09fe9bb1d43b06c190930de2b46ea8c96d79e450a3e3f5d0d84f3ab07838539c",
+        "unchanged_before_documentation": true
+      },
+      "docs/evaluation/implementation-09-npm-audit.json": {
+        "sha256_at_start": "9957f591cd4f3d6d922a3e8e74b0d070aee3bfa4e8a13097b07d69d4902f0828",
+        "sha256_now": "9957f591cd4f3d6d922a3e8e74b0d070aee3bfa4e8a13097b07d69d4902f0828",
+        "unchanged_before_documentation": true
+      },
+      "docs/evaluation/implementation-09-preservation.json": {
+        "sha256_at_start": "c3dc8e650d4f500cbc96a6f2f646a4f3deae8ef6b1610c7e2a4172294451bed5",
+        "sha256_now": "c3dc8e650d4f500cbc96a6f2f646a4f3deae8ef6b1610c7e2a4172294451bed5",
+        "unchanged_before_documentation": true
+      },
+      "docs/evaluation/implementation-09-python-audit-before.json": {
+        "sha256_at_start": "e25a5a378b86c46aeb30bd97114713bfeb406e641cfb0ae6febb0891a52f40c8",
+        "sha256_now": "e25a5a378b86c46aeb30bd97114713bfeb406e641cfb0ae6febb0891a52f40c8",
+        "unchanged_before_documentation": true
+      },
+      "docs/evaluation/implementation-09-python-audit.json": {
+        "sha256_at_start": "d61c8b34146787228b9c3e0c20c2cf4aff40a0d54b993fbe6a4a1b0c23405595",
+        "sha256_now": "d61c8b34146787228b9c3e0c20c2cf4aff40a0d54b993fbe6a4a1b0c23405595",
+        "unchanged_before_documentation": true
+      },
+      "docs/evaluation/implementation-09-recovery.json": {
+        "sha256_at_start": "1a98118eabf12eae62cb8ce14e3a92baac2b230b06cfa86b22597a4b73b56e66",
+        "sha256_now": "1a98118eabf12eae62cb8ce14e3a92baac2b230b06cfa86b22597a4b73b56e66",
+        "unchanged_before_documentation": true
+      },
+      "docs/evaluation/implementation-09-regressions.json": {
+        "sha256_at_start": "409849cecb51562b2fa5d4d5eb4a0c79030784256f950b865d75998b702058d2",
+        "sha256_now": "409849cecb51562b2fa5d4d5eb4a0c79030784256f950b865d75998b702058d2",
+        "unchanged_before_documentation": true
+      },
+      "docs/evaluation/implementation-09-restore.json": {
+        "sha256_at_start": "55baafb0f0a5eb9f836a6ade9dbdd6e9378a9539c79c62efa7846599a5861812",
+        "sha256_now": "55baafb0f0a5eb9f836a6ade9dbdd6e9378a9539c79c62efa7846599a5861812",
+        "unchanged_before_documentation": true
+      },
+      "docs/evaluation/implementation-09-review.json": {
+        "sha256_at_start": "5574fcf1d8641b09f884176b178fab30377f825b55719ea79ca95328465a5b6b",
+        "sha256_now": "5574fcf1d8641b09f884176b178fab30377f825b55719ea79ca95328465a5b6b",
+        "unchanged_before_documentation": true
+      },
+      "docs/evaluation/implementation-09-secrets.json": {
+        "sha256_at_start": "1aceb734b09845e35099f9658dfb69f9d6403fc49765bfa190df25dacd3357ad",
+        "sha256_now": "1aceb734b09845e35099f9658dfb69f9d6403fc49765bfa190df25dacd3357ad",
+        "unchanged_before_documentation": true
+      },
+      "docs/evaluation/implementation-09-system.json": {
+        "sha256_at_start": "121a1ca73a2d0aa80666b021db8328a4eb74037d3d593e64c51a2b4a1b76699a",
+        "sha256_now": "121a1ca73a2d0aa80666b021db8328a4eb74037d3d593e64c51a2b4a1b76699a",
+        "unchanged_before_documentation": true
+      },
+      "docs/implementation-09.md": {
+        "sha256_at_start": "681fcffe416629008d17151e543145b32ad32a43c674bb259159b613a4b9bb2b",
+        "sha256_now": "681fcffe416629008d17151e543145b32ad32a43c674bb259159b613a4b9bb2b",
+        "unchanged_before_documentation": true
+      },
+      "docs/recovery-runbook.md": {
+        "sha256_at_start": "a431b37885e8c3cfce58a1d888aa875233cbbdccf290b932e03e37092621a59c",
+        "sha256_now": "a431b37885e8c3cfce58a1d888aa875233cbbdccf290b932e03e37092621a59c",
+        "unchanged_before_documentation": true
+      },
+      "docs/security-review.md": {
+        "sha256_at_start": "5ae7c9a0c1d4033ba4a924ed8349c6dc681e3c23f240fd6ca9e0bd0dede6332b",
+        "sha256_now": "5ae7c9a0c1d4033ba4a924ed8349c6dc681e3c23f240fd6ca9e0bd0dede6332b",
+        "unchanged_before_documentation": true
+      },
+      "frontend/Dockerfile": {
+        "sha256_at_start": "8fcec35a3d93bb2d933989b07a0279a12a12a0b5816668faf7f42db26ad78e37",
+        "sha256_now": "8fcec35a3d93bb2d933989b07a0279a12a12a0b5816668faf7f42db26ad78e37",
+        "unchanged_before_documentation": true
+      },
+      "frontend/app/api/auth/login/route.ts": {
+        "sha256_at_start": "6d1fe053c166167223a86be078ca2a402325d1c92c94f3bf46ed66d152959f40",
+        "sha256_now": "6d1fe053c166167223a86be078ca2a402325d1c92c94f3bf46ed66d152959f40",
+        "unchanged_before_documentation": true
+      },
+      "frontend/app/api/digests/generate/route.ts": {
+        "sha256_at_start": "d37601344261021490611f76f96fd3e9e0a49e14973feb1fa7b0b8732cd74a95",
+        "sha256_now": "d37601344261021490611f76f96fd3e9e0a49e14973feb1fa7b0b8732cd74a95",
+        "unchanged_before_documentation": true
+      },
+      "frontend/app/api/reviews/[id]/[decision]/route.ts": {
+        "sha256_at_start": "959055d875942586fb918452e0ed3bfeb7505a4a90f003b3e3a2d1c3595e0a4a",
+        "sha256_now": "959055d875942586fb918452e0ed3bfeb7505a4a90f003b3e3a2d1c3595e0a4a",
+        "unchanged_before_documentation": true
+      },
+      "frontend/lib/request-body.ts": {
+        "sha256_at_start": "6a1e3d29f132d32e247592fdd18112f05a3c276240911bbdf0099b61ecf81d9d",
+        "sha256_now": "6a1e3d29f132d32e247592fdd18112f05a3c276240911bbdf0099b61ecf81d9d",
+        "unchanged_before_documentation": true
+      },
+      "frontend/tests/request-body.test.ts": {
+        "sha256_at_start": "547dfe2f96ffbc22e0d41329a215a18cfa52c9c10ffd7129ceeb49fe466770f5",
+        "sha256_now": "547dfe2f96ffbc22e0d41329a215a18cfa52c9c10ffd7129ceeb49fe466770f5",
+        "unchanged_before_documentation": true
+      },
+      "scripts/audit_dependencies.py": {
+        "sha256_at_start": "c0546b7145d8ac3ce1d01a7505e27c8750a245e0fbed1cd5a27b48feacf9fac4",
+        "sha256_now": "c0546b7145d8ac3ce1d01a7505e27c8750a245e0fbed1cd5a27b48feacf9fac4",
+        "unchanged_before_documentation": true
+      },
+      "scripts/audit_secrets.py": {
+        "sha256_at_start": "95c5daab1e043f00f73284dd7002e8f3b475f693f682ef5852cf29b71d71b440",
+        "sha256_now": "95c5daab1e043f00f73284dd7002e8f3b475f693f682ef5852cf29b71d71b440",
+        "unchanged_before_documentation": true
+      },
+      "scripts/test_recovery_stack.py": {
+        "sha256_at_start": "706a1c5c05469c83e6443747f3621b863567a7867e0e3d6a47948939feca89aa",
+        "sha256_now": "706a1c5c05469c83e6443747f3621b863567a7867e0e3d6a47948939feca89aa",
+        "unchanged_before_documentation": true
+      },
+      "scripts/test_resilience_regressions.py": {
+        "sha256_at_start": "67902e36302296a689edfce9b1836fee211100483ee5091a91969229244555c7",
+        "sha256_now": "67902e36302296a689edfce9b1836fee211100483ee5091a91969229244555c7",
+        "unchanged_before_documentation": true
+      },
+      "scripts/test_security_system.py": {
+        "sha256_at_start": "269b7a93e091ea3590e18a192868404d59d4a792277c89e7172e107d8e6292f9",
+        "sha256_now": "269b7a93e091ea3590e18a192868404d59d4a792277c89e7172e107d8e6292f9",
+        "unchanged_before_documentation": true
+      },
+      "scripts/verify_backup_restore.py": {
+        "sha256_at_start": "62932e126414c71be7c7139265096788375b273889e8ee5a59882b759c6f38f7",
+        "sha256_now": "62932e126414c71be7c7139265096788375b273889e8ee5a59882b759c6f38f7",
+        "unchanged_before_documentation": true
+      },
+      "scripts/verify_system.py": {
+        "sha256_at_start": "7096f27fca84ea08c07549843d83ace7feebbe8df3fea4676813e58cfc3fc7e4",
+        "sha256_now": "7096f27fca84ea08c07549843d83ace7feebbe8df3fea4676813e58cfc3fc7e4",
+        "unchanged_before_documentation": true
+      }
+    },
+    "business_tables": {
+      "tickets": {
+        "pre09_count": 474,
+        "current_count": 543,
+        "unexpected_missing_or_changed_originals": 0,
+        "confirmed_user_approval_change": 0
+      },
+      "audit_events": {
+        "pre09_count": 1157,
+        "current_count": 1465,
+        "unexpected_missing_or_changed_originals": 0,
+        "confirmed_user_approval_change": 0
+      },
+      "reviews": {
+        "pre09_count": 166,
+        "current_count": 218,
+        "unexpected_missing_or_changed_originals": 0,
+        "confirmed_user_approval_change": 1
+      },
+      "leads": {
+        "pre09_count": 44,
+        "current_count": 62,
+        "unexpected_missing_or_changed_originals": 0,
+        "confirmed_user_approval_change": 0
+      },
+      "lead_identities": {
+        "pre09_count": 27,
+        "current_count": 45,
+        "unexpected_missing_or_changed_originals": 0,
+        "confirmed_user_approval_change": 0
+      },
+      "lead_events": {
+        "pre09_count": 72,
+        "current_count": 110,
+        "unexpected_missing_or_changed_originals": 0,
+        "confirmed_user_approval_change": 0
+      },
+      "daily_digests": {
+        "pre09_count": 14,
+        "current_count": 25,
+        "unexpected_missing_or_changed_originals": 0,
+        "confirmed_user_approval_change": 0
+      },
+      "workflow_runs": {
+        "pre09_count": 1445,
+        "current_count": 1757,
+        "unexpected_missing_or_changed_originals": 0,
+        "confirmed_user_approval_change": 0
+      },
+      "ticket_enrichments": {
+        "pre09_count": 166,
+        "current_count": 218,
+        "unexpected_missing_or_changed_originals": 0,
+        "confirmed_user_approval_change": 0
+      }
+    },
+    "all_original_containers_identity_image_mounts_start_environment_unchanged_this_investigation": true,
+    "ignored_env_bytes_unchanged": true,
+    "personal_n8n_workflows_readonly_count": 37,
+    "code_changes_this_investigation": false
+  },
+  "runtime_code_or_configuration_changes": false,
+  "images_rebuilt_or_services_recreated": false,
+  "secrets_rotated": false,
+  "protected_n8n_objects_modified": false,
+  "fixes": [
+    "Created durable protected encrypted copies of retained07 and current09 entity exports outside Git.",
+    "Corrected compaction-only explanation to separate compaction and Community 24-hour pruning.",
+    "Added per-finding package/installed/fixed/source/precondition/path assessment without suppressions."
+  ],
+  "original_41_change_review": {
+    "all_reviewed": true,
+    "accidental_or_unrelated_files_found": [],
+    "generated_files": "16 intentional redacted evaluation JSON files; not database dumps or raw payload logs",
+    "temporary_or_secret_artifacts_inside_proposed_checkpoint": false
+  },
+  "files_changed_this_investigation": [
+    "README.md",
+    "docs/codex-handover.md",
+    "docs/evaluation/implementation-09-acceptance.json",
+    "docs/evaluation/implementation-09-exception-review.json",
+    "docs/evaluation/implementation-09-secrets.json",
+    "docs/evaluation/implementation-09-vulnerability-triage.json",
+    "docs/implementation-09-exception-review.md",
+    "docs/implementation-09.md",
+    "docs/recovery-runbook.md",
+    "docs/security-review.md"
+  ],
+  "total_unstaged_proposal_files": [
+    "README.md",
+    "backend/Dockerfile",
+    "backend/app/core/database.py",
+    "backend/app/core/request_limits.py",
+    "backend/app/main.py",
+    "backend/constraints.txt",
+    "backend/tests/conftest.py",
+    "backend/tests/test_security.py",
+    "docs/codex-handover.md",
+    "docs/evaluation/implementation-09-acceptance.json",
+    "docs/evaluation/implementation-09-dependencies.json",
+    "docs/evaluation/implementation-09-digest-faults.json",
+    "docs/evaluation/implementation-09-digest.json",
+    "docs/evaluation/implementation-09-exception-review.json",
+    "docs/evaluation/implementation-09-images.json",
+    "docs/evaluation/implementation-09-lead.json",
+    "docs/evaluation/implementation-09-npm-audit.json",
+    "docs/evaluation/implementation-09-preservation.json",
+    "docs/evaluation/implementation-09-python-audit-before.json",
+    "docs/evaluation/implementation-09-python-audit.json",
+    "docs/evaluation/implementation-09-recovery.json",
+    "docs/evaluation/implementation-09-regressions.json",
+    "docs/evaluation/implementation-09-restore.json",
+    "docs/evaluation/implementation-09-review.json",
+    "docs/evaluation/implementation-09-secrets.json",
+    "docs/evaluation/implementation-09-system.json",
+    "docs/evaluation/implementation-09-vulnerability-triage.json",
+    "docs/implementation-09-exception-review.md",
+    "docs/implementation-09.md",
+    "docs/recovery-runbook.md",
+    "docs/security-review.md",
+    "frontend/Dockerfile",
+    "frontend/app/api/auth/login/route.ts",
+    "frontend/app/api/digests/generate/route.ts",
+    "frontend/app/api/reviews/[id]/[decision]/route.ts",
+    "frontend/lib/request-body.ts",
+    "frontend/tests/request-body.test.ts",
+    "scripts/audit_dependencies.py",
+    "scripts/audit_secrets.py",
+    "scripts/test_recovery_stack.py",
+    "scripts/test_resilience_regressions.py",
+    "scripts/test_security_system.py",
+    "scripts/verify_backup_restore.py",
+    "scripts/verify_system.py"
+  ],
+  "total_proposal_count": 44,
+  "git_head": "973c408d4c6893edae8a558774d3362bd1957f61",
+  "git_branch": "implementation-09-testing-security",
+  "git_index_empty": true,
+  "no_commits_pushes_merges": true,
+  "license_environment_override_absent_verified": true,
+  "flowforge_network": "flowforge-ai_default",
+  "personal_n8n_network": "n8n-original-access",
+  "changed_file_static_validation": "JSON parse/Python AST/whitespace checks passed",
+  "final_approval_status": "accepted with documented exceptions; trusted-local development only",
+  "final_secret_scan": {
+    "working_files_scanned": 231,
+    "reachable_blobs_scanned": 276,
+    "matches": 0,
+    "env_ignored": true,
+    "env_mode": "0600",
+    "evidence": "implementation-09-secrets.json"
+  },
+  "final_acceptance": {
+    "decision": "ACCEPTED WITH DOCUMENTED EXCEPTIONS",
+    "accepted_local_date": "2026-10-24",
+    "timezone": "Asia/Kolkata",
+    "approval_source": "Explicit user approval in this chat",
+    "scope": "Existing trusted-local FlowForge AI development environment only",
+    "three_exceptions": [
+      "Historical workflow-version preservation gap",
+      "Outstanding image/platform vulnerabilities",
+      "Unauthenticated local ingress"
+    ],
+    "exceptions_are_accepted_risks_not_resolved_vulnerabilities": true,
+    "public_production_deployment_authorized": false,
+    "git_commit_authorized": false,
+    "git_push_authorized": false,
+    "git_merge_authorized": false,
+    "additional_features_or_refactoring_authorized": false
+  },
+  "follow_ups": [
+    {
+      "id": "FF09-SEC-01",
+      "severity": "High",
+      "status": "Open \u2014 accepted documented risk",
+      "work": "Qualify vendor-supported n8n/runtime/native-library patches and remaining image findings; include the WSL development Node patch. Retain all scanner findings and verify exact image digests, workflows, credentials, migrations and rollback in isolation.",
+      "completion_evidence": "Compatible candidate test results and fresh per-finding scan/triage; separately approved maintenance before any original-service recreation."
+    },
+    {
+      "id": "FF09-HIST-01",
+      "severity": "Medium operational",
+      "status": "Open \u2014 accepted documented risk",
+      "work": "Define protected workflow-version export/backup policy and qualify supported retention controls and isolated recovery. Preserve both encrypted archives; retain the five-version live-database gap and unproven historical cause.",
+      "completion_evidence": "Documented backup/retention policy and isolated recovery evidence; no direct n8n table writes or original workflow/history changes without a separately reviewed plan."
+    },
+    {
+      "id": "FF09-INGRESS-01",
+      "severity": "Medium",
+      "status": "Open \u2014 accepted documented risk",
+      "work": "Qualify scoped sender authentication across n8n/backend plus appropriate body, Origin, rate and resource limits before untrusted or broader use. Maintain loopback and current webhook contracts meanwhile.",
+      "completion_evidence": "Authorized coordinated configuration/workflow change, published/export parity and regression evidence; no public deployment authorization."
+    },
+    {
+      "id": "FF09-TEST-01",
+      "severity": "Moderate upstream",
+      "status": "Open \u2014 deferred maintenance",
+      "work": "Assess a compatible pytest/pytest-asyncio upgrade for the retained advisory; preserve the random owner-only temporary-root mitigation.",
+      "completion_evidence": "Compatibility tests and updated audit; no claim that the mitigation fixes the affected package."
+    },
+    {
+      "id": "FF09-AUTH-01",
+      "severity": "Low in trusted-local scope",
+      "status": "Open \u2014 deferred hardening",
+      "work": "Reassess TLS/Secure cookies, copied-session revocation and distinct reviewer identities before any broader deployment.",
+      "completion_evidence": "Separately approved scope and authentication/session tests; broader deployment remains unapproved."
+    },
+    {
+      "id": "FF09-REC-01",
+      "severity": "Medium operational",
+      "status": "Open \u2014 recovery verification limitation",
+      "work": "Qualify isolated n8n recovery, ownership/ACL restoration and host-loss RPO/RTO; full Windows reboot remains unverified.",
+      "completion_evidence": "Recorded isolated drills and a separately approved plan for any normal-data restore; never overwrite existing storage as a test."
+    },
+    {
+      "id": "FF09-BUILD-01",
+      "severity": "Low",
+      "status": "Open \u2014 reproducibility maintenance",
+      "work": "Review immutable base-image references and Python artifact hash locking during dependency maintenance.",
+      "completion_evidence": "Reproducible reviewed builds and preserved dependency/compatibility evidence."
+    }
+  ],
+  "findings_resolved_by_acceptance": false,
+  "acceptance_recording_changes_scope": "Documentation/status and explicit open follow-up register only; historical findings/evidence retained",
+  "acceptance_recording_files": [
+    "README.md",
+    "docs/codex-handover.md",
+    "docs/evaluation/implementation-09-acceptance.json",
+    "docs/evaluation/implementation-09-exception-review.json",
+    "docs/implementation-09-exception-review.md",
+    "docs/implementation-09.md",
+    "docs/recovery-runbook.md",
+    "docs/security-review.md"
+  ],
+  "acceptance_recording_verification": {
+    "scope": "Documentation/status only",
+    "runtime_files_unchanged": true,
+    "encrypted_history_backup_hashes_and_private_permissions_verified": true,
+    "env_bytes_unchanged": true,
+    "git_index_empty": true,
+    "git_head_unchanged": "973c408d4c6893edae8a558774d3362bd1957f61",
+    "test_suites_rerun_for_documentation_only_update": false
+  }
+}
