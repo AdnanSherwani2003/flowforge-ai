@@ -30,6 +30,7 @@ def record_workflow_run(
         source_event_id=run_in.source_event_id,
         ticket_id=run_in.ticket_id,
         lead_id=run_in.lead_id,
+        digest_id=run_in.digest_id,
         outcome=run_in.outcome,
         status_code=run_in.status_code,
         safe_detail=run_in.safe_detail,

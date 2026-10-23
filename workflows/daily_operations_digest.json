@@ -1,0 +1,206 @@
+{
+  "name": "FlowForge AI - Daily Operations Digest",
+  "id": "FlowForgeDailyDigest01",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 9 * * *"
+            }
+          ]
+        }
+      },
+      "id": "digest-schedule",
+      "name": "Daily Schedule",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        64,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={{ JSON.stringify({ reporting_date: $now.minus({days: 1}).toISODate(), execution_id: String($execution.id), correlation_id: 'corr-digest-' + $execution.id }) }}",
+        "include": "none",
+        "options": {}
+      },
+      "id": "digest-prepare",
+      "name": "Prepare Reporting Date",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.2,
+      "position": [
+        304,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://backend:8001/api/digests/generate",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "X-Correlation-ID",
+              "value": "={{ $json.correlation_id }}"
+            },
+            {
+              "name": "X-Execution-ID",
+              "value": "={{ $json.execution_id }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({reporting_date: $json.reporting_date}) }}",
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "neverError": true,
+              "responseFormat": "json"
+            }
+          },
+          "timeout": 8000
+        }
+      },
+      "id": "digest-api",
+      "name": "Call Digest Service",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        544,
+        304
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "FlowForgeDigestApi01",
+          "name": "FlowForge Digest Service"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={{ JSON.stringify({ digest_id: [200,201].includes($json.statusCode) ? $json.body?.id : null, status_code: [200,201,401,403,422].includes($json.statusCode) ? $json.statusCode : 503, outcome: $json.statusCode === 201 ? 'created' : $json.statusCode === 200 ? 'duplicate_replayed' : [401,403].includes($json.statusCode) ? 'authentication_required' : $json.statusCode === 422 ? 'validation_error' : 'service_unavailable', status: [200,201].includes($json.statusCode) ? 'accepted' : [401,403,422].includes($json.statusCode) ? 'rejected' : 'failed', duplicate: $json.statusCode === 200, execution_id: $('Prepare Reporting Date').item.json.execution_id, correlation_id: $('Prepare Reporting Date').item.json.correlation_id }) }}",
+        "include": "none",
+        "options": {}
+      },
+      "id": "digest-outcome",
+      "name": "Normalize Digest Outcome",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.2,
+      "position": [
+        784,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://backend:8001/api/workflow-runs",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({workflow_name: 'daily_operations_digest', execution_id: $json.execution_id, correlation_id: $json.correlation_id, digest_id: $json.digest_id, outcome: $json.outcome, status_code: $json.status_code, safe_detail: {status: $json.status, duplicate: $json.duplicate, error_code: $json.outcome } }) }}",
+        "options": {
+          "response": {
+            "response": {
+              "neverError": true
+            }
+          },
+          "timeout": 3000
+        }
+      },
+      "id": "digest-telemetry",
+      "name": "Record Digest Execution",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1024,
+        304
+      ],
+      "onError": "continueRegularOutput"
+    }
+  ],
+  "connections": {
+    "Daily Schedule": {
+      "main": [
+        [
+          {
+            "node": "Prepare Reporting Date",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Reporting Date": {
+      "main": [
+        [
+          {
+            "node": "Call Digest Service",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call Digest Service": {
+      "main": [
+        [
+          {
+            "node": "Normalize Digest Outcome",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalize Digest Outcome": {
+      "main": [
+        [
+          {
+            "node": "Record Digest Execution",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "timeSavedMode": "fixed",
+    "saveDataErrorExecution": "none",
+    "saveDataSuccessExecution": "none",
+    "saveExecutionProgress": false,
+    "saveManualExecutions": false,
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false,
+    "timezone": "Asia/Kolkata",
+    "executionTimeout": 20
+  }
+}

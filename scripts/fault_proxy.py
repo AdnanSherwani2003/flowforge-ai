@@ -47,14 +47,16 @@ class Handler(BaseHTTPRequestHandler):
             self.reply(503, {"detail": "SYNTHETIC_PRIVATE_ERROR_CANARY internal-topology"})
             return
         if mode == "timeout":
-            time.sleep(6.5)
+            time.sleep(float(os.environ.get("FAULT_DELAY_SECONDS", "6.5")))
             self.reply(504, {"detail": "Synthetic timeout"})
             return
         # Successful forwarding uses the unchanged normal backend, with fault hooks off.
         headers = {"Content-Type": "application/json"}
-        for key in ("X-Correlation-ID", "X-Execution-ID"):
+        for key in ("X-Correlation-ID", "X-Execution-ID", "X-FlowForge-Digest-Key"):
             if key in self.headers:
                 headers[key] = self.headers[key]
+        if mode == "unauthorized":
+            headers["X-FlowForge-Digest-Key"] = "synthetic-invalid-key"
         req = urllib.request.Request("http://backend:8001" + os.environ.get("FAULT_BACKEND_PATH", "/api/tickets"), data=data, headers=headers)
         try:
             with urllib.request.urlopen(req, timeout=3) as response:
@@ -64,7 +66,7 @@ class Handler(BaseHTTPRequestHandler):
         if mode == "after-persist" and status in (200, 201):
             with lock:
                 stats["persisted"] = stats.get("persisted", 0) + 1
-            time.sleep(6.5)
+            time.sleep(float(os.environ.get("FAULT_DELAY_SECONDS", "6.5")))
         self.reply(status, body)
 
 

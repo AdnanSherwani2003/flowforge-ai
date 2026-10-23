@@ -1,0 +1,244 @@
+{
+  "tables": {
+    "tickets": {
+      "baseline": 411,
+      "current": 443,
+      "missing": 0,
+      "modified": 0
+    },
+    "leads": {
+      "baseline": 30,
+      "current": 37,
+      "missing": 0,
+      "modified": 0
+    },
+    "audit_events": {
+      "baseline": 885,
+      "current": 1029,
+      "missing": 0,
+      "modified": 0
+    },
+    "workflow_runs": {
+      "baseline": 1145,
+      "current": 1301,
+      "missing": 0,
+      "modified": 0
+    },
+    "ticket_enrichments": {
+      "baseline": 119,
+      "current": 143,
+      "missing": 0,
+      "modified": 0
+    },
+    "reviews": {
+      "baseline": 119,
+      "current": 143,
+      "missing": 0,
+      "modified": 0
+    },
+    "lead_events": {
+      "baseline": 44,
+      "current": 58,
+      "missing": 0,
+      "modified": 0
+    },
+    "lead_identities": {
+      "baseline": 13,
+      "current": 20,
+      "missing": 0,
+      "modified": 0
+    }
+  },
+  "containers": {
+    "/flowforge-ai-backend-1": {
+      "id": false,
+      "image": false,
+      "start": false,
+      "env": false,
+      "mounts": true
+    },
+    "/flowforge-ai-frontend-1": {
+      "id": false,
+      "image": false,
+      "start": false,
+      "env": true,
+      "mounts": true
+    },
+    "/flowforge-ai-n8n-1": {
+      "id": true,
+      "image": true,
+      "start": true,
+      "env": true,
+      "mounts": true
+    },
+    "/sentinel-publication-postgres-51e50f3643b0": {
+      "id": true,
+      "image": true,
+      "start": true,
+      "env": true,
+      "mounts": true
+    },
+    "/sentinel-publication-neo4j-51e50f3643b0": {
+      "id": true,
+      "image": true,
+      "start": true,
+      "env": true,
+      "mounts": true
+    },
+    "/sentinel-ci-fix-linux-792d2f256247": {
+      "id": true,
+      "image": true,
+      "start": true,
+      "env": true,
+      "mounts": true
+    },
+    "/sentinel-publication-postgres-d00bcd9b8bc7": {
+      "id": true,
+      "image": true,
+      "start": true,
+      "env": true,
+      "mounts": true
+    },
+    "/sentinel-publication-neo4j-d00bcd9b8bc7": {
+      "id": true,
+      "image": true,
+      "start": true,
+      "env": true,
+      "mounts": true
+    },
+    "/sentinel-package-prep-0e18f6c877f8": {
+      "id": true,
+      "image": true,
+      "start": true,
+      "env": true,
+      "mounts": true
+    },
+    "/sentinel-demo-i20-api-1": {
+      "id": true,
+      "image": true,
+      "start": true,
+      "env": true,
+      "mounts": true
+    },
+    "/sentinel-demo-i20-worker-1": {
+      "id": true,
+      "image": true,
+      "start": true,
+      "env": true,
+      "mounts": true
+    },
+    "/sentinel-demo-i20-worker-2": {
+      "id": true,
+      "image": true,
+      "start": true,
+      "env": true,
+      "mounts": true
+    },
+    "/sentinel-demo-i20-postgres-1": {
+      "id": true,
+      "image": true,
+      "start": true,
+      "env": true,
+      "mounts": true
+    },
+    "/sentinel-demo-i20-neo4j-1": {
+      "id": true,
+      "image": true,
+      "start": true,
+      "env": true,
+      "mounts": true
+    },
+    "/frosty_swartz": {
+      "id": true,
+      "image": true,
+      "start": true,
+      "env": true,
+      "mounts": true
+    },
+    "/hopeful_cohen": {
+      "id": true,
+      "image": true,
+      "start": true,
+      "env": true,
+      "mounts": true
+    },
+    "/flowforge-ai-postgres-1": {
+      "id": true,
+      "image": true,
+      "start": true,
+      "env": true,
+      "mounts": true
+    },
+    "/sentinel-neo4j": {
+      "id": true,
+      "image": true,
+      "start": true,
+      "env": true,
+      "mounts": true
+    },
+    "/n8n": {
+      "id": true,
+      "image": true,
+      "start": true,
+      "env": true,
+      "mounts": true
+    },
+    "/welcome-to-docker": {
+      "id": true,
+      "image": true,
+      "start": true,
+      "env": true,
+      "mounts": true
+    }
+  },
+  "credentials": {
+    "existing_local_config_unchanged": true,
+    "new_local_keys": [
+      "FLOWFORGE_DIGEST_SERVICE_KEY"
+    ],
+    "env_mode": "0o600",
+    "existing_n8n_preserved": 0,
+    "new_scoped_n8n_credentials": 1
+  },
+  "workflows": {
+    "existing_unchanged": 6,
+    "total": 7,
+    "new_id": "FlowForgeDailyDigest01",
+    "digest_published_version": "fb70fcbf-92b9-4cd8-b5b1-0fe2aa71ec99"
+  },
+  "personal_n8n": {
+    "workflow_count": 37
+  },
+  "execution_history": {
+    "method": "supported encrypted CLI entity export; interpreted privately in memory",
+    "counts": {
+      "executionentity.jsonl": {
+        "historical_count": 333,
+        "new_digest_manual_executions": 2,
+        "new_execution_ids": [
+          "1088",
+          "1089"
+        ]
+      },
+      "executiondata.jsonl": {
+        "historical_count": 333,
+        "new_digest_manual_executions": 2,
+        "new_execution_ids": [
+          "1088",
+          "1089"
+        ]
+      }
+    },
+    "new_scoped_key_in_execution_data": false,
+    "limitation": "Historical count compared with accepted prior evidence; prior per-row identity/value snapshot unavailable after host restart. New manual digest debug executions are retained despite no-save settings; no cleanup performed."
+  },
+  "backup": "/home/adnan/.local/share/flowforge-ai/backups/implementation-07-20261023T141907Z/flowforge.dump",
+  "backup_catalog_verified": true,
+  "migration": "007_daily_digests",
+  "memory_snapshot": [
+    "flowforge-ai-backend-1 74.92MiB / 11.53GiB",
+    "flowforge-ai-frontend-1 52.59MiB / 11.53GiB",
+    "flowforge-ai-n8n-1 1.074GiB / 11.53GiB",
+    "flowforge-ai-postgres-1 88.12MiB / 11.53GiB"
+  ]
+}

@@ -10,3 +10,5 @@ from app.models.ticket_enrichment import TicketEnrichment
 from app.models.lead_intake import LeadIdentity, LeadEvent
 
 __all__ = ["Base", "Ticket", "Lead", "AuditEvent", "WorkflowRun", "TicketEnrichment", "LeadIdentity", "LeadEvent"]
+
+from app.models.digest import DailyDigest  # noqa: F401

@@ -11,7 +11,7 @@ ROOT=Path(__file__).resolve().parents[1]
 WEBHOOK="http://localhost:5679/webhook/lead-intake"
 
 
-def main():
+def main(output=None):
     run="lead-"+uuid.uuid4().hex[:16]
     passed=0
     results=[]
@@ -77,8 +77,12 @@ def main():
     check(after==before+3,"Exactly three synthetic leads created across all normal cases")
     report={"passed":passed,"failed":0,"skipped":0,"scenario_count":len(results),"run":run,
             "lead_count_before":before,"lead_count_after":after,"results":results}
-    (ROOT/"docs/evaluation/implementation-06-webhook.json").write_text(json.dumps(report,indent=2)+"\n")
+    (output or ROOT/"docs/evaluation/implementation-06-webhook.json").write_text(json.dumps(report,indent=2)+"\n")
     print(f"Lead webhook acceptance: {passed} passed, 0 failed, 0 skipped; {len(results)} scenarios")
     return report
 
-if __name__=="__main__":main()
+if __name__=="__main__":
+    import argparse
+    parser=argparse.ArgumentParser()
+    parser.add_argument("--output",type=Path,help="Explicit acceptance report destination")
+    main(parser.parse_args().output)

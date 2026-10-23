@@ -1,0 +1,2 @@
+"use client";
+export default function DigestError({reset}:{reset:()=>void}){return <section className="panel"><div className="panel-body"><h1>Daily reports are unavailable</h1><p className="muted" role="alert" style={{marginTop:12}}>The report service could not load the saved data. Retry when the local backend is available.</p><button className="btn" onClick={reset} style={{marginTop:20}}>Try again</button></div></section>;}

@@ -1,0 +1,44 @@
+{
+  "passed": 28,
+  "failed": 0,
+  "skipped": 0,
+  "backfill_report_id": "4bcba159-a6fd-4155-b4f0-020016ee9994",
+  "backfill_date": "2000-09-17",
+  "report": {
+    "id": "4bcba159-a6fd-4155-b4f0-020016ee9994",
+    "reporting_date": "2000-09-17",
+    "reporting_timezone": "Asia/Kolkata",
+    "period_start": "2000-09-16T18:30:00Z",
+    "period_end": "2000-09-17T18:30:00Z",
+    "generated_at": "2026-10-23T14:49:54.780927Z",
+    "metrics_version": 1,
+    "metrics": {
+      "activity": {
+        "tickets_created": 0,
+        "canonical_leads_created": 0,
+        "lead_requests_observed": {
+          "created_records": 0,
+          "event_replays": 0,
+          "email_matches": 0,
+          "legacy_duplicates": 0
+        },
+        "enrichment_results_completed": {
+          "succeeded": 0,
+          "needs_review": 0,
+          "unavailable": 0
+        },
+        "review_decisions": {
+          "approved": 0,
+          "rejected": 0
+        }
+      },
+      "snapshot": {
+        "pending_reviews": 24,
+        "attention_reviews": 107,
+        "processing_enrichments": 0
+      }
+    },
+    "status": "ready",
+    "duplicate": false
+  }
+}

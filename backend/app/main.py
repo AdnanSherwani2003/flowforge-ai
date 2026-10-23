@@ -9,6 +9,7 @@ from app.api.mock_crm import router as mock_crm_router
 from app.api.workflow_runs import router as workflow_runs_router
 from app.api.enrichments import router as enrichments_router
 from app.api.reviews import router as reviews_router
+from app.api.digests import router as digests_router
 
 logger = logging.getLogger("flowforge.api")
 
@@ -72,12 +73,13 @@ app.include_router(workflow_runs_router, prefix="/api")
 app.include_router(enrichments_router, prefix="/api")
 
 app.include_router(reviews_router, prefix="/api")
+app.include_router(digests_router, prefix="/api")
 
 
 @app.middleware("http")
 async def private_review_responses(request: Request, call_next):
     response = await call_next(request)
-    if request.url.path.startswith(("/api/reviews", "/api/reviewer")):
+    if request.url.path.startswith(("/api/reviews", "/api/reviewer", "/api/digests")):
         response.headers["Cache-Control"] = "private, no-store"
         response.headers["Pragma"] = "no-cache"
     return response

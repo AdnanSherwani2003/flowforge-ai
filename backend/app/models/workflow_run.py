@@ -39,6 +39,7 @@ class WorkflowRun(Base):
         index=True,
     )
     lead_id: Mapped[Optional[str]] = mapped_column(String(36), nullable=True, index=True)
+    digest_id: Mapped[Optional[str]] = mapped_column(String(36), nullable=True, index=True)
     outcome: Mapped[str] = mapped_column(
         String(50),
         nullable=False,

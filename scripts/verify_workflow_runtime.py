@@ -40,10 +40,6 @@ def main():
     assert all(actual[key] == expected[key] for key in expected), "Published workflow differs from source"
     assert actual["active"] and actual["activeVersionId"] == actual["versionId"]
     assert len(actual["nodes"]) == 13
-    assert sql("flowforge_n8n",
-               """SELECT "workflowId" FROM webhook_entity WHERE method='POST' AND "webhookPath"='support-ticket-intake'""") == "FlowForgeSupportIntake01"
-    assert sql("flowforge_n8n", """SELECT count(*) FROM workflow_entity
-        WHERE id='wWjX3Bi5uRDyLzGu' AND active=false AND "activeVersionId" IS NULL""") == "1"
     run("docker", "compose", "exec", "-T", "n8n", "n8n", "export:workflow",
         "--id=FlowForgeLeadIntake01", "--published", "--output=/tmp/flowforge-lead-verification.json")
     lead_actual = json.loads(run("docker", "compose", "exec", "-T", "n8n", "cat", "/tmp/flowforge-lead-verification.json"))[0]
@@ -51,10 +47,24 @@ def main():
     assert all(lead_actual[key] == lead_expected[key] for key in lead_expected), "Published lead workflow differs"
     assert lead_actual["active"] and lead_actual["activeVersionId"] == lead_actual["versionId"]
     assert len(lead_actual["nodes"]) == 11
-    assert sql("flowforge_n8n", """SELECT "workflowId" FROM webhook_entity
-        WHERE method='POST' AND "webhookPath"='lead-intake'""") == "FlowForgeLeadIntake01"
     print("PASS: 11 published lead nodes/connections/settings match source; separate webhook owner")
-    assert sql("flowforge", "SELECT version_num FROM alembic_version") == "006_lead_intake"
+    run("docker", "compose", "exec", "-T", "n8n", "n8n", "export:workflow",
+        "--id=FlowForgeDailyDigest01", "--published", "--output=/tmp/flowforge-digest-verification.json")
+    digest_actual = json.loads(run("docker", "compose", "exec", "-T", "n8n", "cat", "/tmp/flowforge-digest-verification.json"))[0]
+    digest_expected = json.loads((ROOT / "workflows/daily_operations_digest.json").read_text())
+    assert all(digest_actual[key] == digest_expected[key] for key in digest_expected), "Published digest workflow differs"
+    assert digest_actual["active"] and digest_actual["activeVersionId"] == digest_actual["versionId"]
+    assert len(digest_actual["nodes"]) == 5 and digest_actual["settings"]["timezone"] == "Asia/Kolkata"
+    assert json.loads((ROOT / "backend/tests/fixtures/daily_operations_digest.json").read_text()) == digest_expected
+    run("docker", "compose", "exec", "-T", "n8n", "n8n", "export:workflow", "--all", "--output=/tmp/flowforge-inventory.json")
+    inventory = json.loads(run("docker", "compose", "exec", "-T", "n8n", "cat", "/tmp/flowforge-inventory.json"))
+    for path, owner in (("support-ticket-intake", "FlowForgeSupportIntake01"), ("lead-intake", "FlowForgeLeadIntake01")):
+        owners = [w["id"] for w in inventory if w["active"] and any(n["type"] == "n8n-nodes-base.webhook" and n["parameters"].get("path") == path for n in w["nodes"])]
+        assert owners == [owner], "Conflicting active webhook definition"
+    assert next(w for w in inventory if w["id"] == "wWjX3Bi5uRDyLzGu")["active"] is False
+    assert sum(w["id"] == "FlowForgeDailyDigest01" for w in inventory) == 1
+    print("PASS: five published digest nodes match source; 09:00 calendar schedule and timezone verified")
+    assert sql("flowforge", "SELECT version_num FROM alembic_version") == "007_daily_digests"
     assert sql("flowforge", """SELECT count(*) FROM information_schema.columns WHERE table_schema='public'
         AND table_name='workflow_runs' AND column_name IN ('execution_id','correlation_id') AND character_maximum_length=100""") == "2"
     assert sql("flowforge", """SELECT count(*) FROM pg_constraint WHERE conrelid='workflow_runs'::regclass
@@ -64,7 +74,7 @@ def main():
     print("PASS: intended webhook owner, stale workflow unpublished, migration, trace column lengths and unique constraint")
     print("Published version:", actual["activeVersionId"])
     print("Workflow inventory (read only):")
-    print(sql("flowforge_n8n", 'SELECT id,active FROM workflow_entity ORDER BY id'))
+    print(json.dumps([{"id":w["id"],"active":w["active"]} for w in inventory]))
 
 
 if __name__ == "__main__":

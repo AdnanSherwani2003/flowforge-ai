@@ -34,6 +34,7 @@ class WorkflowRunCreate(BaseModel):
         description="Persisted ticket UUID if created/replayed",
     )
     lead_id: Optional[str] = Field(default=None, max_length=36)
+    digest_id: Optional[str] = Field(default=None, max_length=36)
     outcome: str = Field(
         ...,
         min_length=1,
@@ -70,7 +71,7 @@ class WorkflowRunCreate(BaseModel):
         if "status" in value and (not isinstance(value["status"], str) or value["status"] not in {"accepted", "rejected", "failed"}):
             raise ValueError("Unsupported telemetry status")
         if "error_code" in value and (not isinstance(value["error_code"], str) or value["error_code"] not in {
-            "created", "duplicate_replayed", "conflict", "validation_error", "service_unavailable"
+            "created", "duplicate_replayed", "conflict", "validation_error", "service_unavailable", "authentication_required"
         }):
             raise ValueError("Unsupported telemetry error code")
         if "duplicate_reason" in value and value["duplicate_reason"] not in ("event", "email"):
@@ -97,6 +98,7 @@ class WorkflowRunResponse(BaseModel):
     source_event_id: Optional[str] = None
     ticket_id: Optional[str] = None
     lead_id: Optional[str] = None
+    digest_id: Optional[str] = None
     outcome: str
     status_code: int
     safe_detail: Dict[str, Any]

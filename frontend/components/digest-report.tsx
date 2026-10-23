@@ -1,0 +1,18 @@
+import type {Digest} from "@/lib/digests";
+import {Empty} from "@/components/ui";
+const stamp=(value:string,zone:string)=>new Intl.DateTimeFormat("en-GB",{dateStyle:"medium",timeStyle:"short",timeZone:zone}).format(new Date(value));
+function Rows({rows}:{rows:[string,number][]}){return <table><thead><tr><th scope="col">Metric</th><th scope="col">Count</th></tr></thead><tbody>{rows.map(([label,count])=><tr key={label}><th scope="row" style={{background:"white",fontSize:12,textTransform:"none",letterSpacing:0}}>{label}</th><td>{count}</td></tr>)}</tbody></table>;}
+export default function DigestReport({report}:{report:Digest|null}){
+ if(!report)return <Empty title="No report for this date" text="Generate a report for a completed day, or select a saved report."/>;
+ const a=report.metrics.activity,s=report.metrics.snapshot;
+ const ai=Object.values(a.enrichment_results_completed).reduce((sum,n)=>sum+n,0);
+ const decisions=a.review_decisions.approved+a.review_decisions.rejected;
+ const noActivity=a.tickets_created+a.canonical_leads_created+Object.values(a.lead_requests_observed).reduce((sum,n)=>sum+n,0)+ai+decisions===0;
+ return <><section aria-labelledby="digest-activity"><div className="panel-header" style={{paddingLeft:0,paddingRight:0,marginBottom:18,border:0}}><div><h2 id="digest-activity">Activity during reporting day</h2><p>{report.reporting_date} · {report.reporting_timezone}</p></div><span className="badge succeeded">Ready</span></div>
+ <p className="muted" style={{fontSize:12,marginBottom:16}}>From {stamp(report.period_start,report.reporting_timezone)} up to {stamp(report.period_end,report.reporting_timezone)} (end excluded). Generated {stamp(report.generated_at,report.reporting_timezone)}.</p>
+ {noActivity&&<div className="notice">No activity recorded during this day. The backlog snapshot below can still contain open work.</div>}
+ <div className="cards">{[["Support tickets created",a.tickets_created],["New canonical leads",a.canonical_leads_created],["AI results completed",ai],["Review decisions made",decisions]].map(([label,count])=><article className="card" key={label}><h3>{label}</h3><div className="number">{count}</div><p>Within the reporting period</p></article>)}</div>
+ <div className="two-col"><section className="panel"><div className="panel-header"><div><h3>Recorded lead requests</h3><p>Audit observations; replays are separate from new leads.</p></div></div><Rows rows={[["Created-record requests",a.lead_requests_observed.created_records],["Event replays",a.lead_requests_observed.event_replays],["Existing-email matches",a.lead_requests_observed.email_matches],["Other legacy duplicates",a.lead_requests_observed.legacy_duplicates]]}/></section>
+ <section className="panel"><div className="panel-header"><h3>AI results and review decisions</h3></div><Rows rows={[["Succeeded results",a.enrichment_results_completed.succeeded],["Needs-review results",a.enrichment_results_completed.needs_review],["Unavailable results",a.enrichment_results_completed.unavailable],["Approved recommendations",a.review_decisions.approved],["Rejected recommendations",a.review_decisions.rejected]]}/></section></div></section>
+ <section className="panel" aria-labelledby="digest-backlog"><div className="panel-header"><div><h2 id="digest-backlog">Backlog at generation</h2><p>Captured {stamp(report.generated_at,report.reporting_timezone)} · {report.reporting_timezone}. This snapshot is frozen with the report.</p></div></div><Rows rows={[["Pending current-version reviews",s.pending_reviews],["Current reviews needing attention",s.attention_reviews],["Processing enrichments",s.processing_enrichments]]}/></section></>;
+}

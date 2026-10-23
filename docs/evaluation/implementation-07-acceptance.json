@@ -1,0 +1,244 @@
+{
+  "status": "implemented locally; awaiting acceptance; unstaged/uncommitted/unpushed",
+  "branch": "implementation-07-daily-operations-digest",
+  "base_commit": "29aa141eb69466f2bfa7869c64ccd4922fa4f31c",
+  "migration": "007_daily_digests",
+  "workflow": {
+    "id": "FlowForgeDailyDigest01",
+    "name": "FlowForge AI - Daily Operations Digest",
+    "nodes": 5,
+    "published_version": "fb70fcbf-92b9-4cd8-b5b1-0fe2aa71ec99",
+    "source_matches_runtime": true,
+    "timezone": "Asia/Kolkata",
+    "cron": "0 9 * * *",
+    "misfire_policy": "skip (installed default)",
+    "custom_code_nodes": 0
+  },
+  "suites": {
+    "backend": {
+      "passed": 214,
+      "failed": 0,
+      "skipped": 0
+    },
+    "frontend": {
+      "passed": 33,
+      "failed": 0,
+      "skipped": 0
+    },
+    "digest_integration": {
+      "passed": 28,
+      "failed": 0,
+      "skipped": 0
+    },
+    "digest_faults": {
+      "passed": 44,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "regressions": {
+    "backend": {
+      "passed": 214,
+      "failed": 0,
+      "skipped": 0,
+      "command": [
+        "docker",
+        "compose",
+        "exec",
+        "-T",
+        "backend",
+        "pytest",
+        "-q"
+      ]
+    },
+    "lead": {
+      "passed": 358,
+      "failed": 0,
+      "skipped": 0,
+      "command": [
+        "python3",
+        "scripts/test_lead_workflow.py",
+        "--output",
+        "docs/evaluation/implementation-07-lead-regression.json"
+      ]
+    },
+    "support": {
+      "passed": 192,
+      "failed": 0,
+      "skipped": 0,
+      "command": [
+        "python3",
+        "scripts/test_support_workflow.py"
+      ]
+    },
+    "enrichment": {
+      "passed": 21,
+      "failed": 0,
+      "skipped": 0,
+      "command": [
+        "python3",
+        "scripts/test_enrichment_workflow.py"
+      ]
+    },
+    "reviews": {
+      "passed": 29,
+      "failed": 0,
+      "skipped": 0,
+      "command": [
+        "python3",
+        "scripts/test_review_integration.py",
+        "--output",
+        "docs/evaluation/implementation-07-review-regression.json"
+      ]
+    },
+    "smoke": {
+      "passed": 8,
+      "failed": 0,
+      "skipped": 0,
+      "command": [
+        "python3",
+        "scripts/smoke_test.py"
+      ]
+    },
+    "lead_faults": {
+      "passed": 36,
+      "failed": 0,
+      "skipped": 0,
+      "command": [
+        "python3",
+        "scripts/test_lead_faults.py"
+      ]
+    },
+    "support_faults": {
+      "passed": 39,
+      "failed": 0,
+      "skipped": 0,
+      "command": [
+        "python3",
+        "scripts/test_workflow_faults.py"
+      ]
+    }
+  },
+  "other_checks": {
+    "frontend_build": "passed",
+    "frontend_lint": "passed",
+    "frontend_typecheck": "passed",
+    "npm_audit_vulnerabilities": 0,
+    "runtime_workflow_export_comparison": "passed",
+    "backend_library_deprecation_warnings": 106
+  },
+  "real_demonstration": {
+    "production_manual_trigger_report_date": "2026-10-22",
+    "report_id": "39ca8dbc-cf57-43ef-bb28-77438f91d176",
+    "workflow_execution_id_with_saved_telemetry": "1089",
+    "period_activity": {
+      "tickets_created": 281,
+      "canonical_leads_created": 0,
+      "enrichment_results_completed": {
+        "succeeded": 7,
+        "needs_review": 5,
+        "unavailable": 12
+      },
+      "review_decisions": {
+        "approved": 0,
+        "rejected": 0
+      }
+    },
+    "frozen_snapshot": {
+      "pending_reviews": 21,
+      "attention_reviews": 88,
+      "processing_enrichments": 0
+    },
+    "dashboard_backfill_date": "2026-10-21",
+    "backfill_activity_empty": true,
+    "backfill_current_backlog_nonzero": true,
+    "isolated_actual_accelerated_timer_passed": true,
+    "production_09_wall_clock_firing_awaited": false
+  },
+  "corrections_during_verification": [
+    "n8n telemetry expression delimiter spacing corrected and republished",
+    "native date picker reads actual form value, with regression coverage",
+    "initial enrichment acceptance hit existing busy fallback after support suite; bounded idle check and sequential rerun passed"
+  ],
+  "preservation_evidence": "docs/evaluation/implementation-07-preservation.json",
+  "credential_handling": {
+    "new_ignored_service_key": 1,
+    "new_encrypted_n8n_generation_credential": 1,
+    "existing_reviewer_database_encryption_values_preserved": true,
+    "service_key_in_browser": false,
+    "service_key_in_workflow_export": false
+  },
+  "known_limits": [
+    "first successful report is frozen; no refresh",
+    "audit observations do not provide timestamped distinct lead source-event history",
+    "snapshot backlog is measured at generation, not historic day-end",
+    "local schedule misses require explicit manual backfill",
+    "best-effort telemetry",
+    "two manual aggregate/debug executions retained despite no-save settings",
+    "old execution counts checked, earlier per-execution hash baseline unavailable",
+    "local legacy ingress remains unauthenticated",
+    "production 09:00 wall-clock firing was not awaited; isolated real timer and production manual trigger verified"
+  ],
+  "recommended_commit": "feat: add authenticated daily operations digests",
+  "manual_actions_required": "Review acceptance before authorizing any Git checkpoint. Backfill missed completed dates individually through the existing authenticated page.",
+  "committed": false,
+  "merged": false,
+  "pushed": false,
+  "implementation_08_started": false,
+  "git_safety": {
+    "changed_files": [
+      "README.md",
+      "backend/alembic/versions/007_daily_digests.py",
+      "backend/app/api/digests.py",
+      "backend/app/core/config.py",
+      "backend/app/main.py",
+      "backend/app/models/__init__.py",
+      "backend/app/models/digest.py",
+      "backend/app/models/workflow_run.py",
+      "backend/app/schemas/digest.py",
+      "backend/app/schemas/workflow_run.py",
+      "backend/app/services/digest_service.py",
+      "backend/app/services/workflow_run_service.py",
+      "backend/tests/fixtures/daily_operations_digest.json",
+      "backend/tests/test_digests.py",
+      "compose.yaml",
+      "docs/codex-handover.md",
+      "docs/evaluation/implementation-07-acceptance.json",
+      "docs/evaluation/implementation-07-faults.json",
+      "docs/evaluation/implementation-07-integration.json",
+      "docs/evaluation/implementation-07-lead-regression.json",
+      "docs/evaluation/implementation-07-preservation.json",
+      "docs/evaluation/implementation-07-regressions.json",
+      "docs/evaluation/implementation-07-review-regression.json",
+      "docs/implementation-07.md",
+      "frontend/app/(workspace)/digests/error.tsx",
+      "frontend/app/(workspace)/digests/page.tsx",
+      "frontend/app/api/digests/generate/route.ts",
+      "frontend/components/digest-controls.tsx",
+      "frontend/components/digest-report.tsx",
+      "frontend/components/navigation.tsx",
+      "frontend/lib/digests.ts",
+      "frontend/tests/digests.test.tsx",
+      "scripts/fault_proxy.py",
+      "scripts/setup_digest_service.py",
+      "scripts/test_digest_faults.py",
+      "scripts/test_digest_integration.py",
+      "scripts/test_lead_workflow.py",
+      "scripts/verify_workflow_runtime.py",
+      "workflows/daily_operations_digest.json"
+    ],
+    "changed_file_count": 39,
+    "staged_files": 0,
+    "diff_check": "passed",
+    "head_unchanged": true
+  },
+  "verified_local_date": "2026-10-23 Asia/Kolkata",
+  "secret_scan": {
+    "current_files_scanned": 184,
+    "historical_blobs_scanned": 214,
+    "known_credential_findings": 0,
+    "private_key_provider_findings": 0,
+    "env_ignored": true,
+    "env_mode": "0600"
+  }
+}

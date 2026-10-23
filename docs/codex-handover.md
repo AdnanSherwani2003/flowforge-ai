@@ -177,3 +177,16 @@ Reviewer configuration is in ignored mode-0600 .env; never print passwords.
 Next.js on localhost:3000 is a server-side presentation layer; FastAPI enforces
 every review operation. n8n and Ollama contracts are unchanged. Reviews use durable
 PostgreSQL rows rather than waiting n8n executions.
+
+### D. Implementation 07 local acceptance
+
+Implementation 07 is developed on implementation-07-daily-operations-digest from
+29aa141 and remains uncommitted/unpushed. Migration 007_daily_digests is applied;
+FlowForgeDailyDigest01 is separately published with five nodes, 09:00 Asia/Kolkata.
+The authenticated /digests page provides frozen reports and one-day backfill.
+Read [Implementation 07](implementation-07.md) for exact metrics, scoped credential
+provisioning, timezone alignment, offline recovery and retention observations.
+
+Existing reviewer credentials/encryption keys are preserved. Only a new narrowly
+scoped generation key and encrypted n8n header credential were added.
+Do not commit, push, merge or begin Implementation 08 without new authorization.

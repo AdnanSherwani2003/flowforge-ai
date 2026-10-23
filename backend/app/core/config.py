@@ -61,6 +61,19 @@ class Settings(BaseSettings):
     REVIEWER_SESSION_SECRET: str = ""
     REVIEWER_SESSION_SECONDS: int = Field(default=3600, ge=60, le=3600)
 
+    DIGEST_TIMEZONE: str = Field(default="Asia/Kolkata", max_length=64)
+    DIGEST_SERVICE_KEY: str = ""
+
+    @field_validator("DIGEST_TIMEZONE")
+    @classmethod
+    def valid_reporting_timezone(cls, value):
+        from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
+        try:
+            ZoneInfo(value)
+        except (ZoneInfoNotFoundError, ValueError):
+            raise ValueError("Use a valid IANA reporting timezone") from None
+        return value
+
     model_config = SettingsConfigDict(
         env_file=".env",
         env_file_encoding="utf-8",
